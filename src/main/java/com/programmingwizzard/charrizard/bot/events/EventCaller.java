@@ -1,7 +1,7 @@
 package com.programmingwizzard.charrizard.bot.events;
 
 import com.programmingwizzard.charrizard.bot.Charrizard;
-import net.dv8tion.jda.core.events.Event;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 /*
@@ -18,7 +18,7 @@ public class EventCaller extends ListenerAdapter
     }
 
     @Override
-    public void onGenericEvent(Event event)
+    public void onMessageReceived(MessageReceivedEvent event)
     {
         charrizard.getEventBus().post(event);
     }

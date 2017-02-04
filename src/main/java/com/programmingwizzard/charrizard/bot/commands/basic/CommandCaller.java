@@ -2,8 +2,11 @@ package com.programmingwizzard.charrizard.bot.commands.basic;
 
 import com.google.common.eventbus.Subscribe;
 import com.programmingwizzard.charrizard.bot.Charrizard;
-import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.exceptions.RateLimitedException;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /*
  * @author ProgrammingWizzard
@@ -12,6 +15,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class CommandCaller
 {
     private final Charrizard charrizard;
+    private final Set<Command> commands = new HashSet<>();
 
     public CommandCaller(Charrizard charrizard)
     {
@@ -19,22 +23,31 @@ public class CommandCaller
     }
 
     @Subscribe
-    public void onTextMessage(Event event)
+    public void onTextMessage(MessageReceivedEvent event)
     {
-        if (!(event instanceof MessageReceivedEvent))
+        if (!event.getMessage().getContent().startsWith("!"))
         {
             return;
         }
-        MessageReceivedEvent messageEvent = (MessageReceivedEvent) event;
-        if (!messageEvent.getMessage().getContent().startsWith("!"))
+        String argument = event.getMessage().getContent().substring(1);
+        String[] args = argument.split(" ");
+        Command command = commands.stream().filter(c -> c.getPrefix().equals(argument)).findFirst().orElse(null);
+        if (command == null)
         {
             return;
         }
-        String[] args = messageEvent.getMessage().getContent().substring(1).split(" ");
-        if (args.length == 1)
+        try
         {
-            // TODO: syntax help
+            command.handle(event.getAuthor(), event.getTextChannel(), event.getChannelType(), args);
+        } catch (RateLimitedException ex)
+        {
+            ex.printStackTrace();
+            event.getTextChannel().sendMessage("Response error! Please, look at the console!");
         }
-        // TODO: command
+    }
+
+    public Set<Command> getCommands()
+    {
+        return commands;
     }
 }

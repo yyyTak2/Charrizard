@@ -1,7 +1,10 @@
 package com.programmingwizzard.charrizard.bot;
 
 import com.google.common.eventbus.AsyncEventBus;
+import com.programmingwizzard.charrizard.bot.commands.AuthorCommand;
+import com.programmingwizzard.charrizard.bot.commands.HelpCommand;
 import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
+import com.programmingwizzard.charrizard.bot.commands.InviteCommand;
 import com.programmingwizzard.charrizard.bot.events.EventCaller;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -21,12 +24,14 @@ public class Charrizard
 {
     private final AsyncEventBus eventBus;
     private final Settings settings;
+    private final CommandCaller commandCaller;
     private JDA discordAPI;
 
     public Charrizard(Settings settings)
     {
         this.settings = settings;
         this.eventBus = new AsyncEventBus("Charrizard | EventBUS", Executors.newCachedThreadPool());
+        this.commandCaller = new CommandCaller(this);
     }
 
     public void start() throws RateLimitedException, InterruptedException, LoginException
@@ -39,11 +44,24 @@ public class Charrizard
                                   .setAudioEnabled(false)
                                   .setBulkDeleteSplittingEnabled(false)
                                   .buildBlocking();
-        this.eventBus.register(new CommandCaller(this));
+        initCommands();
+    }
+
+    private void initCommands()
+    {
+        commandCaller.getCommands().add(new AuthorCommand());
+        commandCaller.getCommands().add(new InviteCommand());
+        commandCaller.getCommands().add(new HelpCommand(this));
+        this.eventBus.register(commandCaller);
     }
 
     public AsyncEventBus getEventBus()
     {
         return eventBus;
+    }
+
+    public CommandCaller getCommandCaller()
+    {
+        return commandCaller;
     }
 }
