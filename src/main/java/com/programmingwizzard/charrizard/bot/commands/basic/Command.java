@@ -20,7 +20,7 @@ public abstract class Command
 
     public abstract void handle(User client, Channel channel, ChannelType type, String[] args) throws RateLimitedException;
 
-    public String getPrefix()
+    public final String getPrefix()
     {
         return prefix;
     }

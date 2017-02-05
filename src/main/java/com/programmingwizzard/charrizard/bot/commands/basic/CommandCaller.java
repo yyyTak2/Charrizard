@@ -42,7 +42,7 @@ public class CommandCaller
         } catch (RateLimitedException ex)
         {
             ex.printStackTrace();
-            event.getTextChannel().sendMessage("Response error! Please, look at the console!");
+            event.getTextChannel().sendMessage("Response error! Please, look at the console!").queue();
         }
     }
 

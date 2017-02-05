@@ -1,6 +1,5 @@
 package com.programmingwizzard.charrizard.bot.commands;
 
-import com.programmingwizzard.charrizard.bot.Charrizard;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
@@ -11,12 +10,9 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
  */
 public class HelpCommand extends Command
 {
-    private final Charrizard charrizard;
-
-    public HelpCommand(Charrizard charrizard)
+    public HelpCommand()
     {
         super("help");
-        this.charrizard = charrizard;
     }
 
     @Override

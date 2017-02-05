@@ -2,6 +2,7 @@ package com.programmingwizzard.charrizard.bot;
 
 import com.google.common.eventbus.AsyncEventBus;
 import com.programmingwizzard.charrizard.bot.commands.AuthorCommand;
+import com.programmingwizzard.charrizard.bot.commands.GithubCommand;
 import com.programmingwizzard.charrizard.bot.commands.HelpCommand;
 import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
 import com.programmingwizzard.charrizard.bot.commands.InviteCommand;
@@ -51,7 +52,8 @@ public class Charrizard
     {
         commandCaller.getCommands().add(new AuthorCommand());
         commandCaller.getCommands().add(new InviteCommand());
-        commandCaller.getCommands().add(new HelpCommand(this));
+        commandCaller.getCommands().add(new HelpCommand());
+        commandCaller.getCommands().add(new GithubCommand());
         this.eventBus.register(commandCaller);
     }
 
