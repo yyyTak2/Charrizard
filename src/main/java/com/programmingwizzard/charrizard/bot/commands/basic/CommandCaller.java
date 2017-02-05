@@ -29,9 +29,9 @@ public class CommandCaller
         {
             return;
         }
-        String argument = event.getMessage().getContent().substring(1);
-        String[] args = argument.split(" ");
-        Command command = commands.stream().filter(c -> c.getPrefix().equals(argument)).findFirst().orElse(null);
+        String[] args = event.getMessage().getContent().split(" ");
+        args[0] = args[0].substring(1);
+        Command command = commands.stream().filter(c -> c.getPrefix().equals(args[0])).findFirst().orElse(null);
         if (command == null)
         {
             return;

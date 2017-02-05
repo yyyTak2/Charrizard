@@ -22,6 +22,6 @@ public class HelpCommand extends Command
         textChannel.sendMessage(client.getAsMention() + " - look at PM!").queue();
 
         PrivateChannel privateChannel = client.openPrivateChannel().block();
-        privateChannel.sendMessage("**Charrizard commands** (amount: 3): !help, !author, !invite").queue();
+        privateChannel.sendMessage("**Charrizard commands** (amount: 4): !help, !author, !invite, !github").queue();
     }
 }

@@ -1,8 +1,5 @@
 package com.programmingwizzard.charrizard.bot.response;
 
-import com.google.common.cache.Cache;
-import com.google.gson.JsonObject;
-
 import java.util.concurrent.Executor;
 
 /*
@@ -12,6 +9,4 @@ import java.util.concurrent.Executor;
 public abstract class ResponsesGroup
 {
     public abstract Executor getExecutor();
-
-    public abstract Cache<String, JsonObject> getJsonObjectCache();
 }

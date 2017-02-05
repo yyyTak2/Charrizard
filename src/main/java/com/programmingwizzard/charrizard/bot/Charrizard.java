@@ -1,11 +1,11 @@
 package com.programmingwizzard.charrizard.bot;
 
-import com.google.common.eventbus.AsyncEventBus;
+import com.google.common.eventbus.EventBus;
 import com.programmingwizzard.charrizard.bot.commands.AuthorCommand;
 import com.programmingwizzard.charrizard.bot.commands.GithubCommand;
 import com.programmingwizzard.charrizard.bot.commands.HelpCommand;
-import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
 import com.programmingwizzard.charrizard.bot.commands.InviteCommand;
+import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
 import com.programmingwizzard.charrizard.bot.events.EventCaller;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -15,7 +15,6 @@ import net.dv8tion.jda.core.entities.impl.GameImpl;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import javax.security.auth.login.LoginException;
-import java.util.concurrent.Executors;
 
 /*
  * @author ProgrammingWizzard
@@ -23,7 +22,7 @@ import java.util.concurrent.Executors;
  */
 public class Charrizard
 {
-    private final AsyncEventBus eventBus;
+    private final EventBus eventBus;
     private final Settings settings;
     private final CommandCaller commandCaller;
     private JDA discordAPI;
@@ -31,7 +30,7 @@ public class Charrizard
     public Charrizard(Settings settings)
     {
         this.settings = settings;
-        this.eventBus = new AsyncEventBus("Charrizard | EventBUS", Executors.newCachedThreadPool());
+        this.eventBus = new EventBus();
         this.commandCaller = new CommandCaller(this);
     }
 
@@ -57,7 +56,7 @@ public class Charrizard
         this.eventBus.register(commandCaller);
     }
 
-    public AsyncEventBus getEventBus()
+    public EventBus getEventBus()
     {
         return eventBus;
     }
