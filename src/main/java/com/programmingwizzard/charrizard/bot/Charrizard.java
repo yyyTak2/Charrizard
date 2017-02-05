@@ -1,10 +1,7 @@
 package com.programmingwizzard.charrizard.bot;
 
 import com.google.common.eventbus.EventBus;
-import com.programmingwizzard.charrizard.bot.commands.AuthorCommand;
-import com.programmingwizzard.charrizard.bot.commands.GithubCommand;
-import com.programmingwizzard.charrizard.bot.commands.HelpCommand;
-import com.programmingwizzard.charrizard.bot.commands.InviteCommand;
+import com.programmingwizzard.charrizard.bot.commands.*;
 import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
 import com.programmingwizzard.charrizard.bot.events.EventCaller;
 import net.dv8tion.jda.core.AccountType;
@@ -53,7 +50,13 @@ public class Charrizard
         commandCaller.getCommands().add(new InviteCommand());
         commandCaller.getCommands().add(new HelpCommand());
         commandCaller.getCommands().add(new GithubCommand());
+        commandCaller.getCommands().add(new DiscordCommand(this));
         this.eventBus.register(commandCaller);
+    }
+
+    public JDA getDiscordAPI()
+    {
+        return discordAPI;
     }
 
     public EventBus getEventBus()

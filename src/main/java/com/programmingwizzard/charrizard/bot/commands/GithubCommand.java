@@ -28,7 +28,9 @@ public class GithubCommand extends Command
     public void handle(User client, Channel channel, ChannelType type, String[] args) throws RateLimitedException
     {
         TextChannel textChannel = (TextChannel) channel;
-        if (args.length == 0 || args.length == 1)
+        textChannel.sendMessage("Cooming soon").queue();
+        // TODO: response limit
+        /*if (args.length == 0 || args.length == 1)
         {
             textChannel.sendMessage("**Correct usage**: !github <user>").queue();
             return;
@@ -41,7 +43,7 @@ public class GithubCommand extends Command
             default:
                 textChannel.sendMessage("**Correct usage**: !github <user>").queue();
                 break;
-        }
+        }*/
     }
 
     private void checkUser(User client, TextChannel channel, String[] args)
