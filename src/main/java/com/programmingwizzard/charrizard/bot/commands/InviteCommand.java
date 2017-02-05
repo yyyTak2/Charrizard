@@ -22,6 +22,6 @@ public class InviteCommand extends Command
     public void handle(User client, Channel channel, ChannelType type, String[] args) throws RateLimitedException
     {
         TextChannel textChannel = (TextChannel) channel;
-        textChannel.sendMessage("Invite URL: https://discordapp.com/oauth2/authorize?&client_id=277567355360509962&scope=bot&permissions=268561430").queue();
+        textChannel.sendMessage("Invite URL: https://discordapp.com/oauth2/authorize?&client_id=277567355360509962&scope=bot&permissions=8").queue();
     }
 }
