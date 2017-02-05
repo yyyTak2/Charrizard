@@ -30,7 +30,7 @@ public class DiscordCommand extends Command
         TextChannel textChannel = (TextChannel) channel;
         if (args.length == 0 || args.length == 1)
         {
-            textChannel.sendMessage("**Correct usage**: !discord <user/guild>").queue();
+            textChannel.sendMessage("**Correct usage**: !discord <user/guild/icons>").queue();
             return;
         }
         switch (args[1])
@@ -41,8 +41,11 @@ public class DiscordCommand extends Command
             case "guild":
                 this.checkGuild(client, textChannel, args);
                 break;
+            case "icons":
+                this.checkIcons(client, textChannel, args);
+                break;
             default:
-                textChannel.sendMessage("**Correct usage**: !discord <user/guild>").queue();
+                textChannel.sendMessage("**Correct usage**: !discord <user/guild/icons>").queue();
                 break;
         }
     }
@@ -99,5 +102,22 @@ public class DiscordCommand extends Command
                                     "\n    **Text channels**: " + guild.getTextChannels().size() +
                                     "\n    **Voice channels**: " + guild.getVoiceChannels().size()).queue();
         channel.sendMessage("**Register date**: " + creationTime.getDayOfMonth() + "/" + creationTime.getMonthValue() + "/" + creationTime.getYear() + " " + creationTime.getHour() + ":" + creationTime.getMinute()).queue();
+    }
+
+    private void checkIcons(User client, TextChannel channel, String[] args)
+    {
+        if (args.length != 3)
+        {
+            channel.sendMessage("**Correct usage**: !discord icons <guild id>").queue();
+            return;
+        }
+        Guild guild = this.charrizard.getDiscordAPI().getGuildById(args[2]);
+        if (guild == null)
+        {
+            channel.sendMessage("This guild does not exists!").queue();
+            return;
+        }
+        channel.sendMessage("**Icons**:").queue();
+        guild.getEmotes().forEach(icon -> channel.sendMessage(icon.getAsMention() + "- " + icon.getImageUrl()).queue());
     }
 }
