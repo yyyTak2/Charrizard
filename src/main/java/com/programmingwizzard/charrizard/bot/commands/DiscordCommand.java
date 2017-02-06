@@ -8,6 +8,7 @@ import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /*
@@ -25,7 +26,7 @@ public class DiscordCommand extends Command
     }
 
     @Override
-    public void handle(User client, Channel channel, ChannelType type, String[] args) throws RateLimitedException
+    public void handle(User client, Channel channel, ChannelType type, List<User> mentionedUsers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, String[] args) throws RateLimitedException
     {
         TextChannel textChannel = (TextChannel) channel;
         if (args.length == 0 || args.length == 1)

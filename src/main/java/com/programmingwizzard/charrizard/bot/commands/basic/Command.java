@@ -1,9 +1,9 @@
 package com.programmingwizzard.charrizard.bot.commands.basic;
 
-import net.dv8tion.jda.core.entities.Channel;
-import net.dv8tion.jda.core.entities.ChannelType;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+
+import java.util.List;
 
 /*
  * @author ProgrammingWizzard
@@ -18,7 +18,7 @@ public abstract class Command
         this.prefix = prefix;
     }
 
-    public abstract void handle(User client, Channel channel, ChannelType type, String[] args) throws RateLimitedException;
+    public abstract void handle(User client, Channel channel, ChannelType type, List<User> mentionedUsers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, String[] args) throws RateLimitedException;
 
     public final String getPrefix()
     {

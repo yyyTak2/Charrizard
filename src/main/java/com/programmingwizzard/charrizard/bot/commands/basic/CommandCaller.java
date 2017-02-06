@@ -38,7 +38,7 @@ public class CommandCaller
         }
         try
         {
-            command.handle(event.getAuthor(), event.getTextChannel(), event.getChannelType(), args);
+            command.handle(event.getAuthor(), event.getTextChannel(), event.getChannelType(), event.getMessage().getMentionedUsers(), event.getMessage().getMentionedRoles(), event.getMessage().getMentionedChannels(), args);
         } catch (RateLimitedException ex)
         {
             ex.printStackTrace();

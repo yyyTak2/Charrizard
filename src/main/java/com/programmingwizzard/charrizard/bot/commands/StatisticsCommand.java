@@ -2,13 +2,11 @@ package com.programmingwizzard.charrizard.bot.commands;
 
 import com.programmingwizzard.charrizard.bot.Charrizard;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
-import net.dv8tion.jda.core.entities.Channel;
-import net.dv8tion.jda.core.entities.ChannelType;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import java.text.NumberFormat;
+import java.util.List;
 
 /*
  * @author ProgrammingWizzard
@@ -29,7 +27,7 @@ public class StatisticsCommand extends Command
     }
 
     @Override
-    public void handle(User client, Channel channel, ChannelType type, String[] args) throws RateLimitedException
+    public void handle(User client, Channel channel, ChannelType type, List<User> mentionedUsers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, String[] args) throws RateLimitedException
     {
         TextChannel textChannel = (TextChannel) channel;
         textChannel.sendMessage("**Statistics**:").queue();
