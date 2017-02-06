@@ -18,9 +18,6 @@ public class Settings
     @SerializedName("game-url")
     private String gameUrl = "http://programmingwizzard.com";
 
-    @SerializedName("mongo")
-    private MongoSettings mongoSettings = new MongoSettings();
-
     public String getToken()
     {
         return token;
@@ -34,29 +31,5 @@ public class Settings
     public String getGameUrl()
     {
         return gameUrl;
-    }
-
-    public MongoSettings getMongoSettings()
-    {
-        return mongoSettings;
-    }
-
-    public class MongoSettings
-    {
-        @SerializedName("ip")
-        private String ip = "localhost";
-
-        @SerializedName("port")
-        private int port = 27017;
-
-        public String getIp()
-        {
-            return ip;
-        }
-
-        public int getPort()
-        {
-            return port;
-        }
     }
 }
