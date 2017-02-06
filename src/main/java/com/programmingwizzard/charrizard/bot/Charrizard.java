@@ -3,6 +3,7 @@ package com.programmingwizzard.charrizard.bot;
 import com.google.common.eventbus.AsyncEventBus;
 import com.programmingwizzard.charrizard.bot.commands.*;
 import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
+import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import com.programmingwizzard.charrizard.bot.events.EventCaller;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -23,6 +24,7 @@ public class Charrizard
     private final AsyncEventBus eventBus;
     private final Settings settings;
     private final CommandCaller commandCaller;
+    private final RedisConnection redisConnection;
     private JDA discordAPI;
 
     public Charrizard(Settings settings)
@@ -30,6 +32,7 @@ public class Charrizard
         this.settings = settings;
         this.eventBus = new AsyncEventBus("Charrizard", Executors.newCachedThreadPool());
         this.commandCaller = new CommandCaller(this);
+        this.redisConnection = new RedisConnection(settings);
     }
 
     public void start() throws RateLimitedException, InterruptedException, LoginException
@@ -43,6 +46,7 @@ public class Charrizard
                                   .setBulkDeleteSplittingEnabled(false)
                                   .buildBlocking();
         initCommands();
+        redisConnection.start();
     }
 
     private void initCommands()

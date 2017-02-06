@@ -18,6 +18,9 @@ public class Settings
     @SerializedName("game-url")
     private String gameUrl = "http://programmingwizzard.com";
 
+    @SerializedName("redis")
+    private Redis redis = new Redis();
+
     public String getToken()
     {
         return token;
@@ -31,5 +34,29 @@ public class Settings
     public String getGameUrl()
     {
         return gameUrl;
+    }
+
+    public Redis getRedis()
+    {
+        return redis;
+    }
+
+    public class Redis
+    {
+        @SerializedName("ip")
+        private String ip;
+
+        @SerializedName("port")
+        private int port = 1234;
+
+        public String getIp()
+        {
+            return ip;
+        }
+
+        public int getPort()
+        {
+            return port;
+        }
     }
 }
