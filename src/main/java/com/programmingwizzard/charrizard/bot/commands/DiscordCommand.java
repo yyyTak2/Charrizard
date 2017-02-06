@@ -4,13 +4,15 @@ import com.programmingwizzard.charrizard.bot.Charrizard;
 import com.programmingwizzard.charrizard.bot.commands.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import com.programmingwizzard.charrizard.utils.BooleanUtils;
-import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
+import java.awt.*;
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /*
  * @author ProgrammingWizzard
@@ -72,15 +74,22 @@ public class DiscordCommand extends Command
         }
         if (targetUser == null)
         {
-            channel.sendMessage("This user does not exists!").queue();
+            sendError(message, "This user does not exists!");
             return;
         }
         OffsetDateTime creationTime = targetUser.getCreationTime();
-        channel.sendMessage("**Name**: " + targetUser.getName()).queue();
-        channel.sendMessage("**Bot account**: " + BooleanUtils.parseBoolean(targetUser.isBot())).queue();
-        channel.sendMessage("**Mention tag**: " + targetUser.getAsMention()).queue();
-        channel.sendMessage("**Avatar**: " + targetUser.getAvatarUrl()).queue();
-        channel.sendMessage("**Register date**: " + creationTime.getDayOfMonth() + "/" + creationTime.getMonthValue() + "/" + creationTime.getYear() + " " + creationTime.getHour() + ":" + creationTime.getMinute()).queue();
+        EmbedBuilder builder = getEmbedBuilder()
+                                       .setTitle("Charrizard")
+                                       .setFooter("© 2017 Charrizard contributors", null)
+                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                                       .setColor(new Color(0, 250, 0))
+                                       .addField(":information_source: " + targetUser.getName(),
+                                               "Bot account: " + BooleanUtils.parseBoolean(targetUser.isBot()) +
+                                                       "\nMention tag: " + targetUser.getAsMention() +
+                                                       "\nAvatar: " + targetUser.getAvatarUrl() +
+                                                       "\nRegister date: " + creationTime.getDayOfMonth() + "/" + creationTime.getMonthValue() + "/" + creationTime.getYear() + " " + creationTime.getHour() + ":" + creationTime.getMinute(), true);
+
+        sendEmbedMessage(message, builder);
     }
 
     private void checkGuild(CMessage message, String[] args)
@@ -103,27 +112,25 @@ public class DiscordCommand extends Command
         }
         if (targetGuild == null)
         {
-            channel.sendMessage("This guild does not exists!").queue();
+            sendError(message, "This guild does not exists!");
             return;
         }
         OffsetDateTime creationTime = targetGuild.getCreationTime();
-        channel.sendMessage("**Name**: " + targetGuild.getName()).queue();
-        channel.sendMessage("**Icon**: " + targetGuild.getIconUrl()).queue();
-        channel.sendMessage("\n**Owner**:" +
-                                    "\n  **Name**: " + targetGuild.getOwner().getUser().getName() +
-                                    "\n  **Mention Tag**: " + targetGuild.getOwner().getAsMention() +
-                                    "\n  **Status**: " + targetGuild.getOwner().getOnlineStatus()).queue();
-        channel.sendMessage("\n**Statistics**:" +
-                                    "\n  **Users**: " + targetGuild.getMembers().size() +
-                                    "\n    **Online**: " + targetGuild.getMembers().stream().filter(m -> m.getOnlineStatus() == OnlineStatus.ONLINE).filter(m -> !m.getUser().isBot()).collect(Collectors.toList()).size() +
-                                    "\n    **Bots**: " + targetGuild.getMembers().stream().filter(m -> !m.getUser().isBot()).collect(Collectors.toList()).size() +
-                                    "\n      **Online**: " + targetGuild.getMembers().stream().filter(m -> m.getUser().isBot()).filter(m -> m.getOnlineStatus() == OnlineStatus.ONLINE).collect(Collectors.toList()).size() +
-                                    "\n      **Offline**: " + targetGuild.getMembers().stream().filter(m -> m.getUser().isBot()).filter(m -> m.getOnlineStatus() != OnlineStatus.ONLINE).collect(Collectors.toList()).size() +
-                                    "\n    **Other users**: " + targetGuild.getMembers().stream().filter(m -> m.getOnlineStatus() != OnlineStatus.ONLINE).filter(m -> !m.getUser().isBot()).collect(Collectors.toList()).size() +
-                                    "\n  **Channels**" +
-                                    "\n    **Text channels**: " + targetGuild.getTextChannels().size() +
-                                    "\n    **Voice channels**: " + targetGuild.getVoiceChannels().size()).queue();
-        channel.sendMessage("**Register date**: " + creationTime.getDayOfMonth() + "/" + creationTime.getMonthValue() + "/" + creationTime.getYear() + " " + creationTime.getHour() + ":" + creationTime.getMinute()).queue();
+        EmbedBuilder builder = getEmbedBuilder()
+                                       .setTitle("Charrizard")
+                                       .setFooter("© 2017 Charrizard contributors", null)
+                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                                       .setColor(new Color(0, 250, 0))
+                                       .addField(":information_source: " + targetGuild.getName(), "Icon: " + targetGuild.getIconUrl() +
+                                                                                                        "\nOwner:" +
+                                                                                                        "\n  Name: " + targetGuild.getOwner().getUser().getName() +
+                                                                                                        "\n  Mention tag: " + targetGuild.getOwner().getAsMention() +
+                                                                                                        "\n  Status: " + targetGuild.getOwner().getOnlineStatus() +
+                                                                                                        "\nStatistics:" +
+                                                                                                          "\n  Users: " + targetGuild.getMembers().size() +
+                                                                                                            "\n  Channels: " + targetGuild.getTextChannels().size() + targetGuild.getVoiceChannels().size() +
+                                                                                                            "\nRegister date: " + creationTime.getDayOfMonth() + "/" + creationTime.getMonthValue() + "/" + creationTime.getYear() + " " + creationTime.getHour() + ":" + creationTime.getMinute(), true);
+        sendEmbedMessage(message, builder);
     }
 
     private void checkIcons(CMessage message, String[] args)
@@ -146,12 +153,12 @@ public class DiscordCommand extends Command
         }
         if (targetGuild == null)
         {
-            channel.sendMessage("This guild does not exists!").queue();
+            sendError(message, "This guild does not exists!");
             return;
         }
         if (targetGuild.getEmotes().size() == 0)
         {
-            channel.sendMessage("This server does not have any own icons!").queue();
+            sendError(message, "This server does not have any own icons!");
             return;
         }
         channel.sendMessage("**Icons**:").queue();
