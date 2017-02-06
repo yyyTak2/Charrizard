@@ -3,6 +3,7 @@ package com.programmingwizzard.charrizard.bot;
 import com.google.common.eventbus.EventBus;
 import com.programmingwizzard.charrizard.bot.commands.*;
 import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
+import com.programmingwizzard.charrizard.bot.database.MongoConnection;
 import com.programmingwizzard.charrizard.bot.events.EventCaller;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -22,6 +23,7 @@ public class Charrizard
     private final EventBus eventBus;
     private final Settings settings;
     private final CommandCaller commandCaller;
+    private final MongoConnection mongoConnection;
     private JDA discordAPI;
 
     public Charrizard(Settings settings)
@@ -29,6 +31,7 @@ public class Charrizard
         this.settings = settings;
         this.eventBus = new EventBus();
         this.commandCaller = new CommandCaller(this);
+        this.mongoConnection = new MongoConnection(settings);
     }
 
     public void start() throws RateLimitedException, InterruptedException, LoginException
@@ -42,6 +45,7 @@ public class Charrizard
                                   .setBulkDeleteSplittingEnabled(false)
                                   .buildBlocking();
         initCommands();
+        //this.mongoConnection.start();
     }
 
     private void initCommands()
@@ -68,5 +72,10 @@ public class Charrizard
     public CommandCaller getCommandCaller()
     {
         return commandCaller;
+    }
+
+    public MongoConnection getMongoConnection()
+    {
+        return mongoConnection;
     }
 }
