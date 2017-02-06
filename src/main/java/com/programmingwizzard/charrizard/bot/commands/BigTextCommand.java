@@ -22,25 +22,50 @@ public class BigTextCommand extends Command
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
         TextChannel channel = message.getChannel();
-        if (args.length == 1)
+        if (args.length < 3)
         {
-            channel.sendMessage("**Correct usage**: !bigtext <text>").queue();
+            usage(channel);
             return;
         }
 
         StringBuilder result = new StringBuilder();
-        for (int i = 1; i < args.length; i++)
+        String action = args[1];
+        switch (action.toLowerCase())
         {
-            for (char c : args[i].toCharArray())
-            {
-                result.append(toRegionalIndicator(c)).append(" ");
-            }
-            result.append("   ");
+            case "print":
+                for (int i = 2; i < args.length; i++)
+                {
+                    for (char c : args[i].toLowerCase().toCharArray())
+                    {
+                        result.append(toRegionalIndicator(c)).append(" ");
+                    }
+                    result.append("   ");
+                }
+                channel.sendMessage(result.toString()).queue();
+                break;
+            case "raw":
+                result.append("```");
+                for (int i = 2; i < args.length; i++)
+                {
+                    for (char c : args[i].toLowerCase().toCharArray())
+                    {
+                        if (!toRegionalIndicator(c).isEmpty())
+                        {
+                            result.append(":regional_indicator_").append(c).append(": ");
+                        }
+                    }
+                    result.append("   ");
+                }
+                result.append("```");
+                channel.sendMessage(result.toString()).queue();
+                break;
+            default:
+                usage(channel);
         }
-        channel.sendMessage(result.toString()).queue();
     }
 
-    private String toRegionalIndicator(char c) {
+    private String toRegionalIndicator(char c)
+    {
         if (c >= CharCodes.SMALL_A && c <= CharCodes.SMALL_Z)
         {
             c -= CharCodes.SMALL_A;
@@ -50,6 +75,11 @@ public class BigTextCommand extends Command
         {
             return "";
         }
+    }
+
+    private void usage(TextChannel channel)
+    {
+        channel.sendMessage("**Correct usage**: !bigtext <print|raw> <text>").queue();
     }
 
 }
