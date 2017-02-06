@@ -3,6 +3,7 @@ package com.programmingwizzard.charrizard.bot.database;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.programmingwizzard.charrizard.bot.Settings;
+import org.mongodb.morphia.Morphia;
 
 /*
  * @author ProgrammingWizzard
@@ -11,11 +12,13 @@ import com.programmingwizzard.charrizard.bot.Settings;
 public class MongoConnection
 {
     private final MongoClient mongoClient;
+    private final Morphia morphia;
     private MongoDatabase charrizardDatabase;
 
     public MongoConnection(Settings settings)
     {
         this.mongoClient = new MongoClient(settings.getMongoSettings().getIp(), settings.getMongoSettings().getPort());
+        this.morphia = new Morphia();
     }
 
     public void start()
