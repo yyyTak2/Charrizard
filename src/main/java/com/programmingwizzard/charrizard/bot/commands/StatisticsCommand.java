@@ -1,12 +1,12 @@
 package com.programmingwizzard.charrizard.bot.commands;
 
 import com.programmingwizzard.charrizard.bot.Charrizard;
+import com.programmingwizzard.charrizard.bot.commands.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
-import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import java.text.NumberFormat;
-import java.util.List;
 
 /*
  * @author ProgrammingWizzard
@@ -27,9 +27,9 @@ public class StatisticsCommand extends Command
     }
 
     @Override
-    public void handle(User client, Channel channel, ChannelType type, List<User> mentionedUsers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, String[] args) throws RateLimitedException
+    public void handle(CMessage message, String[] args) throws RateLimitedException
     {
-        TextChannel textChannel = (TextChannel) channel;
+        TextChannel textChannel = message.getChannel();
         textChannel.sendMessage("**Statistics**:").queue();
         textChannel.sendMessage("**Servers**: " + charrizard.getDiscordAPI().getGuilds().size()).queue();
         textChannel.sendMessage("**Clients**: " + charrizard.getDiscordAPI().getUsers().size()).queue();
