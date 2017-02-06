@@ -1,6 +1,6 @@
 package com.programmingwizzard.charrizard.bot;
 
-import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.AsyncEventBus;
 import com.programmingwizzard.charrizard.bot.commands.*;
 import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
 import com.programmingwizzard.charrizard.bot.events.EventCaller;
@@ -12,6 +12,7 @@ import net.dv8tion.jda.core.entities.impl.GameImpl;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import javax.security.auth.login.LoginException;
+import java.util.concurrent.Executors;
 
 /*
  * @author ProgrammingWizzard
@@ -19,7 +20,7 @@ import javax.security.auth.login.LoginException;
  */
 public class Charrizard
 {
-    private final EventBus eventBus;
+    private final AsyncEventBus eventBus;
     private final Settings settings;
     private final CommandCaller commandCaller;
     private JDA discordAPI;
@@ -27,7 +28,7 @@ public class Charrizard
     public Charrizard(Settings settings)
     {
         this.settings = settings;
-        this.eventBus = new EventBus();
+        this.eventBus = new AsyncEventBus("Charrizard", Executors.newCachedThreadPool());
         this.commandCaller = new CommandCaller(this);
     }
 
@@ -49,9 +50,10 @@ public class Charrizard
         commandCaller.getCommands().add(new AuthorCommand());
         commandCaller.getCommands().add(new BigTextCommand());
         commandCaller.getCommands().add(new InviteCommand());
-        commandCaller.getCommands().add(new HelpCommand(this));
         commandCaller.getCommands().add(new GithubCommand());
         commandCaller.getCommands().add(new MinecraftCommand());
+        commandCaller.getCommands().add(new CleverbotCommand());
+        commandCaller.getCommands().add(new HelpCommand(this));
         commandCaller.getCommands().add(new DiscordCommand(this));
         commandCaller.getCommands().add(new StatisticsCommand(this));
         this.eventBus.register(commandCaller);
@@ -62,7 +64,7 @@ public class Charrizard
         return discordAPI;
     }
 
-    public EventBus getEventBus()
+    public AsyncEventBus getEventBus()
     {
         return eventBus;
     }
