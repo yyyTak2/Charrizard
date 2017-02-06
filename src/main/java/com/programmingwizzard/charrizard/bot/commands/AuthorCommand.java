@@ -20,7 +20,7 @@ public class AuthorCommand extends Command
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
         TextChannel textChannel = message.getChannel();
-        textChannel.sendMessage("**Charrizard** created by ProgrammingWizzard (http://programmingwizzard.com)").queue();
-        textChannel.sendMessage("**GitHub** project: https://github.com/ProgrammingWizzard/Charrizard/").queue();
+        textChannel.sendMessage("**Charrizard** is creating by all those involved in the repository bot - https://github.com/ProgrammingWizzard/Charrizard/").queue();
+        textChannel.sendMessage("Official **Discord server** - https://discord.gg/jBCzCx8").queue();
     }
 }
