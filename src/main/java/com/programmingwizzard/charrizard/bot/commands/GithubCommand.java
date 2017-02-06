@@ -26,8 +26,7 @@ public class GithubCommand extends Command
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
-        TextChannel textChannel = message.getChannel();
-        textChannel.sendMessage("Cooming soon").queue();
+        sendError(message, "Not implementable yet!");
         // TODO: response limit
         /*if (args.length == 0 || args.length == 1)
         {

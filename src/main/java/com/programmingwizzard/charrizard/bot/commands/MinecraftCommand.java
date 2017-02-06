@@ -29,7 +29,7 @@ public class MinecraftCommand extends Command
         TextChannel channel = message.getChannel();
         if (args.length == 0 || args.length == 1)
         {
-            channel.sendMessage("**Correct usage**: !minecraft <status>").queue();
+            sendUsage(message, "!minecraft <status>");
             return;
         }
         switch (args[1])
@@ -38,7 +38,7 @@ public class MinecraftCommand extends Command
                 this.checkStatus(message, args);
                 break;
             default:
-                channel.sendMessage("**Correct usage**: !minecraft <status>").queue();
+                sendUsage(message, "!minecraft <status>");
                 break;
         }
     }
@@ -48,13 +48,13 @@ public class MinecraftCommand extends Command
         TextChannel channel = message.getChannel();
         if (args.length != 3)
         {
-            channel.sendMessage("**Correct usage**: !minecraft status <ip>").queue();
+            sendUsage(message, "!minecraft status <ip>");
             return;
         }
         String server = args[2];
         if (server == null || server.isEmpty())
         {
-            channel.sendMessage("**Correct usage**: !minecraft status <ip>").queue();
+            sendUsage(message, "!minecraft status <ip>");
             return;
         }
         JsonObject object = skriptResponses.getMinecraftServerStatus(server);

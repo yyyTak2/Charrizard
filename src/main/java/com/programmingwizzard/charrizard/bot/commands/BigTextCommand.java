@@ -23,7 +23,7 @@ public class BigTextCommand extends Command
         TextChannel channel = message.getChannel();
         if (args.length < 3)
         {
-            usage(channel);
+            sendUsage(message, "!bigtext <print|raw|react> <text>");
             return;
         }
 
@@ -72,7 +72,7 @@ public class BigTextCommand extends Command
                 }
                 break;
             default:
-                usage(channel);
+                sendUsage(message, "!bigtext <print|raw|react> <text>");
         }
     }
 
@@ -87,11 +87,6 @@ public class BigTextCommand extends Command
         {
             return "";
         }
-    }
-
-    private void usage(TextChannel channel)
-    {
-        channel.sendMessage("**Correct usage**: !bigtext <print|raw|react> <text>").queue();
     }
 
 }

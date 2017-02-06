@@ -32,7 +32,7 @@ public class DiscordCommand extends Command
         TextChannel textChannel = message.getChannel();
         if (args.length == 0 || args.length == 1)
         {
-            textChannel.sendMessage("**Correct usage**: !discord <user|guild|icons>").queue();
+            sendUsage(message, "!discord <user|guild|icons>");
             return;
         }
         switch (args[1])
@@ -47,7 +47,7 @@ public class DiscordCommand extends Command
                 this.checkIcons(message, args);
                 break;
             default:
-                textChannel.sendMessage("**Correct usage**: !discord <user|guild|icons>").queue();
+                sendUsage(message, "!discord <user|guild|icons>");
                 break;
         }
     }
@@ -57,7 +57,7 @@ public class DiscordCommand extends Command
         TextChannel channel = message.getChannel();
         if (args.length != 3)
         {
-            channel.sendMessage("**Correct usage**: !discord user <user id|mention>").queue();
+
             return;
         }
         List<User> mentionedUsers = message.getMentionedUsers();
@@ -88,7 +88,7 @@ public class DiscordCommand extends Command
         TextChannel channel = message.getChannel();
         if (args.length != 3)
         {
-            channel.sendMessage("**Correct usage**: !discord guild <guild id|this>").queue();
+            sendUsage(message, "!discord guild <guild id|this>");
             return;
         }
         String guild = args[2];
@@ -131,7 +131,7 @@ public class DiscordCommand extends Command
         TextChannel channel = message.getChannel();
         if (args.length != 3)
         {
-            channel.sendMessage("**Correct usage**: !discord icons <guild id|this>").queue();
+            sendUsage(message, "!discord icons <guild id|this>");
             return;
         }
         String guild = args[2];

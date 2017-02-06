@@ -1,6 +1,10 @@
 package com.programmingwizzard.charrizard.bot.commands.basic;
 
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+
+import java.awt.*;
 
 /*
  * @author ProgrammingWizzard
@@ -17,8 +21,48 @@ public abstract class Command
 
     public abstract void handle(CMessage message, String[] args) throws RateLimitedException;
 
+    public final void sendUsage(CMessage message, String usage)
+    {
+        if (usage == null || usage.isEmpty())
+        {
+            return;
+        }
+        EmbedBuilder builder = getEmbedBuilder()
+                                       .setTitle("Charrizard")
+                                       .setFooter("© 2017 Charrizard contributors", null)
+                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                                       .setColor(new Color(255, 0, 0))
+                                       .addField(":information_source: Correct usage", usage, true);
+        message.getChannel().sendMessage(getMessageBuilder().setEmbed(builder.build()).build()).queue();
+    }
+
+    public final void sendError(CMessage message, String error)
+    {
+        if (error == null || error.isEmpty())
+        {
+            return;
+        }
+        EmbedBuilder builder = getEmbedBuilder()
+                                       .setTitle("Charrizard")
+                                       .setFooter("© 2017 Charrizard contributors", null)
+                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                                       .setColor(new Color(255, 0, 0))
+                                       .addField(":information_source: Error", error, true);
+        message.getChannel().sendMessage(getMessageBuilder().setEmbed(builder.build()).build()).queue();
+    }
+
     public final String getPrefix()
     {
         return prefix;
+    }
+
+    public final EmbedBuilder getEmbedBuilder()
+    {
+        return new EmbedBuilder();
+    }
+
+    public final MessageBuilder getMessageBuilder()
+    {
+        return new MessageBuilder();
     }
 }

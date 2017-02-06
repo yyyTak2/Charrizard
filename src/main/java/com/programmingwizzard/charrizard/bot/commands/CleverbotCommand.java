@@ -33,12 +33,12 @@ public class CleverbotCommand extends Command
         TextChannel channel = message.getChannel();
         if (args.length == 0 || args.length == 1)
         {
-            channel.sendMessage("**Correct usage**: !clever <text>").queue();
+            sendUsage(message, "!clever <text>");
             return;
         }
         if (args[1] == null || args[1].isEmpty())
         {
-            channel.sendMessage("**Correct usage**: !clever <text>").queue();
+            sendUsage(message, "!clever <text>");
             return;
         }
         if (bot == null)
