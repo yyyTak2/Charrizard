@@ -54,6 +54,7 @@ public class Charrizard
         commandCaller.getCommands().add(new InviteCommand());
         commandCaller.getCommands().add(new HelpCommand());
         commandCaller.getCommands().add(new GithubCommand());
+        commandCaller.getCommands().add(new MinecraftCommand());
         commandCaller.getCommands().add(new DiscordCommand(this));
         commandCaller.getCommands().add(new StatisticsCommand(this));
         this.eventBus.register(commandCaller);

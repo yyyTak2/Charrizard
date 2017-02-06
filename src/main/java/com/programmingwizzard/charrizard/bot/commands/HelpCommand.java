@@ -20,6 +20,6 @@ public class HelpCommand extends Command
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
         TextChannel textChannel = message.getChannel();
-        textChannel.sendMessage(message.getAuthor().getAsMention() + " - **Charrizard commands** (amount: 5): !help, !author, !invite, !discord, !statistics").queue();
+        textChannel.sendMessage(message.getAuthor().getAsMention() + " - **Charrizard commands** (amount: 6): !help, !author, !invite, !discord, !statistics, !minecraft").queue();
     }
 }
