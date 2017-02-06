@@ -21,6 +21,11 @@ public abstract class Command
 
     public abstract void handle(CMessage message, String[] args) throws RateLimitedException;
 
+    public final void sendEmbedMessage(CMessage message, EmbedBuilder builder)
+    {
+        message.getChannel().sendMessage(getMessageBuilder().setEmbed(builder.build()).build()).queue();
+    }
+
     public final void sendUsage(CMessage message, String usage)
     {
         if (usage == null || usage.isEmpty())

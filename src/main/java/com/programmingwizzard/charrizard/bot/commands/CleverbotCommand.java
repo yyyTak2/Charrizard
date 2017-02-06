@@ -48,7 +48,7 @@ public class CleverbotCommand extends Command
                 bot = factory.create(ChatterBotType.CLEVERBOT);
             } catch (Exception ex)
             {
-                channel.sendMessage("The problem during query execution! See the console!").queue();
+                sendError(message, "The problem during query execution! See the console!");
                 ex.printStackTrace();
                 return;
             }
@@ -63,7 +63,7 @@ public class CleverbotCommand extends Command
             channel.sendMessage(message.getAuthor().getAsMention() + " - " + s).queue();
         } catch (Exception ex)
         {
-            channel.sendMessage("The problem during query execution! See the console!").queue();
+            sendError(message, "The problem during query execution! See the console!");
             ex.printStackTrace();
         }
     }

@@ -6,8 +6,11 @@ import com.programmingwizzard.charrizard.bot.commands.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import com.programmingwizzard.charrizard.bot.response.skript.SkriptResponses;
 import com.programmingwizzard.charrizard.utils.BooleanUtils;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+
+import java.awt.*;
 
 /*
  * @author ProgrammingWizzard
@@ -60,16 +63,15 @@ public class MinecraftCommand extends Command
         JsonObject object = skriptResponses.getMinecraftServerStatus(server);
         if (object == null)
         {
-            channel.sendMessage("An error occurred in conjunction with https://api.skript.pl").queue();
-            return;
-        }
-        channel.sendMessage("**IP**: " + server).queue();
-        channel.sendMessage("**Online**: " + BooleanUtils.parseBoolean(object.getAsJsonPrimitive("online").getAsBoolean())).queue();
-        if (!object.getAsJsonPrimitive("online").getAsBoolean())
-        {
+            sendError(message, "An error occurred in conjunction with https://api.skript.pl");
             return;
         }
         JsonObject players = object.getAsJsonObject("players");
+        if (players == null)
+        {
+            sendError(message, "This server is turned off!");
+            return;
+        }
         String list = "";
         for (JsonElement element : players.getAsJsonArray("list"))
         {
@@ -77,6 +79,14 @@ public class MinecraftCommand extends Command
         }
         list = list.substring(1);
         list = list.substring(1);
-        channel.sendMessage("**Players** (" + players.getAsJsonPrimitive("online").getAsInt() + "/" + players.getAsJsonPrimitive("max").getAsInt() + "): " + list).queue();
+        EmbedBuilder builder = getEmbedBuilder()
+                                       .setTitle("Charrizard")
+                                       .setFooter("© 2017 Charrizard contributors", null)
+                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                                       .setColor(new Color(0, 250, 0))
+                                       .addField(":information_source: " + server,
+                                                        "Online: " + BooleanUtils.parseBoolean(object.getAsJsonPrimitive("online").getAsBoolean()) +
+                                                       "\nPlayers (" + players.getAsJsonPrimitive("online").getAsInt() + "/" + players.getAsJsonPrimitive("max").getAsInt() + "): " + list, true);
+        sendEmbedMessage(message, builder);
     }
 }

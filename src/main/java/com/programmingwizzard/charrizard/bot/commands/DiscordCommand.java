@@ -57,7 +57,7 @@ public class DiscordCommand extends Command
         TextChannel channel = message.getChannel();
         if (args.length != 3)
         {
-
+            sendUsage(message, "!discord <user> <id|mention>");
             return;
         }
         List<User> mentionedUsers = message.getMentionedUsers();

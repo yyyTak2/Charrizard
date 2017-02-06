@@ -3,9 +3,10 @@ package com.programmingwizzard.charrizard.bot.commands;
 import com.programmingwizzard.charrizard.bot.Charrizard;
 import com.programmingwizzard.charrizard.bot.commands.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
+import java.awt.*;
 import java.text.NumberFormat;
 
 /*
@@ -29,13 +30,17 @@ public class StatisticsCommand extends Command
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
-        TextChannel textChannel = message.getChannel();
-        textChannel.sendMessage("**Statistics**:").queue();
-        textChannel.sendMessage("**Servers**: " + charrizard.getDiscordAPI().getGuilds().size()).queue();
-        textChannel.sendMessage("**Clients**: " + charrizard.getDiscordAPI().getUsers().size()).queue();
-        textChannel.sendMessage("**Memory**:" +
-                                        "\n  **Free**: " + numberFormat.format(runtime.freeMemory() / 1024) + " MB" +
-                                        "\n  **Allocated**: " + numberFormat.format(runtime.totalMemory() / 1024) + " MB" +
-                                        "\n  **Max**: " + numberFormat.format(runtime.maxMemory() / 1024) + " MB").queue();
+        EmbedBuilder builder = getEmbedBuilder()
+                                       .setTitle("Charrizard")
+                                       .setFooter("© 2017 Charrizard contributors", null)
+                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                                       .setColor(new Color(0, 250, 0))
+                                       .addField(":information_source: Statistics", "Servers: " + charrizard.getDiscordAPI().getGuilds().size() +
+                                                                                            "\nClients: " + charrizard.getDiscordAPI().getUsers().size() +
+                                                                                            "\nMemory:" +
+                                                                                            "\n  Free: " + numberFormat.format(runtime.freeMemory() / 1024) + " KB" +
+                                                                                            "\n  Allocated: " + numberFormat.format(runtime.totalMemory() / 1024) + " KB" +
+                                                                                            "\n  Max: " + numberFormat.format(runtime.maxMemory() / 1024) + " KB", true);
+        sendEmbedMessage(message, builder);
     }
 }

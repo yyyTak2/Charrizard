@@ -2,8 +2,10 @@ package com.programmingwizzard.charrizard.bot.commands;
 
 import com.programmingwizzard.charrizard.bot.commands.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+
+import java.awt.*;
 
 /*
  * @author ProgrammingWizzard
@@ -19,8 +21,14 @@ public class AuthorCommand extends Command
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
-        TextChannel textChannel = message.getChannel();
-        textChannel.sendMessage("**Charrizard** is creating by all those involved in the repository bot - https://github.com/ProgrammingWizzard/Charrizard/").queue();
-        textChannel.sendMessage("Official **Discord server** - https://discord.gg/jBCzCx8").queue();
+        EmbedBuilder builder = getEmbedBuilder()
+                .setTitle("Charrizard")
+                .setFooter("© 2017 Charrizard contributors", null)
+                .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                .setColor(new Color(0, 250, 0))
+                .addField(":information_source: Authors & Informations", "Charrizard version: 1.2.0" +
+                                                                                 "\nAuthors: https://github.com/ProgrammingWizzard/Charrizard/contributors/" +
+                                                                                 "\nOfficial Discord server: https://discord.gg/jBCzCx8", true);
+        sendEmbedMessage(message, builder);
     }
 }
