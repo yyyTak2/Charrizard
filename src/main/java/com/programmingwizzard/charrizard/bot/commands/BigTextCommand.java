@@ -12,7 +12,6 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
  */
 public class BigTextCommand extends Command
 {
-
     public BigTextCommand()
     {
         super("bigtext");
@@ -90,7 +89,7 @@ public class BigTextCommand extends Command
 
     private void usage(TextChannel channel)
     {
-        channel.sendMessage("**Correct usage**: !bigtext <print|raw|react> <text>").queue();
+        channel.sendMessage("**Correct usage**: !bigtext <print/raw/react> <text>").queue();
     }
 
 }

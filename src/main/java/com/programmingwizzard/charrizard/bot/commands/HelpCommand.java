@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class HelpCommand extends Command
 {
-    private Charrizard charrizard;
+    private final Charrizard charrizard;
 
     public HelpCommand(Charrizard charrizard)
     {
