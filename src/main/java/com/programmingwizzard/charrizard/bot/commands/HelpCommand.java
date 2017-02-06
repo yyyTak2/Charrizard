@@ -30,7 +30,9 @@ public class HelpCommand extends Command
 
         StringBuilder list = new StringBuilder();
         for (Command command : commands)
+        {
             list.append("!").append(command.getPrefix()).append(", ");
+        }
 
         String result = String.format(" - **Charrizard commands** (amount: %d): %s", commands.size(), list.substring(0, list.length() - 2));
         channel.sendMessage(message.getAuthor().getAsMention() + result).queue();

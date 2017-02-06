@@ -65,7 +65,9 @@ public class BigTextCommand extends Command
                     {
                         String reaction = toRegionalIndicator(c);
                         if (!reaction.isEmpty())
+                        {
                             message.getOrigin().addReaction(reaction).queue();
+                        }
                     }
                 }
                 break;
@@ -89,7 +91,7 @@ public class BigTextCommand extends Command
 
     private void usage(TextChannel channel)
     {
-        channel.sendMessage("**Correct usage**: !bigtext <print/raw/react> <text>").queue();
+        channel.sendMessage("**Correct usage**: !bigtext <print|raw|react> <text>").queue();
     }
 
 }
