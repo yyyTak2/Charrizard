@@ -17,6 +17,11 @@ public class CMessage
         this.message = message;
     }
 
+    public Message getOrigin()
+    {
+        return message;
+    }
+
     public User getAuthor()
     {
         return message.getAuthor();

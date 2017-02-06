@@ -59,6 +59,17 @@ public class BigTextCommand extends Command
                 result.append("```");
                 channel.sendMessage(result.toString()).queue();
                 break;
+            case "react":
+                for (int i = 2; i < args.length; i++)
+                {
+                    for (char c : args[i].toLowerCase().toCharArray())
+                    {
+                        String reaction = toRegionalIndicator(c);
+                        if (!reaction.isEmpty())
+                            message.getOrigin().addReaction(reaction).queue();
+                    }
+                }
+                break;
             default:
                 usage(channel);
         }
@@ -79,7 +90,7 @@ public class BigTextCommand extends Command
 
     private void usage(TextChannel channel)
     {
-        channel.sendMessage("**Correct usage**: !bigtext <print|raw> <text>").queue();
+        channel.sendMessage("**Correct usage**: !bigtext <print|raw|react> <text>").queue();
     }
 
 }
