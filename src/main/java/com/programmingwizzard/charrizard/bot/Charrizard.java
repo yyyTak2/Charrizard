@@ -7,6 +7,7 @@ import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import com.programmingwizzard.charrizard.bot.database.managers.StatisticsGuildManager;
 import com.programmingwizzard.charrizard.bot.database.threads.StatisticsSaveThread;
 import com.programmingwizzard.charrizard.bot.events.EventCaller;
+import com.programmingwizzard.charrizard.bot.listeners.StatisticsListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -28,6 +29,7 @@ public class Charrizard {
     private final RedisConnection redisConnection;
     private final StatisticsGuildManager statisticsGuildManager;
     private final StatisticsSaveThread statisticsSaveThread;
+    private final StatisticsListener statisticsListener;
     private JDA discordAPI;
 
     public Charrizard(Settings settings) {
@@ -37,6 +39,7 @@ public class Charrizard {
         this.redisConnection = new RedisConnection(settings);
         this.statisticsGuildManager = new StatisticsGuildManager(redisConnection);
         this.statisticsSaveThread = new StatisticsSaveThread(statisticsGuildManager);
+        this.statisticsListener = new StatisticsListener(this);
     }
 
     public void start() throws RateLimitedException, InterruptedException, LoginException {
@@ -49,6 +52,7 @@ public class Charrizard {
                                   .setBulkDeleteSplittingEnabled(false)
                                   .buildBlocking();
         initCommands();
+        initListeners();
         redisConnection.start();
         statisticsSaveThread.start();
     }
@@ -63,6 +67,10 @@ public class Charrizard {
         commandCaller.getCommands().add(new DiscordCommand(this));
         commandCaller.getCommands().add(new StatisticsCommand(this));
         this.eventBus.register(commandCaller);
+    }
+
+    private void initListeners() {
+        this.eventBus.register(statisticsListener);
     }
 
     public JDA getDiscordAPI() {
