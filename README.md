@@ -12,6 +12,7 @@ All commands are available when you type commands in the bot: !help
 
 ## Requirements
 * Java 8
+* [Redis server](https://redis.io/)
 
 ## Download
 [Releases](https://github.com/ProgrammingWizzard/Charrizard/releases) or [master branch](https://github.com/ProgrammingWizzard/Charrizard/archive/master.zip)
