@@ -120,9 +120,9 @@ public class StatisticsCommand extends Command {
         }
         StatisticGuild statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(targetGuild);
         if (statisticGuild == null) {
-            sendError(message, "This guild does not exists!");
-            return;
+            charrizard.getStatisticsGuildManager().load(targetGuild);
         }
+        statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(targetGuild);
         User owner = targetGuild.getOwner().getUser();
         if (!owner.getId().equals(message.getAuthor().getId())) {
             sendError(message, "You are not owner of server!");
