@@ -48,9 +48,9 @@ public class Charrizard {
                                   .setAudioEnabled(false)
                                   .setBulkDeleteSplittingEnabled(false)
                                   .buildBlocking();
+        initCommands();
         redisConnection.start();
         statisticsSaveThread.start();
-        initCommands();
     }
 
     private void initCommands() {

@@ -32,13 +32,13 @@ public class StatisticsGuildManager {
         StatisticGuild statisticGuild = new StatisticGuild(id);
         for (TextChannel channel : guild.getTextChannels()) {
             int messages = Integer.parseInt(redisConnection.getJedis().get("channel_" + id + "_" + channel.getId()));
-            statisticGuild.getChannelMap().put(channel.getId(), messages);
+            statisticGuild.getChannelMap().put(channel.getId(), 0);
         }
         this.statisticGuildCache.put(id, statisticGuild);
     }
 
     public StatisticGuild getStatistics(Guild guild) {
-        return statisticGuildCache.getIfPresent(guild);
+        return statisticGuildCache.getIfPresent(guild.getId());
     }
 
     public Collection<StatisticGuild> getStatisticGuilds() {
