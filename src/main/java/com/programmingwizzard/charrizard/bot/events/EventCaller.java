@@ -11,8 +11,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 public class EventCaller extends ListenerAdapter {
     private final Charrizard charrizard;
 
-    public EventCaller(Charrizard charrizard)
-    {
+    public EventCaller(Charrizard charrizard) {
         this.charrizard = charrizard;
     }
 

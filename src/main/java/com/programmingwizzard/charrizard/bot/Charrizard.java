@@ -1,6 +1,6 @@
 package com.programmingwizzard.charrizard.bot;
 
-import com.google.common.eventbus.AsyncEventBus;
+import com.google.common.eventbus.EventBus;
 import com.programmingwizzard.charrizard.bot.commands.*;
 import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
 import com.programmingwizzard.charrizard.bot.database.RedisConnection;
@@ -16,14 +16,13 @@ import net.dv8tion.jda.core.entities.impl.GameImpl;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import javax.security.auth.login.LoginException;
-import java.util.concurrent.Executors;
 
 /*
  * @author ProgrammingWizzard
  * @date 04.02.2017
  */
 public class Charrizard {
-    private final AsyncEventBus eventBus;
+    private final EventBus eventBus;
     private final Settings settings;
     private final CommandCaller commandCaller;
     private final RedisConnection redisConnection;
@@ -34,7 +33,7 @@ public class Charrizard {
 
     public Charrizard(Settings settings) {
         this.settings = settings;
-        this.eventBus = new AsyncEventBus("Charrizard", Executors.newCachedThreadPool());
+        this.eventBus = new EventBus();
         this.commandCaller = new CommandCaller(this);
         this.redisConnection = new RedisConnection(settings);
         this.statisticsGuildManager = new StatisticsGuildManager(redisConnection);
@@ -51,10 +50,10 @@ public class Charrizard {
                                   .setAudioEnabled(false)
                                   .setBulkDeleteSplittingEnabled(false)
                                   .buildBlocking();
-        initCommands();
-        initListeners();
         redisConnection.start();
         statisticsSaveThread.start();
+        initListeners();
+        initCommands();
     }
 
     private void initCommands() {
@@ -77,7 +76,7 @@ public class Charrizard {
         return discordAPI;
     }
 
-    public AsyncEventBus getEventBus() {
+    public EventBus getEventBus() {
         return eventBus;
     }
 
