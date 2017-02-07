@@ -25,7 +25,7 @@ public class AuthorCommand extends Command {
                                        .setFooter("© 2017 Charrizard contributors", null)
                                        .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
                                        .setColor(new Color(0, 250, 0))
-                                       .addField("Authors & Informations", "Charrizard version: 1.3" +
+                                       .addField("Authors & Informations", "Charrizard version: 1.3.1" +
                                                                                    "\nAuthors: https://github.com/ProgrammingWizzard/Charrizard/contributors/" +
                                                                                    "\nOfficial Discord server: https://discord.gg/jBCzCx8", true);
         sendEmbedMessage(message, builder);
