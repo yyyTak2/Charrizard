@@ -84,6 +84,10 @@ public class Charrizard {
         return commandCaller;
     }
 
+    public RedisConnection getRedisConnection() {
+        return redisConnection;
+    }
+
     public StatisticsGuildManager getStatisticsGuildManager() {
         return statisticsGuildManager;
     }
