@@ -4,13 +4,16 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.programmingwizzard.charrizard.bot.commands.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
-import com.programmingwizzard.charrizard.bot.response.skript.SkriptResponses;
+import com.programmingwizzard.charrizard.bot.response.skript.SkriptServerResponse;
+import com.programmingwizzard.charrizard.bot.response.skript.SkriptServerResponses;
 import com.programmingwizzard.charrizard.utils.BooleanUtils;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import java.awt.*;
+import java.util.Base64;
 
 /*
  * @author ProgrammingWizzard
@@ -18,12 +21,12 @@ import java.awt.*;
  */
 public class MinecraftCommand extends Command
 {
-    private final SkriptResponses skriptResponses;
+    private final SkriptServerResponses responses;
 
     public MinecraftCommand()
     {
         super("minecraft");
-        this.skriptResponses = new SkriptResponses();
+        this.responses = new SkriptServerResponses();
     }
 
     @Override
@@ -60,33 +63,38 @@ public class MinecraftCommand extends Command
             sendUsage(message, "!minecraft status <ip>");
             return;
         }
-        JsonObject object = skriptResponses.getMinecraftServerStatus(server);
-        if (object == null)
-        {
-            sendError(message, "An error occurred in conjunction with https://api.skript.pl");
-            return;
-        }
-        JsonObject players = object.getAsJsonObject("players");
-        if (players == null)
-        {
-            sendError(message, "This server is turned off!");
-            return;
-        }
-        String list = "";
-        for (JsonElement element : players.getAsJsonArray("list"))
-        {
-            list = list + ", " + element.getAsString() + "";
-        }
-        list = list.substring(1);
-        list = list.substring(1);
-        EmbedBuilder builder = getEmbedBuilder()
-                                       .setTitle("Charrizard")
-                                       .setFooter("© 2017 Charrizard contributors", null)
-                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
-                                       .setColor(new Color(0, 250, 0))
-                                       .addField(":information_source: " + server,
-                                                        "Online: " + BooleanUtils.parseBoolean(object.getAsJsonPrimitive("online").getAsBoolean()) +
-                                                       "\nPlayers (" + players.getAsJsonPrimitive("online").getAsInt() + "/" + players.getAsJsonPrimitive("max").getAsInt() + "): " + list, true);
-        sendEmbedMessage(message, builder);
+
+        responses.call(server, response -> {
+            if (response == null) {
+                sendError(message, "An error occurred while connecting with api.skript.pl");
+                return;
+            }
+
+            String info;
+            if (response.isOnline()) {
+                StringBuilder list = new StringBuilder();
+                for (String player : response.getPlayersList()) {
+                    list.append(", ").append(player);
+                }
+                info =
+                    "**Online:** YES\n" +
+                    String.format("**Latency:** %.2fms\n", response.getLatency()) +
+                    String.format("**Version:** %s (Protocol #%d)\n", response.getVersion(), response.getProtocol()) +
+                    String.format("**Players (%d/%d):** %s\n", response.getOnlinePlayers(), response.getMaxPlayers(), list.substring(2)) +
+                    String.format("**Description:**\n %s\n", response.getDescription()) +
+                    "**Favicon:**";
+            } else {
+                info = "**Online:** NO\n**Favicon:**";
+            }
+
+            EmbedBuilder builder = getEmbedBuilder()
+                .setTitle("Charrizard")
+                .setFooter("© 2017 Charrizard contributors", null)
+                .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                .setColor(new Color(0, 250, 0))
+                .setImage("https://api.skript.pl/server/" + response.getAddress() + "/icon.png")
+                .addField("Minecraft Status: " + server, info, true);
+            sendEmbedMessage(message, builder);
+        });
     }
 }
