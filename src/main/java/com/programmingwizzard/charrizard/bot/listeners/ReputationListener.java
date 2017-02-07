@@ -13,11 +13,11 @@ import java.util.List;
  * @author ProgrammingWizzard
  * @date 07.02.2017
  */
-public class LikeListener {
+public class ReputationListener {
 
     private final Charrizard charrizard;
 
-    public LikeListener(Charrizard charrizard) {
+    public ReputationListener(Charrizard charrizard) {
         this.charrizard = charrizard;
     }
 
