@@ -7,6 +7,7 @@ import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import com.programmingwizzard.charrizard.bot.database.managers.StatisticsGuildManager;
 import com.programmingwizzard.charrizard.bot.database.threads.StatisticsSaveThread;
 import com.programmingwizzard.charrizard.bot.events.EventCaller;
+import com.programmingwizzard.charrizard.bot.listeners.LikeListener;
 import com.programmingwizzard.charrizard.bot.listeners.StatisticsListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -29,6 +30,7 @@ public class Charrizard {
     private final StatisticsGuildManager statisticsGuildManager;
     private final StatisticsSaveThread statisticsSaveThread;
     private final StatisticsListener statisticsListener;
+    private final LikeListener likeListener;
     private JDA discordAPI;
 
     public Charrizard(Settings settings) {
@@ -39,6 +41,7 @@ public class Charrizard {
         this.statisticsGuildManager = new StatisticsGuildManager(redisConnection);
         this.statisticsSaveThread = new StatisticsSaveThread(statisticsGuildManager);
         this.statisticsListener = new StatisticsListener(this);
+        this.likeListener = new LikeListener(this);
     }
 
     public void start() throws RateLimitedException, InterruptedException, LoginException {
@@ -72,6 +75,7 @@ public class Charrizard {
 
     private void initListeners() {
         this.eventBus.register(statisticsListener);
+        this.eventBus.register(likeListener);
     }
 
     public JDA getDiscordAPI() {

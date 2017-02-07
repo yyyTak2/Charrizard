@@ -13,6 +13,7 @@ import java.util.Map;
 public class StatisticGuild implements RedisData {
     private final String guildId;
     private final Map<String, Integer> channelMap = new HashMap<>();
+    private final Map<String, Integer> userMap = new HashMap<>();
 
     public StatisticGuild(String guildId) {
         this.guildId = guildId;
@@ -23,6 +24,9 @@ public class StatisticGuild implements RedisData {
         for (Map.Entry<String, Integer> channelEntry : channelMap.entrySet()) {
             jedis.set("channel_" + guildId + "_" + channelEntry.getKey(), String.valueOf(channelEntry.getValue()));
         }
+        for (Map.Entry<String, Integer> userEntry : userMap.entrySet()) {
+            jedis.set("like_" + guildId + "_" + userEntry.getKey(), String.valueOf(userEntry.getValue()));
+        }
     }
 
     public String getGuildId() {
@@ -31,5 +35,9 @@ public class StatisticGuild implements RedisData {
 
     public Map<String, Integer> getChannelMap() {
         return channelMap;
+    }
+
+    public Map<String, Integer> getUserMap() {
+        return userMap;
     }
 }
