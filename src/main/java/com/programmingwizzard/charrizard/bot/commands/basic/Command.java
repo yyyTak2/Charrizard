@@ -37,7 +37,7 @@ public abstract class Command
                                        .setFooter("© 2017 Charrizard contributors", null)
                                        .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
                                        .setColor(new Color(255, 0, 0))
-                                       .addField(":information_source: Correct usage", usage, true);
+                                       .addField("Correct usage", usage, true);
         message.getChannel().sendMessage(getMessageBuilder().setEmbed(builder.build()).build()).queue();
     }
 
@@ -52,7 +52,7 @@ public abstract class Command
                                        .setFooter("© 2017 Charrizard contributors", null)
                                        .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
                                        .setColor(new Color(255, 0, 0))
-                                       .addField(":information_source: Error", error, true);
+                                       .addField("Error", error, true);
         message.getChannel().sendMessage(getMessageBuilder().setEmbed(builder.build()).build()).queue();
     }
 

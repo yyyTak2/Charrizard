@@ -35,7 +35,7 @@ public class StatisticsCommand extends Command
                                        .setFooter("© 2017 Charrizard contributors", null)
                                        .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
                                        .setColor(new Color(0, 250, 0))
-                                       .addField(":information_source: Statistics", "Servers: " + charrizard.getDiscordAPI().getGuilds().size() +
+                                       .addField("Statistics", "Servers: " + charrizard.getDiscordAPI().getGuilds().size() +
                                                                                             "\nClients: " + charrizard.getDiscordAPI().getUsers().size() +
                                                                                             "\nMemory:" +
                                                                                             "\n  Free: " + numberFormat.format(runtime.freeMemory() / 1024) + " KB" +

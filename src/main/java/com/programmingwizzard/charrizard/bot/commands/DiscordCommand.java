@@ -83,7 +83,7 @@ public class DiscordCommand extends Command
                                        .setFooter("© 2017 Charrizard contributors", null)
                                        .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
                                        .setColor(new Color(0, 250, 0))
-                                       .addField(":information_source: " + targetUser.getName(),
+                                       .addField("Discord User: " + targetUser.getName(),
                                                "Bot account: " + BooleanUtils.parseBoolean(targetUser.isBot()) +
                                                        "\nMention tag: " + targetUser.getAsMention() +
                                                        "\nAvatar: " + targetUser.getAvatarUrl() +
@@ -121,7 +121,7 @@ public class DiscordCommand extends Command
                                        .setFooter("© 2017 Charrizard contributors", null)
                                        .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
                                        .setColor(new Color(0, 250, 0))
-                                       .addField(":information_source: " + targetGuild.getName(), "Icon: " + targetGuild.getIconUrl() +
+                                       .addField("Discord Guild: " + targetGuild.getName(), "Icon: " + targetGuild.getIconUrl() +
                                                                                                         "\nOwner:" +
                                                                                                         "\n  Name: " + targetGuild.getOwner().getUser().getName() +
                                                                                                         "\n  Mention tag: " + targetGuild.getOwner().getAsMention() +

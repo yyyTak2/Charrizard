@@ -26,7 +26,7 @@ public class InviteCommand extends Command
                                        .setFooter("© 2017 Charrizard contributors", null)
                                        .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
                                        .setColor(new Color(0, 250, 0))
-                                       .addField(":information_source: Invite URL", "https://discordapp.com/oauth2/authorize?&client_id=277567355360509962&scope=bot&permissions=8", true);
+                                       .addField("Invite URL", "https://discordapp.com/oauth2/authorize?&client_id=277567355360509962&scope=bot&permissions=8", true);
         sendEmbedMessage(message, builder);
     }
 }

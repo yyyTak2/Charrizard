@@ -40,7 +40,7 @@ public class HelpCommand extends Command
                                        .setFooter("© 2017 Charrizard contributors", null)
                                        .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
                                        .setColor(new Color(0, 250, 0))
-                                       .addField(":information_source: Commands", list.toString(), true);
+                                       .addField("Commands", list.toString(), true);
         sendEmbedMessage(message, builder);
     }
 }
