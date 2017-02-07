@@ -25,14 +25,13 @@ public class MinecraftCommand extends Command {
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
-        TextChannel channel = message.getChannel();
-        if (args.length == 0 || args.length == 1) {
+        if (args.length < 2) {
             sendUsage(message, "!minecraft <status>");
             return;
         }
         switch (args[1]) {
             case "status":
-                this.checkStatus(message, args);
+                checkStatus(message, args);
                 break;
             default:
                 sendUsage(message, "!minecraft <status>");
@@ -42,17 +41,12 @@ public class MinecraftCommand extends Command {
 
     private void checkStatus(CMessage message, String[] args)
     {
-        TextChannel channel = message.getChannel();
-        if (args.length != 3) {
-            sendUsage(message, "!minecraft status <ip>");
-            return;
-        }
-        String server = args[2];
-        if (server == null || server.isEmpty()) {
+        if (args.length != 3 || args[2].isEmpty()) {
             sendUsage(message, "!minecraft status <ip>");
             return;
         }
 
+        String server = args[2];
         responses.call(server, response -> {
             if (response == null) {
                 sendError(message, "An error occurred while connecting with api.skript.pl");
@@ -61,24 +55,36 @@ public class MinecraftCommand extends Command {
 
             String info;
             if (response.isOnline()) {
+                String list = "";
+                if (!response.getPlayersList().isEmpty()) {
+                    StringBuilder listBuilder = new StringBuilder();
+                    for (String player : response.getPlayersList()) {
+                        listBuilder.append(", ").append(player);
+                    }
+                    if (listBuilder.length() > 512) {
+                        list = " (`" + listBuilder.substring(2, 512) + "...`)";
+                    } else {
+                        list = " (`" + listBuilder.substring(2) + "`)";
+                    }
+                }
                 info =
-                        "**Online:** YES\n" +
-                                String.format("**Latency:** %.2fms\n", response.getLatency()) +
-                                String.format("**Version:** %s (Protocol #%d)\n", response.getVersion(), response.getProtocol()) +
-                                String.format("**Players:** %d/%d\n", response.getOnlinePlayers(), response.getMaxPlayers()) +
-                                String.format("**Description:**\n %s\n", response.getDescription()) +
-                                "**Favicon:**";
+                    "**Online:** YES\n" +
+                    String.format("**Latency:** %d ms\n", (int) response.getLatency()) +
+                    String.format("**Version:** %s (Protocol #%d)\n", response.getVersion(), response.getProtocol()) +
+                    String.format("**Players:** %d/%d%s\n", response.getOnlinePlayers(), response.getMaxPlayers(), list) +
+                    String.format("**Description:**\n %s\n", response.getDescription()) +
+                    "**Favicon:**";
             } else {
                 info = "**Online:** NO\n**Favicon:**";
             }
 
             EmbedBuilder builder = getEmbedBuilder()
-                                           .setTitle("Charrizard")
-                                           .setFooter("© 2017 Charrizard contributors", null)
-                                           .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
-                                           .setColor(new Color(0, 250, 0))
-                                           .setImage("https://api.skript.pl/server/" + response.getAddress() + "/icon.png")
-                                           .addField("Minecraft Status: " + server, info, true);
+               .setTitle("Charrizard")
+               .setFooter("© 2017 Charrizard contributors", null)
+               .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+               .setColor(new Color(0, 250, 0))
+               .setImage("https://api.skript.pl/server/" + response.getAddress() + "/icon.png")
+               .addField("Minecraft Status: " + server, info, true);
             sendEmbedMessage(message, builder);
         });
     }
