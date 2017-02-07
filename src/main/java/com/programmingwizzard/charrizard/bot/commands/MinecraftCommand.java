@@ -8,10 +8,12 @@ import com.programmingwizzard.charrizard.bot.response.skript.SkriptServerRespons
 import com.programmingwizzard.charrizard.bot.response.skript.SkriptServerResponses;
 import com.programmingwizzard.charrizard.utils.BooleanUtils;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import java.awt.*;
+import java.util.Base64;
 
 /*
  * @author ProgrammingWizzard
@@ -79,9 +81,10 @@ public class MinecraftCommand extends Command
                     String.format("**Latency:** %.2fms\n", response.getLatency()) +
                     String.format("**Version:** %s (Protocol #%d)\n", response.getVersion(), response.getProtocol()) +
                     String.format("**Players (%d/%d):** %s\n", response.getOnlinePlayers(), response.getMaxPlayers(), list.substring(2)) +
-                    String.format("**Description:**\n %s\n", response.getDescription());
+                    String.format("**Description:**\n %s\n", response.getDescription()) +
+                    "**Favicon:**";
             } else {
-                info = "**Online:** NO";
+                info = "**Online:** NO\n**Favicon:**";
             }
 
             EmbedBuilder builder = getEmbedBuilder()
@@ -89,6 +92,7 @@ public class MinecraftCommand extends Command
                 .setFooter("© 2017 Charrizard contributors", null)
                 .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
                 .setColor(new Color(0, 250, 0))
+                .setImage("https://api.skript.pl/server/" + response.getAddress() + "/icon.png")
                 .addField("Minecraft Status: " + server, info, true);
             sendEmbedMessage(message, builder);
         });
