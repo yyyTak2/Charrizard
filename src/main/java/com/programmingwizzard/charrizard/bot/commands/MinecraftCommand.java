@@ -61,15 +61,11 @@ public class MinecraftCommand extends Command {
 
             String info;
             if (response.isOnline()) {
-                StringBuilder list = new StringBuilder();
-                for (String player : response.getPlayersList()) {
-                    list.append(", ").append(player);
-                }
                 info =
                         "**Online:** YES\n" +
                                 String.format("**Latency:** %.2fms\n", response.getLatency()) +
                                 String.format("**Version:** %s (Protocol #%d)\n", response.getVersion(), response.getProtocol()) +
-                                String.format("**Players (%d/%d):** %s\n", response.getOnlinePlayers(), response.getMaxPlayers(), list.substring(2)) +
+                                String.format("**Players:** %d/%d\n", response.getOnlinePlayers(), response.getMaxPlayers()) +
                                 String.format("**Description:**\n %s\n", response.getDescription()) +
                                 "**Favicon:**";
             } else {
