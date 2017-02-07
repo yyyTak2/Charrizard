@@ -75,13 +75,13 @@ public class MinecraftCommand extends Command
                     list.append(", ").append(player);
                 }
                 info =
-                    "Online: yes\n" +
-                    String.format("Latency: %.2fms\n", response.getLatency()) +
-                    String.format("Version: %s (Protocol #%d)\n", response.getVersion(), response.getProtocol()) +
-                    String.format("Description:\n %s\n", response.getDescription()) +
-                    String.format("Players (%d/%d): %s", response.getOnlinePlayers(), response.getMaxPlayers(), list.substring(2));
+                    "**Online:** YES\n" +
+                    String.format("**Latency:** %.2fms\n", response.getLatency()) +
+                    String.format("**Version:** %s (Protocol #%d)\n", response.getVersion(), response.getProtocol()) +
+                    String.format("**Players (%d/%d):** %s\n", response.getOnlinePlayers(), response.getMaxPlayers(), list.substring(2)) +
+                    String.format("**Description:**\n %s\n", response.getDescription());
             } else {
-                info = "Online: no";
+                info = "**Online:** NO";
             }
 
             EmbedBuilder builder = getEmbedBuilder()
