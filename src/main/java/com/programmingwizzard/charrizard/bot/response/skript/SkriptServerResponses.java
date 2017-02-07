@@ -2,7 +2,6 @@ package com.programmingwizzard.charrizard.bot.response.skript;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.google.gson.JsonObject;
 import com.programmingwizzard.charrizard.bot.response.Callback;
 import com.programmingwizzard.charrizard.bot.response.ResponsesGroup;
 import com.programmingwizzard.charrizard.bot.response.SingleResponse;
@@ -17,7 +16,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class SkriptServerResponses extends ResponsesGroup
 {
-
     private static String URL = "https://api.skript.pl/server/%s/";
 
     private final Executor executor;
@@ -48,6 +46,9 @@ public class SkriptServerResponses extends ResponsesGroup
     @Override
     public Executor getExecutor()
     {
-        return executor;
+        synchronized (executor)
+        {
+            return executor;
+        }
     }
 }
