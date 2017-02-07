@@ -14,19 +14,16 @@ public class SingleResponse {
     private final ResponsesGroup responsesGroup;
     private final String url;
 
-    public SingleResponse(ResponsesGroup responsesGroup, String url)
-    {
+    public SingleResponse(ResponsesGroup responsesGroup, String url) {
         this.responsesGroup = responsesGroup;
         this.url = url;
     }
 
-    public void call(Callback<JsonObject> callback)
-    {
+    public void call(Callback<JsonObject> callback) {
         if (callback == null) {
             return;
         }
-        responsesGroup.getExecutor().execute(() ->
-        {
+        responsesGroup.getExecutor().execute(() -> {
             try {
                 JsonObject object = GsonUtils.fromStringToJsonObject(URLUtils.readUrl(url));
                 callback.call(object);

@@ -24,8 +24,7 @@ public class SkriptServerResponse {
     private final String description;
     private final String favicon;
 
-    public SkriptServerResponse(JsonObject json)
-    {
+    public SkriptServerResponse(JsonObject json) {
         address = json.get("address").getAsString();
         online = json.get("online").getAsBoolean();
         if (online) {
@@ -59,53 +58,43 @@ public class SkriptServerResponse {
         }
     }
 
-    public String getAddress()
-    {
+    public String getAddress() {
         return address;
     }
 
-    public boolean isOnline()
-    {
+    public boolean isOnline() {
         return online;
     }
 
-    public float getLatency()
-    {
+    public float getLatency() {
         return latency;
     }
 
-    public int getOnlinePlayers()
-    {
+    public int getOnlinePlayers() {
         return onlinePlayers;
     }
 
-    public int getMaxPlayers()
-    {
+    public int getMaxPlayers() {
         return maxPlayers;
     }
 
-    public List<String> getPlayersList()
-    {
+    public List<String> getPlayersList() {
         return playersList;
     }
 
-    public String getVersion()
-    {
+    public String getVersion() {
         return version;
     }
 
-    public int getProtocol()
-    {
+    public int getProtocol() {
         return protocol;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public String getFavicon()
-    {
+    public String getFavicon() {
         return favicon;
     }
 }

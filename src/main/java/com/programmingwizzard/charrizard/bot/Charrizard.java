@@ -26,16 +26,14 @@ public class Charrizard {
     private final RedisConnection redisConnection;
     private JDA discordAPI;
 
-    public Charrizard(Settings settings)
-    {
+    public Charrizard(Settings settings) {
         this.settings = settings;
         this.eventBus = new AsyncEventBus("Charrizard", Executors.newCachedThreadPool());
         this.commandCaller = new CommandCaller(this);
         this.redisConnection = new RedisConnection(settings);
     }
 
-    public void start() throws RateLimitedException, InterruptedException, LoginException
-    {
+    public void start() throws RateLimitedException, InterruptedException, LoginException {
         this.discordAPI = new JDABuilder(AccountType.BOT)
                                   .setToken(settings.getToken())
                                   .setGame(new GameImpl(settings.getGame(), settings.getGameUrl(), Game.GameType.DEFAULT))
@@ -48,8 +46,7 @@ public class Charrizard {
         redisConnection.start();
     }
 
-    private void initCommands()
-    {
+    private void initCommands() {
         commandCaller.getCommands().add(new AuthorCommand());
         commandCaller.getCommands().add(new BigTextCommand());
         commandCaller.getCommands().add(new InviteCommand());
@@ -62,18 +59,15 @@ public class Charrizard {
         this.eventBus.register(commandCaller);
     }
 
-    public JDA getDiscordAPI()
-    {
+    public JDA getDiscordAPI() {
         return discordAPI;
     }
 
-    public AsyncEventBus getEventBus()
-    {
+    public AsyncEventBus getEventBus() {
         return eventBus;
     }
 
-    public CommandCaller getCommandCaller()
-    {
+    public CommandCaller getCommandCaller() {
         return commandCaller;
     }
 }

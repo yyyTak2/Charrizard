@@ -17,8 +17,7 @@ public class EventCaller extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReceived(MessageReceivedEvent event)
-    {
+    public void onMessageReceived(MessageReceivedEvent event) {
         charrizard.getEventBus().post(event);
     }
 }

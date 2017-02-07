@@ -11,13 +11,11 @@ import redis.clients.jedis.JedisPool;
 public class RedisConnection {
     private final JedisPool jedisPool;
 
-    public RedisConnection(Settings settings)
-    {
+    public RedisConnection(Settings settings) {
         jedisPool = new JedisPool(settings.getRedis().getIp(), settings.getRedis().getPort());
     }
 
-    public void start()
-    {
+    public void start() {
         if (!getJedis().isConnected()) {
             getJedis().connect();
         }

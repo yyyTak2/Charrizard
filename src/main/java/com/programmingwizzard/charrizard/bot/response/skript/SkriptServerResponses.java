@@ -20,14 +20,12 @@ public class SkriptServerResponses extends ResponsesGroup {
     private final Executor executor;
     private final Cache<String, SkriptServerResponse> cache;
 
-    public SkriptServerResponses()
-    {
+    public SkriptServerResponses() {
         this.executor = Executors.newCachedThreadPool();
         this.cache = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).build();
     }
 
-    public void call(String rawIp, Callback<SkriptServerResponse> callback)
-    {
+    public void call(String rawIp, Callback<SkriptServerResponse> callback) {
         String ip = rawIp.toLowerCase();
         SkriptServerResponse result = cache.getIfPresent(ip);
         if (result == null) {
@@ -43,8 +41,7 @@ public class SkriptServerResponses extends ResponsesGroup {
     }
 
     @Override
-    public Executor getExecutor()
-    {
+    public Executor getExecutor() {
         synchronized (executor) {
             return executor;
         }

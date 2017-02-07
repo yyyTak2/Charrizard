@@ -6,8 +6,7 @@ package com.programmingwizzard.charrizard.bot.database.threads;
  */
 public class StatisticsSaveThread extends Thread {
     @Override
-    public void run()
-    {
+    public void run() {
         while (true) {
             // TODO: save
         }

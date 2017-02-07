@@ -14,23 +14,19 @@ public class StatisticGuild implements RedisData {
     private final String guildId;
     private final Map<String, Integer> channelMap = new HashMap<>();
 
-    public StatisticGuild(String guildId)
-    {
+    public StatisticGuild(String guildId) {
         this.guildId = guildId;
     }
 
     @Override
-    public void save(Jedis jedis)
-    {
+    public void save(Jedis jedis) {
     }
 
-    public String getGuildId()
-    {
+    public String getGuildId() {
         return guildId;
     }
 
-    public Map<String, Integer> getChannelMap()
-    {
+    public Map<String, Integer> getChannelMap() {
         return channelMap;
     }
 }
