@@ -49,7 +49,7 @@ public class ReputationCommand extends Command {
             return;
         }
         List<User> mentionedUsers = message.getMentionedUsers();
-        User targetUser = null;
+        User targetUser;
         if (mentionedUsers.size() == 0) {
             targetUser = this.charrizard.getDiscordAPI().getUserById(args[2]);
         } else {
@@ -61,14 +61,13 @@ public class ReputationCommand extends Command {
         }
         StatisticGuild statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(message.getGuild());
         if (statisticGuild == null) {
-            charrizard.getStatisticsGuildManager().load(message.getGuild());
+            charrizard.getStatisticsGuildManager().loadGuild(message.getGuild());
             statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(message.getGuild());
         }
-        int likes;
-        if (statisticGuild.getUserMap().get(targetUser.getId()) == null) {
-            likes = 0;
-        } else {
-            likes = statisticGuild.getUserMap().get(targetUser.getId());
+        int likes = statisticGuild.getUser(targetUser);
+        if (likes == 0) {
+            statisticGuild.loadUser(targetUser);
+            likes = statisticGuild.getUser(targetUser);
         }
         EmbedBuilder builder = getEmbedBuilder()
                                        .setTitle("Charrizard")
@@ -80,8 +79,6 @@ public class ReputationCommand extends Command {
     }
 
     private void resetArgument(CMessage message, String[] args) {
-        if (args.length == 2) {
-
-        }
+        sendError(message, "Not implementable yet!");
     }
 }

@@ -22,14 +22,14 @@ public class ReputationListener {
     }
 
     @Subscribe
-    public void onTextMessage(MessageReceivedEvent event) {
+    public void addReputation(MessageReceivedEvent event) {
         if (!event.getMessage().getContent().startsWith("+")) {
             return;
         }
         TextChannel channel = event.getTextChannel();
         StatisticGuild statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(event.getGuild());
         if (statisticGuild == null) {
-            charrizard.getStatisticsGuildManager().load(event.getGuild());
+            charrizard.getStatisticsGuildManager().loadGuild(event.getGuild());
             statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(event.getGuild());
         }
         List<User> mentionedUsers = event.getMessage().getMentionedUsers();
@@ -38,17 +38,16 @@ public class ReputationListener {
         }
         StringBuilder sb = new StringBuilder();
         for (User mentionedUser : mentionedUsers) {
-            int likes;
-            if (statisticGuild.getUserMap().get(mentionedUser.getId()) == null) {
-                likes = 0;
-            } else {
-                likes = statisticGuild.getUserMap().get(mentionedUser.getId());
+            int likes = statisticGuild.getUser(mentionedUser);
+            if (likes == 0) {
+                statisticGuild.loadUser(mentionedUser);
+                likes = statisticGuild.getUser(mentionedUser);
             }
-            statisticGuild.getUserMap().put(mentionedUser.getId(), likes + 1);
+            statisticGuild.putUser(mentionedUser, likes + 1);
             sb.append(mentionedUser.getName()).append(", ");
         }
         String users = sb.toString();
-        channel.sendMessage(event.getAuthor().getAsMention() + "- You mentioned the: " + users.substring(0, sb.length() - 2)).queue();
+        channel.sendMessage(event.getAuthor().getAsMention() + " - You mentioned the: " + users.substring(0, sb.length() - 2)).queue();
     }
 
 }

@@ -24,19 +24,19 @@ public class StatisticsGuildManager {
         this.statisticGuildCache = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build();
     }
 
-    public void load(Guild guild) {
+    public void loadGuild(Guild guild) {
         if (getStatistics(guild) != null) {
             return;
         }
         String id = guild.getId();
-        StatisticGuild statisticGuild = new StatisticGuild(id);
+        StatisticGuild statisticGuild = new StatisticGuild(id, redisConnection);
         for (TextChannel channel : guild.getTextChannels()) {
             String number = redisConnection.getJedis().get("channel_" + id + "_" + channel.getId());
             if (number == null) {
                 continue;
             }
             int messages = Integer.parseInt(number);
-            statisticGuild.getChannelMap().put(channel.getId(), messages);
+            statisticGuild.putChannel(channel, messages);
         }
         this.statisticGuildCache.put(id, statisticGuild);
     }

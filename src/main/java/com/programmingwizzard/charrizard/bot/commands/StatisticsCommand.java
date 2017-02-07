@@ -7,6 +7,7 @@ import com.programmingwizzard.charrizard.bot.database.basic.StatisticGuild;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
@@ -81,11 +82,11 @@ public class StatisticsCommand extends Command {
         }
         StatisticGuild statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(targetGuild);
         if (statisticGuild == null) {
-            charrizard.getStatisticsGuildManager().load(targetGuild);
+            charrizard.getStatisticsGuildManager().loadGuild(targetGuild);
         }
         statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(targetGuild);
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, Integer> channelEntry : statisticGuild.getChannelMap().entrySet()) {
+        for (Map.Entry<String, Integer> channelEntry : statisticGuild.getChannelEntrySet()) {
             Channel channel = targetGuild.getTextChannelById(channelEntry.getKey());
             if (channel == null) {
                 continue;
@@ -120,7 +121,7 @@ public class StatisticsCommand extends Command {
         }
         StatisticGuild statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(targetGuild);
         if (statisticGuild == null) {
-            charrizard.getStatisticsGuildManager().load(targetGuild);
+            charrizard.getStatisticsGuildManager().loadGuild(targetGuild);
         }
         statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(targetGuild);
         User owner = targetGuild.getOwner().getUser();
@@ -128,8 +129,8 @@ public class StatisticsCommand extends Command {
             sendError(message, "You are not owner of server!");
             return;
         }
-        for (Map.Entry<String, Integer> channelEntry : statisticGuild.getChannelMap().entrySet()) {
-            statisticGuild.getChannelMap().put(channelEntry.getKey(), 0);
+        for (TextChannel channel : targetGuild.getTextChannels()) {
+            statisticGuild.putChannel(channel, 0);
         }
         statisticGuild.save(charrizard.getRedisConnection().getJedis());
         EmbedBuilder builder = getEmbedBuilder()
