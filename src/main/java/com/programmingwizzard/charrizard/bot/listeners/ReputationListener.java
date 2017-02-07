@@ -38,6 +38,9 @@ public class ReputationListener {
         }
         StringBuilder sb = new StringBuilder();
         for (User mentionedUser : mentionedUsers) {
+            if (mentionedUser.getId().equals(event.getAuthor().getId())) {
+                continue;
+            }
             int likes = statisticGuild.getUser(mentionedUser);
             if (likes == 0) {
                 statisticGuild.loadUser(mentionedUser);

@@ -10,8 +10,8 @@ import java.net.URL;
  * @date 05.02.2017
  */
 public class URLUtils {
-    public static String readUrl(String urlString) throws IOException
-    {
+
+    public static String readUrl(String urlString) throws IOException {
         BufferedReader reader = null;
         try {
             URL url = new URL(urlString);
