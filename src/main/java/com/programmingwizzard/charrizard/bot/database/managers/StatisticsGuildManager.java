@@ -5,6 +5,7 @@ import com.google.common.cache.CacheBuilder;
 import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import com.programmingwizzard.charrizard.bot.database.basic.StatisticGuild;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.TextChannel;
 
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +25,16 @@ public class StatisticsGuildManager {
     }
 
     public void load(Guild guild) {
-
+        if (getStatistics(guild) != null) {
+            return;
+        }
+        String id = guild.getId();
+        StatisticGuild statisticGuild = new StatisticGuild(id);
+        for (TextChannel channel : guild.getTextChannels()) {
+            int messages = Integer.parseInt(redisConnection.getJedis().get("channel_" + id + "_" + channel.getId()));
+            statisticGuild.getChannelMap().put(channel.getId(), messages);
+        }
+        this.statisticGuildCache.put(id, statisticGuild);
     }
 
     public StatisticGuild getStatistics(Guild guild) {

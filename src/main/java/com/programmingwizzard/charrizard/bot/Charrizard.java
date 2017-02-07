@@ -4,6 +4,8 @@ import com.google.common.eventbus.AsyncEventBus;
 import com.programmingwizzard.charrizard.bot.commands.*;
 import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
 import com.programmingwizzard.charrizard.bot.database.RedisConnection;
+import com.programmingwizzard.charrizard.bot.database.managers.StatisticsGuildManager;
+import com.programmingwizzard.charrizard.bot.database.threads.StatisticsSaveThread;
 import com.programmingwizzard.charrizard.bot.events.EventCaller;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -24,6 +26,8 @@ public class Charrizard {
     private final Settings settings;
     private final CommandCaller commandCaller;
     private final RedisConnection redisConnection;
+    private final StatisticsGuildManager statisticsGuildManager;
+    private final StatisticsSaveThread statisticsSaveThread;
     private JDA discordAPI;
 
     public Charrizard(Settings settings) {
@@ -31,6 +35,8 @@ public class Charrizard {
         this.eventBus = new AsyncEventBus("Charrizard", Executors.newCachedThreadPool());
         this.commandCaller = new CommandCaller(this);
         this.redisConnection = new RedisConnection(settings);
+        this.statisticsGuildManager = new StatisticsGuildManager(redisConnection);
+        this.statisticsSaveThread = new StatisticsSaveThread(statisticsGuildManager);
     }
 
     public void start() throws RateLimitedException, InterruptedException, LoginException {
@@ -42,8 +48,9 @@ public class Charrizard {
                                   .setAudioEnabled(false)
                                   .setBulkDeleteSplittingEnabled(false)
                                   .buildBlocking();
-        initCommands();
         redisConnection.start();
+        statisticsSaveThread.start();
+        initCommands();
     }
 
     private void initCommands() {
@@ -68,5 +75,9 @@ public class Charrizard {
 
     public CommandCaller getCommandCaller() {
         return commandCaller;
+    }
+
+    public StatisticsGuildManager getStatisticsGuildManager() {
+        return statisticsGuildManager;
     }
 }
