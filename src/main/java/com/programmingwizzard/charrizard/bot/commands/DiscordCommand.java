@@ -70,7 +70,16 @@ public class DiscordCommand extends Command {
             return;
         }
         OffsetDateTime creationTime = targetUser.getCreationTime();
-        EmbedBuilder builder = getEmbedBuilder().setTitle("Charrizard").setFooter("© 2017 Charrizard contributors", null).setUrl("https://github.com/ProgrammingWizzard/Charrizard/").setColor(new Color(0, 250, 0)).addField("Discord User: " + targetUser.getName(), "Bot account: " + BooleanUtils.parseBoolean(targetUser.isBot()) + "\nMention tag: " + targetUser.getAsMention() + "\nAvatar: " + targetUser.getAvatarUrl() + "\nRegister date: " + creationTime.getDayOfMonth() + "/" + creationTime.getMonthValue() + "/" + creationTime.getYear() + " " + creationTime.getHour() + ":" + creationTime.getMinute(), true);
+        EmbedBuilder builder = getEmbedBuilder()
+                                       .setTitle("Charrizard")
+                                       .setFooter("© 2017 Charrizard contributors", null)
+                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                                       .setColor(new Color(0, 250, 0))
+                                       .addField("Discord User: " + targetUser.getName(),
+                                               "Bot account: " + BooleanUtils.parseBoolean(targetUser.isBot()) +
+                                                       "\nMention tag: " + targetUser.getAsMention() +
+                                                       "\nAvatar: " + targetUser.getAvatarUrl() +
+                                                       "\nRegister date: " + creationTime.getDayOfMonth() + "/" + creationTime.getMonthValue() + "/" + creationTime.getYear() + " " + creationTime.getHour() + ":" + creationTime.getMinute(), true);
 
         sendEmbedMessage(message, builder);
     }
@@ -94,7 +103,20 @@ public class DiscordCommand extends Command {
             return;
         }
         OffsetDateTime creationTime = targetGuild.getCreationTime();
-        EmbedBuilder builder = getEmbedBuilder().setTitle("Charrizard").setFooter("© 2017 Charrizard contributors", null).setUrl("https://github.com/ProgrammingWizzard/Charrizard/").setColor(new Color(0, 250, 0)).addField("Discord Guild: " + targetGuild.getName(), "Icon: " + targetGuild.getIconUrl() + "\nOwner:" + "\n  Name: " + targetGuild.getOwner().getUser().getName() + "\n  Mention tag: " + targetGuild.getOwner().getAsMention() + "\n  Status: " + targetGuild.getOwner().getOnlineStatus() + "\nStatistics:" + "\n  Users: " + targetGuild.getMembers().size() + "\n  Channels: " + targetGuild.getTextChannels().size() + targetGuild.getVoiceChannels().size() + "\nRegister date: " + creationTime.getDayOfMonth() + "/" + creationTime.getMonthValue() + "/" + creationTime.getYear() + " " + creationTime.getHour() + ":" + creationTime.getMinute(), true);
+        EmbedBuilder builder = getEmbedBuilder()
+                                       .setTitle("Charrizard")
+                                       .setFooter("© 2017 Charrizard contributors", null)
+                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                                       .setColor(new Color(0, 250, 0))
+                                       .addField("Discord Guild: " + targetGuild.getName(), "Icon: " + targetGuild.getIconUrl() +
+                                                                                                    "\nOwner:" +
+                                                                                                    "\n  Name: " + targetGuild.getOwner().getUser().getName() +
+                                                                                                    "\n  Mention tag: " + targetGuild.getOwner().getAsMention() +
+                                                                                                    "\n  Status: " + targetGuild.getOwner().getOnlineStatus() +
+                                                                                                    "\nStatistics:" +
+                                                                                                    "\n  Users: " + targetGuild.getMembers().size() +
+                                                                                                    "\n  Channels: " + targetGuild.getTextChannels().size() + targetGuild.getVoiceChannels().size() +
+                                                                                                    "\nRegister date: " + creationTime.getDayOfMonth() + "/" + creationTime.getMonthValue() + "/" + creationTime.getYear() + " " + creationTime.getHour() + ":" + creationTime.getMinute(), true);
         sendEmbedMessage(message, builder);
     }
 

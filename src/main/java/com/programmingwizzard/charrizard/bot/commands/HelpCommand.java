@@ -32,7 +32,12 @@ public class HelpCommand extends Command {
             list.append("!").append(command.getPrefix()).append(", ");
         }
         String s = list.toString();
-        EmbedBuilder builder = getEmbedBuilder().setTitle("Charrizard").setFooter("© 2017 Charrizard contributors", null).setUrl("https://github.com/ProgrammingWizzard/Charrizard/").setColor(new Color(0, 250, 0)).addField("Commands", s.substring(0, s.length() - 2), true);
+        EmbedBuilder builder = getEmbedBuilder()
+                                       .setTitle("Charrizard")
+                                       .setFooter("© 2017 Charrizard contributors", null)
+                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                                       .setColor(new Color(0, 250, 0))
+                                       .addField("Commands", s.substring(0, s.length() - 2), true);
         sendEmbedMessage(message, builder);
     }
 }

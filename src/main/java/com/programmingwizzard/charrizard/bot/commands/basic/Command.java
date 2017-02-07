@@ -30,7 +30,12 @@ public abstract class Command {
         if (usage == null || usage.isEmpty()) {
             return;
         }
-        EmbedBuilder builder = getEmbedBuilder().setTitle("Charrizard").setFooter("© 2017 Charrizard contributors", null).setUrl("https://github.com/ProgrammingWizzard/Charrizard/").setColor(new Color(255, 0, 0)).addField("Correct usage", usage, true);
+        EmbedBuilder builder = getEmbedBuilder()
+                                       .setTitle("Charrizard")
+                                       .setFooter("© 2017 Charrizard contributors", null)
+                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                                       .setColor(new Color(255, 0, 0))
+                                       .addField("Correct usage", usage, true);
         message.getChannel().sendMessage(getMessageBuilder().setEmbed(builder.build()).build()).queue();
     }
 
@@ -39,7 +44,12 @@ public abstract class Command {
         if (error == null || error.isEmpty()) {
             return;
         }
-        EmbedBuilder builder = getEmbedBuilder().setTitle("Charrizard").setFooter("© 2017 Charrizard contributors", null).setUrl("https://github.com/ProgrammingWizzard/Charrizard/").setColor(new Color(255, 0, 0)).addField("Error", error, true);
+        EmbedBuilder builder = getEmbedBuilder()
+                                       .setTitle("Charrizard")
+                                       .setFooter("© 2017 Charrizard contributors", null)
+                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                                       .setColor(new Color(255, 0, 0))
+                                       .addField("Error", error, true);
         message.getChannel().sendMessage(getMessageBuilder().setEmbed(builder.build()).build()).queue();
     }
 

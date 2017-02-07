@@ -29,7 +29,17 @@ public class StatisticsCommand extends Command {
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
-        EmbedBuilder builder = getEmbedBuilder().setTitle("Charrizard").setFooter("© 2017 Charrizard contributors", null).setUrl("https://github.com/ProgrammingWizzard/Charrizard/").setColor(new Color(0, 250, 0)).addField("Statistics", "Servers: " + charrizard.getDiscordAPI().getGuilds().size() + "\nClients: " + charrizard.getDiscordAPI().getUsers().size() + "\nMemory:" + "\n  Free: " + numberFormat.format(runtime.freeMemory() / 1024) + " KB" + "\n  Allocated: " + numberFormat.format(runtime.totalMemory() / 1024) + " KB" + "\n  Max: " + numberFormat.format(runtime.maxMemory() / 1024) + " KB", true);
+        EmbedBuilder builder = getEmbedBuilder()
+                                       .setTitle("Charrizard")
+                                       .setFooter("© 2017 Charrizard contributors", null)
+                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                                       .setColor(new Color(0, 250, 0))
+                                       .addField("Statistics", "Servers: " + charrizard.getDiscordAPI().getGuilds().size() +
+                                                                       "\nClients: " + charrizard.getDiscordAPI().getUsers().size() +
+                                                                       "\nMemory:" +
+                                                                       "\n  Free: " + numberFormat.format(runtime.freeMemory() / 1024) + " KB" +
+                                                                       "\n  Allocated: " + numberFormat.format(runtime.totalMemory() / 1024) + " KB" +
+                                                                       "\n  Max: " + numberFormat.format(runtime.maxMemory() / 1024) + " KB", true);
         sendEmbedMessage(message, builder);
     }
 }

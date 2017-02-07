@@ -27,6 +27,20 @@ public class GithubResponses extends ResponsesGroup {
         this.getAPI();
     }
 
+    public JsonObject getAPI()
+    {
+        JsonObject object = jsonObjectCache.getIfPresent("api");
+        if (object == null) {
+            SingleResponse response = new SingleResponse(this, API);
+            response.call(callback -> jsonObjectCache.put("api", callback));
+            object = jsonObjectCache.getIfPresent("api");
+            if (object == null) {
+                return null;
+            }
+        }
+        return object;
+    }
+
     public JsonObject getUser(String nickname)
     {
         if (nickname == null || nickname.isEmpty()) {
@@ -46,20 +60,6 @@ public class GithubResponses extends ResponsesGroup {
             SingleResponse response = new SingleResponse(this, userUrl);
             response.call(callback -> jsonObjectCache.put("user_" + nickname, callback));
             object = jsonObjectCache.getIfPresent("user_" + nickname);
-            if (object == null) {
-                return null;
-            }
-        }
-        return object;
-    }
-
-    public JsonObject getAPI()
-    {
-        JsonObject object = jsonObjectCache.getIfPresent("api");
-        if (object == null) {
-            SingleResponse response = new SingleResponse(this, API);
-            response.call(callback -> jsonObjectCache.put("api", callback));
-            object = jsonObjectCache.getIfPresent("api");
             if (object == null) {
                 return null;
             }

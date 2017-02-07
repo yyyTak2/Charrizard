@@ -65,12 +65,24 @@ public class MinecraftCommand extends Command {
                 for (String player : response.getPlayersList()) {
                     list.append(", ").append(player);
                 }
-                info = "**Online:** YES\n" + String.format("**Latency:** %.2fms\n", response.getLatency()) + String.format("**Version:** %s (Protocol #%d)\n", response.getVersion(), response.getProtocol()) + String.format("**Players (%d/%d):** %s\n", response.getOnlinePlayers(), response.getMaxPlayers(), list.substring(2)) + String.format("**Description:**\n %s\n", response.getDescription()) + "**Favicon:**";
+                info =
+                        "**Online:** YES\n" +
+                                String.format("**Latency:** %.2fms\n", response.getLatency()) +
+                                String.format("**Version:** %s (Protocol #%d)\n", response.getVersion(), response.getProtocol()) +
+                                String.format("**Players (%d/%d):** %s\n", response.getOnlinePlayers(), response.getMaxPlayers(), list.substring(2)) +
+                                String.format("**Description:**\n %s\n", response.getDescription()) +
+                                "**Favicon:**";
             } else {
                 info = "**Online:** NO\n**Favicon:**";
             }
 
-            EmbedBuilder builder = getEmbedBuilder().setTitle("Charrizard").setFooter("© 2017 Charrizard contributors", null).setUrl("https://github.com/ProgrammingWizzard/Charrizard/").setColor(new Color(0, 250, 0)).setImage("https://api.skript.pl/server/" + response.getAddress() + "/icon.png").addField("Minecraft Status: " + server, info, true);
+            EmbedBuilder builder = getEmbedBuilder()
+                                           .setTitle("Charrizard")
+                                           .setFooter("© 2017 Charrizard contributors", null)
+                                           .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                                           .setColor(new Color(0, 250, 0))
+                                           .setImage("https://api.skript.pl/server/" + response.getAddress() + "/icon.png")
+                                           .addField("Minecraft Status: " + server, info, true);
             sendEmbedMessage(message, builder);
         });
     }

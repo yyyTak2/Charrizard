@@ -6,9 +6,12 @@ package com.programmingwizzard.charrizard.utils;
  */
 public class CharCodes {
 
-    public static final int SMALL_A = 'a', SMALL_Z = 'z', REGIONAL_INDICATOR_A = 127462; //https://unicode-table.com/en/1F1E6/
-
     private CharCodes() {
     }
+
+    public static final int
+            SMALL_A = 'a',
+            SMALL_Z = 'z',
+            REGIONAL_INDICATOR_A = 127462; //https://unicode-table.com/en/1F1E6/
 
 }

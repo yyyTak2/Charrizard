@@ -25,7 +25,8 @@ public class SingleResponse {
         if (callback == null) {
             return;
         }
-        responsesGroup.getExecutor().execute(() -> {
+        responsesGroup.getExecutor().execute(() ->
+        {
             try {
                 JsonObject object = GsonUtils.fromStringToJsonObject(URLUtils.readUrl(url));
                 callback.call(object);
