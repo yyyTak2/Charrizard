@@ -50,7 +50,6 @@ public class Charrizard {
         commandCaller.getCommands().add(new AuthorCommand());
         commandCaller.getCommands().add(new BigTextCommand());
         commandCaller.getCommands().add(new InviteCommand());
-        commandCaller.getCommands().add(new GithubCommand());
         commandCaller.getCommands().add(new MinecraftCommand());
         commandCaller.getCommands().add(new CleverbotCommand());
         commandCaller.getCommands().add(new HelpCommand(this));

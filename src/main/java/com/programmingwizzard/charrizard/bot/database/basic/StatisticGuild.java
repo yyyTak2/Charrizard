@@ -20,6 +20,9 @@ public class StatisticGuild implements RedisData {
 
     @Override
     public void save(Jedis jedis) {
+        for (Map.Entry<String, Integer> channelEntry : channelMap.entrySet()) {
+            jedis.set("channel_" + guildId + "_" + channelEntry.getKey(), String.valueOf(channelEntry.getValue()));
+        }
     }
 
     public String getGuildId() {
