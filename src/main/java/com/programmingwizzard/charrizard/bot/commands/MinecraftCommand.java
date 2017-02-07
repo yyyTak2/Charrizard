@@ -69,7 +69,7 @@ public class MinecraftCommand extends Command {
                 }
                 info =
                     "**Online:** YES\n" +
-                    String.format("**Latency:** %.2fms\n", response.getLatency()) +
+                    String.format("**Latency:** %d ms\n", (int) response.getLatency()) +
                     String.format("**Version:** %s (Protocol #%d)\n", response.getVersion(), response.getProtocol()) +
                     String.format("**Players:** %d/%d%s\n", response.getOnlinePlayers(), response.getMaxPlayers(), list) +
                     String.format("**Description:**\n %s\n", response.getDescription()) +

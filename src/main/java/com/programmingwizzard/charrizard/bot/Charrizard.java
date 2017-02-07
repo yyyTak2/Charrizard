@@ -50,10 +50,11 @@ public class Charrizard {
                                   .setAudioEnabled(false)
                                   .setBulkDeleteSplittingEnabled(false)
                                   .buildBlocking();
-        redisConnection.start();
-        statisticsSaveThread.start();
         initListeners();
         initCommands();
+
+        redisConnection.start();
+        statisticsSaveThread.start();
     }
 
     private void initCommands() {
@@ -62,6 +63,7 @@ public class Charrizard {
         commandCaller.getCommands().add(new InviteCommand());
         commandCaller.getCommands().add(new MinecraftCommand());
         commandCaller.getCommands().add(new CleverbotCommand());
+        commandCaller.getCommands().add(new PingCommand());
         commandCaller.getCommands().add(new HelpCommand(this));
         commandCaller.getCommands().add(new DiscordCommand(this));
         commandCaller.getCommands().add(new StatisticsCommand(this));
