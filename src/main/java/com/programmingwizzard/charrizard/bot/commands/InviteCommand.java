@@ -11,8 +11,7 @@ import java.awt.*;
  * @author ProgrammingWizzard
  * @date 04.02.2017
  */
-public class InviteCommand extends Command
-{
+public class InviteCommand extends Command {
     public InviteCommand()
     {
         super("invite");
@@ -21,12 +20,7 @@ public class InviteCommand extends Command
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
-        EmbedBuilder builder = getEmbedBuilder()
-                                       .setTitle("Charrizard")
-                                       .setFooter("© 2017 Charrizard contributors", null)
-                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
-                                       .setColor(new Color(0, 250, 0))
-                                       .addField("Invite URL", "https://discordapp.com/oauth2/authorize?&client_id=277567355360509962&scope=bot&permissions=8", true);
+        EmbedBuilder builder = getEmbedBuilder().setTitle("Charrizard").setFooter("© 2017 Charrizard contributors", null).setUrl("https://github.com/ProgrammingWizzard/Charrizard/").setColor(new Color(0, 250, 0)).addField("Invite URL", "https://discordapp.com/oauth2/authorize?&client_id=277567355360509962&scope=bot&permissions=8", true);
         sendEmbedMessage(message, builder);
     }
 }

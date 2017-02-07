@@ -37,8 +37,7 @@ public class SkriptServerResponse {
 
             playersList = new ArrayList<>();
             JsonArray playersListJson = playersJson.getAsJsonArray("list");
-            for (JsonElement player : playersListJson)
-            {
+            for (JsonElement player : playersListJson) {
                 playersList.add(player.getAsString());
             }
 

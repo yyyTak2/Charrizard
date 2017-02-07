@@ -14,8 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @author Libter
  * @date 07.02.2017
  */
-public class SkriptServerResponses extends ResponsesGroup
-{
+public class SkriptServerResponses extends ResponsesGroup {
     private static String URL = "https://api.skript.pl/server/%s/";
 
     private final Executor executor;
@@ -46,8 +45,7 @@ public class SkriptServerResponses extends ResponsesGroup
     @Override
     public Executor getExecutor()
     {
-        synchronized (executor)
-        {
+        synchronized (executor) {
             return executor;
         }
     }

@@ -8,8 +8,7 @@ import java.util.List;
  * @author ProgrammingWizzard
  * @date 06.02.2017
  */
-public class CMessage
-{
+public class CMessage {
     private final Message message;
 
     public CMessage(Message message)

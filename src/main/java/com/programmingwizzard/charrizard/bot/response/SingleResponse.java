@@ -10,8 +10,7 @@ import java.io.IOException;
  * @author ProgrammingWizzard
  * @date 05.02.2017
  */
-public class SingleResponse
-{
+public class SingleResponse {
     private final ResponsesGroup responsesGroup;
     private final String url;
 
@@ -23,18 +22,14 @@ public class SingleResponse
 
     public void call(Callback<JsonObject> callback)
     {
-        if (callback == null)
-        {
+        if (callback == null) {
             return;
         }
-        responsesGroup.getExecutor().execute(() ->
-        {
-            try
-            {
+        responsesGroup.getExecutor().execute(() -> {
+            try {
                 JsonObject object = GsonUtils.fromStringToJsonObject(URLUtils.readUrl(url));
                 callback.call(object);
-            } catch (IOException ex)
-            {
+            } catch (IOException ex) {
                 callback.call(null);
                 ex.printStackTrace();
             }

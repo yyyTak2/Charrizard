@@ -15,8 +15,7 @@ import java.util.Locale;
  * @author ProgrammingWizzard
  * @date 06.02.2017
  */
-public class CleverbotCommand extends Command
-{
+public class CleverbotCommand extends Command {
     private final ChatterBotFactory factory;
     private ChatterBot bot;
     private ChatterBotSession session;
@@ -31,38 +30,30 @@ public class CleverbotCommand extends Command
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
         TextChannel channel = message.getChannel();
-        if (args.length == 0 || args.length == 1)
-        {
+        if (args.length == 0 || args.length == 1) {
             sendUsage(message, "!clever <text>");
             return;
         }
-        if (args[1] == null || args[1].isEmpty())
-        {
+        if (args[1] == null || args[1].isEmpty()) {
             sendUsage(message, "!clever <text>");
             return;
         }
-        if (bot == null)
-        {
-            try
-            {
+        if (bot == null) {
+            try {
                 bot = factory.create(ChatterBotType.CLEVERBOT);
-            } catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 sendError(message, "The problem during query execution! See the console!");
                 ex.printStackTrace();
                 return;
             }
         }
-        if (session == null)
-        {
+        if (session == null) {
             session = bot.createSession(Locale.ENGLISH);
         }
-        try
-        {
+        try {
             String s = session.think(args[1]);
             channel.sendMessage(message.getAuthor().getAsMention() + " - " + s).queue();
-        } catch (Exception ex)
-        {
+        } catch (Exception ex) {
             sendError(message, "The problem during query execution! See the console!");
             ex.printStackTrace();
         }

@@ -12,8 +12,7 @@ import java.util.Set;
  * @author ProgrammingWizzard
  * @date 04.02.2017
  */
-public class CommandCaller
-{
+public class CommandCaller {
     private final Charrizard charrizard;
     private final Set<Command> commands = new HashSet<>();
 
@@ -25,22 +24,18 @@ public class CommandCaller
     @Subscribe
     public void onTextMessage(MessageReceivedEvent event)
     {
-        if (!event.getMessage().getContent().startsWith("!"))
-        {
+        if (!event.getMessage().getContent().startsWith("!")) {
             return;
         }
         String[] args = event.getMessage().getContent().split(" ");
         args[0] = args[0].substring(1);
         Command command = commands.stream().filter(c -> c.getPrefix().equals(args[0])).findFirst().orElse(null);
-        if (command == null)
-        {
+        if (command == null) {
             return;
         }
-        try
-        {
+        try {
             command.handle(new CMessage(event.getMessage()), args);
-        } catch (RateLimitedException ex)
-        {
+        } catch (RateLimitedException ex) {
             ex.printStackTrace();
             event.getTextChannel().sendMessage("Response error! Please, look at the console!").queue();
         }

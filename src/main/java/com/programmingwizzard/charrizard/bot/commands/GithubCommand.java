@@ -13,8 +13,7 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
  * @author ProgrammingWizzard
  * @date 05.02.2017
  */
-public class GithubCommand extends Command
-{
+public class GithubCommand extends Command {
     private final GithubResponses githubResponses;
 
     public GithubCommand()
@@ -46,20 +45,17 @@ public class GithubCommand extends Command
 
     private void checkUser(User client, TextChannel channel, String[] args)
     {
-        if (args.length != 3)
-        {
+        if (args.length != 3) {
             channel.sendMessage("**Correct usage**: !github user <nickname>").queue();
             return;
         }
         String nickname = args[2];
-        if (nickname == null || nickname.isEmpty())
-        {
+        if (nickname == null || nickname.isEmpty()) {
             channel.sendMessage("**Correct usage**: !github user <nickname>").queue();
             return;
         }
         JsonObject object = githubResponses.getUser(nickname);
-        if (object == null)
-        {
+        if (object == null) {
             channel.sendMessage("This user does not exist!").queue();
             return;
         }

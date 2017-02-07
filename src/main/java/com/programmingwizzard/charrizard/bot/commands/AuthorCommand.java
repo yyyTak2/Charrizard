@@ -11,8 +11,7 @@ import java.awt.*;
  * @author ProgrammingWizzard
  * @date 04.02.2017
  */
-public class AuthorCommand extends Command
-{
+public class AuthorCommand extends Command {
     public AuthorCommand()
     {
         super("author");
@@ -21,14 +20,7 @@ public class AuthorCommand extends Command
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
-        EmbedBuilder builder = getEmbedBuilder()
-                .setTitle("Charrizard")
-                .setFooter("© 2017 Charrizard contributors", null)
-                .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
-                .setColor(new Color(0, 250, 0))
-                .addField("Authors & Informations", "Charrizard version: 1.3" +
-                                                                                 "\nAuthors: https://github.com/ProgrammingWizzard/Charrizard/contributors/" +
-                                                                                 "\nOfficial Discord server: https://discord.gg/jBCzCx8", true);
+        EmbedBuilder builder = getEmbedBuilder().setTitle("Charrizard").setFooter("© 2017 Charrizard contributors", null).setUrl("https://github.com/ProgrammingWizzard/Charrizard/").setColor(new Color(0, 250, 0)).addField("Authors & Informations", "Charrizard version: 1.3" + "\nAuthors: https://github.com/ProgrammingWizzard/Charrizard/contributors/" + "\nOfficial Discord server: https://discord.gg/jBCzCx8", true);
         sendEmbedMessage(message, builder);
     }
 }

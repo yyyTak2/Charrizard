@@ -8,8 +8,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
  * @author ProgrammingWizzard
  * @date 04.02.2017
  */
-public class EventCaller extends ListenerAdapter
-{
+public class EventCaller extends ListenerAdapter {
     private final Charrizard charrizard;
 
     public EventCaller(Charrizard charrizard)

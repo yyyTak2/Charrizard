@@ -14,8 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @author ProgrammingWizzard
  * @date 05.02.2017
  */
-public class GithubResponses extends ResponsesGroup
-{
+public class GithubResponses extends ResponsesGroup {
     public static String API = "https://api.github.com";
 
     private final Executor executor;
@@ -28,47 +27,40 @@ public class GithubResponses extends ResponsesGroup
         this.getAPI();
     }
 
-    public JsonObject getAPI()
-    {
-        JsonObject object = jsonObjectCache.getIfPresent("api");
-        if (object == null)
-        {
-            SingleResponse response = new SingleResponse(this, API);
-            response.call(callback -> jsonObjectCache.put("api", callback));
-            object = jsonObjectCache.getIfPresent("api");
-            if (object == null)
-            {
-                return null;
-            }
-        }
-        return object;
-    }
-
     public JsonObject getUser(String nickname)
     {
-        if (nickname == null || nickname.isEmpty())
-        {
+        if (nickname == null || nickname.isEmpty()) {
             return null;
         }
         JsonObject object = jsonObjectCache.getIfPresent("user_" + nickname);
-        if (object == null)
-        {
+        if (object == null) {
             JsonObject api = this.getAPI();
-            if (api == null)
-            {
+            if (api == null) {
                 return null;
             }
             String userUrl = api.getAsJsonPrimitive("user_url").getAsString();
-            if (userUrl == null)
-            {
+            if (userUrl == null) {
                 return null;
             }
             userUrl = userUrl.replaceAll("\\{user\\}", nickname);
             SingleResponse response = new SingleResponse(this, userUrl);
             response.call(callback -> jsonObjectCache.put("user_" + nickname, callback));
             object = jsonObjectCache.getIfPresent("user_" + nickname);
-            if (object == null)
-            {
+            if (object == null) {
+                return null;
+            }
+        }
+        return object;
+    }
+
+    public JsonObject getAPI()
+    {
+        JsonObject object = jsonObjectCache.getIfPresent("api");
+        if (object == null) {
+            SingleResponse response = new SingleResponse(this, API);
+            response.call(callback -> jsonObjectCache.put("api", callback));
+            object = jsonObjectCache.getIfPresent("api");
+            if (object == null) {
                 return null;
             }
         }
@@ -78,8 +70,7 @@ public class GithubResponses extends ResponsesGroup
     @Override
     public Executor getExecutor()
     {
-        synchronized (executor)
-        {
+        synchronized (executor) {
             return executor;
         }
     }

@@ -8,8 +8,7 @@ import redis.clients.jedis.JedisPool;
  * @author ProgrammingWizzard
  * @date 06.02.2017
  */
-public class RedisConnection
-{
+public class RedisConnection {
     private final JedisPool jedisPool;
 
     public RedisConnection(Settings settings)
@@ -19,8 +18,7 @@ public class RedisConnection
 
     public void start()
     {
-        if (!getJedis().isConnected())
-        {
+        if (!getJedis().isConnected()) {
             getJedis().connect();
         }
         getJedis().ping();

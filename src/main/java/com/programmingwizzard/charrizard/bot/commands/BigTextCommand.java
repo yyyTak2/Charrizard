@@ -10,8 +10,7 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
  * @author Libter
  * @date 06.02.2017
  */
-public class BigTextCommand extends Command
-{
+public class BigTextCommand extends Command {
     public BigTextCommand()
     {
         super("bigtext");
@@ -21,21 +20,17 @@ public class BigTextCommand extends Command
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
         TextChannel channel = message.getChannel();
-        if (args.length < 3)
-        {
+        if (args.length < 3) {
             sendUsage(message, "!bigtext <print|raw|react> <text>");
             return;
         }
 
         StringBuilder result = new StringBuilder();
         String action = args[1];
-        switch (action.toLowerCase())
-        {
+        switch (action.toLowerCase()) {
             case "print":
-                for (int i = 2; i < args.length; i++)
-                {
-                    for (char c : args[i].toLowerCase().toCharArray())
-                    {
+                for (int i = 2; i < args.length; i++) {
+                    for (char c : args[i].toLowerCase().toCharArray()) {
                         result.append(toRegionalIndicator(c)).append(" ");
                     }
                     result.append("   ");
@@ -44,12 +39,9 @@ public class BigTextCommand extends Command
                 break;
             case "raw":
                 result.append("```");
-                for (int i = 2; i < args.length; i++)
-                {
-                    for (char c : args[i].toLowerCase().toCharArray())
-                    {
-                        if (!toRegionalIndicator(c).isEmpty())
-                        {
+                for (int i = 2; i < args.length; i++) {
+                    for (char c : args[i].toLowerCase().toCharArray()) {
+                        if (!toRegionalIndicator(c).isEmpty()) {
                             result.append(":regional_indicator_").append(c).append(": ");
                         }
                     }
@@ -59,13 +51,10 @@ public class BigTextCommand extends Command
                 channel.sendMessage(result.toString()).queue();
                 break;
             case "react":
-                for (int i = 2; i < args.length; i++)
-                {
-                    for (char c : args[i].toLowerCase().toCharArray())
-                    {
+                for (int i = 2; i < args.length; i++) {
+                    for (char c : args[i].toLowerCase().toCharArray()) {
                         String reaction = toRegionalIndicator(c);
-                        if (!reaction.isEmpty())
-                        {
+                        if (!reaction.isEmpty()) {
                             message.getOrigin().addReaction(reaction).queue();
                         }
                     }
@@ -78,13 +67,10 @@ public class BigTextCommand extends Command
 
     private String toRegionalIndicator(char c)
     {
-        if (c >= CharCodes.SMALL_A && c <= CharCodes.SMALL_Z)
-        {
+        if (c >= CharCodes.SMALL_A && c <= CharCodes.SMALL_Z) {
             c -= CharCodes.SMALL_A;
             return String.valueOf(Character.toChars(CharCodes.REGIONAL_INDICATOR_A + c));
-        }
-        else
-        {
+        } else {
             return "";
         }
     }
