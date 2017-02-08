@@ -40,7 +40,7 @@ public class CatCommand extends Command {
                                            .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
                                            .setColor(new Color(0, 250, 0))
                                            .addField("Random cat", "powered by kiciusie.pl", true)
-                                           .setUrl(url);
+                                           .setImage(url);
             sendEmbedMessage(message, builder);
         });
     }
