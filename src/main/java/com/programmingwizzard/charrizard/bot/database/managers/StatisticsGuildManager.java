@@ -31,7 +31,7 @@ public class StatisticsGuildManager {
         String id = guild.getId();
         StatisticGuild statisticGuild = new StatisticGuild(id, redisConnection);
         for (TextChannel channel : guild.getTextChannels()) {
-            String number = redisConnection.getJedis().get("channel_" + id + "_" + channel.getId());
+            String number = redisConnection.get("channel_" + id + "_" + channel.getId());
             if (number == null) {
                 continue;
             }

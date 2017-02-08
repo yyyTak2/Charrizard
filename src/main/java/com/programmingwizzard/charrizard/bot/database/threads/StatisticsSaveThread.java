@@ -1,5 +1,6 @@
 package com.programmingwizzard.charrizard.bot.database.threads;
 
+import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import com.programmingwizzard.charrizard.bot.database.managers.StatisticsGuildManager;
 
 /*
@@ -17,7 +18,8 @@ public class StatisticsSaveThread extends Thread {
     @Override
     public void run() {
         while (!isInterrupted()) {
-            statisticsGuildManager.getStatisticGuilds().forEach(g -> g.save(statisticsGuildManager.getRedisConnection().getJedis()));
+            RedisConnection r = statisticsGuildManager.getRedisConnection();
+            statisticsGuildManager.getStatisticGuilds().forEach(r::saveData);
             try {
                 sleep(1000 * 60);
             } catch (InterruptedException ignored) {
