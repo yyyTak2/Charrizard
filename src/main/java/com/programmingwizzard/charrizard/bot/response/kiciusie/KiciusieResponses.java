@@ -37,8 +37,6 @@ public class KiciusieResponses extends ResponsesGroup {
 
     @Override
     public Executor getExecutor() {
-        synchronized (executor) {
-            return executor;
-        }
+        return executor;
     }
 }

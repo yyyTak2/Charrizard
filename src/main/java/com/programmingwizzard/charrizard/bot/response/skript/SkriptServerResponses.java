@@ -42,8 +42,6 @@ public class SkriptServerResponses extends ResponsesGroup {
 
     @Override
     public Executor getExecutor() {
-        synchronized (executor) {
-            return executor;
-        }
+        return executor;
     }
 }
