@@ -56,7 +56,6 @@ public class Charrizard {
         initListeners();
         initCommands();
 
-        redisConnection.start();
         statisticsSaveThread.start();
     }
 

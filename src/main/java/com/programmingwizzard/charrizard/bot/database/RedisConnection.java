@@ -3,31 +3,41 @@ package com.programmingwizzard.charrizard.bot.database;
 import com.programmingwizzard.charrizard.bot.Settings;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-
-import java.util.concurrent.atomic.AtomicReference;
+import redis.clients.jedis.JedisPoolConfig;
 
 /*
  * @author ProgrammingWizzard
  * @date 06.02.2017
  */
 public class RedisConnection {
+
     private final JedisPool jedisPool;
-    private final AtomicReference<Jedis> jedisReference = new AtomicReference<>();
 
     public RedisConnection(Settings settings) {
+        JedisPoolConfig config = new JedisPoolConfig();
+        config.setMaxTotal(4);
+        config.setTestOnBorrow(true);
+
         jedisPool = new JedisPool(settings.getRedis().getIp(), settings.getRedis().getPort());
     }
 
-    public void start() {
-        getJedis().ping();
+    public String get(String key) {
+        try (Jedis j = jedisPool.getResource()) {
+            return j.get(key);
+        }
     }
 
-    public Jedis getJedis() {
-        Jedis jedis = jedisReference.get();
-        if (jedis == null || !jedis.isConnected()) {
-            jedis = jedisPool.getResource();
-            jedisReference.set(jedis);
+    public String set(String key, String value) {
+        try (Jedis j = jedisPool.getResource()) {
+            return j.set(key, value);
         }
-        return jedis;
+    }
+
+    public void saveData(RedisData redisData) {
+        try (Jedis j = jedisPool.getResource()) {
+            redisData.save(j);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
     }
 }

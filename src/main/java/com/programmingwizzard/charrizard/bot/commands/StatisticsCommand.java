@@ -132,7 +132,9 @@ public class StatisticsCommand extends Command {
         for (TextChannel channel : targetGuild.getTextChannels()) {
             statisticGuild.putChannel(channel, 0);
         }
-        statisticGuild.save(charrizard.getRedisConnection().getJedis());
+
+        charrizard.getRedisConnection().saveData(statisticGuild);
+
         EmbedBuilder builder = getEmbedBuilder()
                                        .setTitle("Charrizard")
                                        .setFooter("© 2017 Charrizard contributors", null)

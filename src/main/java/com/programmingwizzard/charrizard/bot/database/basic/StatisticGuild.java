@@ -42,7 +42,8 @@ public class StatisticGuild implements RedisData {
         if (user == null) {
             return;
         }
-        String string = redisConnection.getJedis().get("like_" + guildId + "_" + user.getId());
+
+        String string = redisConnection.get("like_" + guildId + "_" + user.getId());
         int likes;
         if (string == null) {
             likes = 0;
