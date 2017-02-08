@@ -5,7 +5,7 @@
     <name>Charrizard</name>
     <groupId>com.programmingwizzard</groupId>
     <artifactId>charrizard</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.1</version>
 
     <repositories>
         <repository>
