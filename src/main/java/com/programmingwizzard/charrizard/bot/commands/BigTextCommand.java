@@ -6,19 +6,21 @@ import com.programmingwizzard.charrizard.utils.CharCodes;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /*
  * @author Libter
  * @date 06.02.2017
  */
 public class BigTextCommand extends Command {
-    public BigTextCommand()
-    {
+
+    public BigTextCommand() {
         super("bigtext");
     }
 
     @Override
-    public void handle(CMessage message, String[] args) throws RateLimitedException
-    {
+    public void handle(CMessage message, String[] args) throws RateLimitedException {
         TextChannel channel = message.getChannel();
         if (args.length < 3) {
             sendUsage(message, "!bigtext <print|raw|react> <text>");
@@ -51,13 +53,17 @@ public class BigTextCommand extends Command {
                 channel.sendMessage(result.toString()).queue();
                 break;
             case "react":
+                Set<String> reactions = new LinkedHashSet<>();
                 for (int i = 2; i < args.length; i++) {
                     for (char c : args[i].toLowerCase().toCharArray()) {
                         String reaction = toRegionalIndicator(c);
                         if (!reaction.isEmpty()) {
-                            message.getOrigin().addReaction(reaction).queue();
+                            reactions.add(reaction);
                         }
                     }
+                }
+                for (String reaction : reactions) {
+                    message.getOrigin().addReaction(reaction).queue();
                 }
                 break;
             default:
@@ -65,8 +71,7 @@ public class BigTextCommand extends Command {
         }
     }
 
-    private String toRegionalIndicator(char c)
-    {
+    private String toRegionalIndicator(char c) {
         if (c >= CharCodes.SMALL_A && c <= CharCodes.SMALL_Z) {
             c -= CharCodes.SMALL_A;
             return String.valueOf(Character.toChars(CharCodes.REGIONAL_INDICATOR_A + c));
