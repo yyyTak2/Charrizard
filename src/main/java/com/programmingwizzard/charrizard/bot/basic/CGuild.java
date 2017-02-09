@@ -12,6 +12,7 @@ import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import redis.clients.jedis.Jedis;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.SynchronousQueue;
@@ -155,6 +156,14 @@ public class CGuild implements RedisData {
             return null;
         }
         return voiceChannelCache.getIfPresent(channel.getId());
+    }
+
+    public Collection<CTextChannel> getTextChannels() {
+        return textChannelCache.asMap().values();
+    }
+
+    public Collection<CVoiceChannel> getVoiceChannels() {
+        return voiceChannelCache.asMap().values();
     }
 
 }

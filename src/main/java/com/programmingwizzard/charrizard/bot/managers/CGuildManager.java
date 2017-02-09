@@ -8,6 +8,7 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 
+import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
 /*
@@ -46,6 +47,10 @@ public class CGuildManager {
             return null;
         }
         return guildCache.getIfPresent(guild.getId());
+    }
+
+    public Collection<CGuild> getGuilds() {
+        return guildCache.asMap().values();
     }
 
 }
