@@ -4,11 +4,7 @@ import com.google.common.eventbus.EventBus;
 import com.programmingwizzard.charrizard.bot.commands.*;
 import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
 import com.programmingwizzard.charrizard.bot.database.RedisConnection;
-import com.programmingwizzard.charrizard.bot.database.managers.StatisticsGuildManager;
-import com.programmingwizzard.charrizard.bot.database.threads.StatisticsSaveThread;
 import com.programmingwizzard.charrizard.bot.events.EventCaller;
-import com.programmingwizzard.charrizard.bot.listeners.ReputationListener;
-import com.programmingwizzard.charrizard.bot.listeners.StatisticsListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -27,10 +23,6 @@ public class Charrizard {
     private final Settings settings;
     private final CommandCaller commandCaller;
     private final RedisConnection redisConnection;
-    private final StatisticsGuildManager statisticsGuildManager;
-    private final StatisticsSaveThread statisticsSaveThread;
-    private final StatisticsListener statisticsListener;
-    private final ReputationListener likeListener;
     private JDA discordAPI;
 
     public Charrizard(Settings settings) {
@@ -38,10 +30,6 @@ public class Charrizard {
         this.eventBus = new EventBus();
         this.commandCaller = new CommandCaller(this);
         this.redisConnection = new RedisConnection(settings);
-        this.statisticsGuildManager = new StatisticsGuildManager(redisConnection);
-        this.statisticsSaveThread = new StatisticsSaveThread(statisticsGuildManager);
-        this.statisticsListener = new StatisticsListener(this);
-        this.likeListener = new ReputationListener(this);
     }
 
     public void start() throws RateLimitedException, InterruptedException, LoginException {
@@ -53,10 +41,7 @@ public class Charrizard {
                                   .setAudioEnabled(false)
                                   .setBulkDeleteSplittingEnabled(false)
                                   .buildBlocking();
-        initListeners();
         initCommands();
-
-        statisticsSaveThread.start();
     }
 
     private void initCommands() {
@@ -70,13 +55,7 @@ public class Charrizard {
         commandCaller.getCommands().add(new HelpCommand(this));
         commandCaller.getCommands().add(new DiscordCommand(this));
         commandCaller.getCommands().add(new StatisticsCommand(this));
-        commandCaller.getCommands().add(new ReputationCommand(this));
         this.eventBus.register(commandCaller);
-    }
-
-    private void initListeners() {
-        this.eventBus.register(statisticsListener);
-        this.eventBus.register(likeListener);
     }
 
     public JDA getDiscordAPI() {
@@ -93,9 +72,5 @@ public class Charrizard {
 
     public RedisConnection getRedisConnection() {
         return redisConnection;
-    }
-
-    public StatisticsGuildManager getStatisticsGuildManager() {
-        return statisticsGuildManager;
     }
 }

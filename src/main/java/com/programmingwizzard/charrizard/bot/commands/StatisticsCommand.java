@@ -3,17 +3,10 @@ package com.programmingwizzard.charrizard.bot.commands;
 import com.programmingwizzard.charrizard.bot.Charrizard;
 import com.programmingwizzard.charrizard.bot.commands.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
-import com.programmingwizzard.charrizard.bot.database.basic.StatisticGuild;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Channel;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
-import java.awt.*;
 import java.text.NumberFormat;
-import java.util.Map;
 
 /*
  * @author ProgrammingWizzard
@@ -34,7 +27,7 @@ public class StatisticsCommand extends Command {
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException {
         if (args.length == 0 || args.length == 1) {
-            sendUsage(message, "!statistics <bot|guild|delete>");
+            sendUsage(message, "!statistics <bot>");
             return;
         }
         switch (args[1]) {
@@ -49,87 +42,9 @@ public class StatisticsCommand extends Command {
                        "\n  Max: " + numberFormat.format(runtime.maxMemory() / 1024) + " KB", true);
                 sendEmbedMessage(message, builder);
                 break;
-            case "guild":
-                checkGuild(message, args);
-                break;
-            case "delete":
-                deleteStatistics(message, args);
-                break;
             default:
-                sendUsage(message, "!statistics <bot|guild|delete>");
+                sendUsage(message, "!statistics <bot>");
                 break;
         }
-    }
-
-    private void checkGuild(CMessage message, String[] args) {
-        if (args.length == 2) {
-            sendUsage(message, "!statistics guild <id|this>");
-            return;
-        }
-        String guildId = args[2];
-        Guild targetGuild = null;
-        if (guildId.equals("this")) {
-            targetGuild = message.getGuild();
-        } else {
-            targetGuild = charrizard.getDiscordAPI().getGuildById(guildId);
-        }
-        if (targetGuild == null) {
-            sendError(message, "This guild does not exists!");
-            return;
-        }
-        StatisticGuild statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(targetGuild);
-        if (statisticGuild == null) {
-            charrizard.getStatisticsGuildManager().loadGuild(targetGuild);
-        }
-        statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(targetGuild);
-        StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, Integer> channelEntry : statisticGuild.getChannelEntrySet()) {
-            Channel channel = targetGuild.getTextChannelById(channelEntry.getKey());
-            if (channel == null) {
-                continue;
-            }
-            sb.append("\n  ").append(channel.getName()).append(": ").append(channelEntry.getValue());
-        }
-        String channels = sb.toString();
-        EmbedBuilder builder = getEmbedBuilder()
-           .addField(targetGuild.getName(), "Messages on channels: " + channels, true);
-        sendEmbedMessage(message, builder);
-    }
-
-    private void deleteStatistics(CMessage message, String[] args) {
-        if (args.length == 2) {
-            sendUsage(message, "!statistics delete <guild id|this>");
-            return;
-        }
-        String guildId = args[2];
-        Guild targetGuild = null;
-        if (guildId.equals("this")) {
-            targetGuild = message.getGuild();
-        } else {
-            targetGuild = charrizard.getDiscordAPI().getGuildById(guildId);
-        }
-        if (targetGuild == null) {
-            sendError(message, "This guild does not exists!");
-            return;
-        }
-        StatisticGuild statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(targetGuild);
-        if (statisticGuild == null) {
-            charrizard.getStatisticsGuildManager().loadGuild(targetGuild);
-        }
-        statisticGuild = charrizard.getStatisticsGuildManager().getStatistics(targetGuild);
-        User owner = targetGuild.getOwner().getUser();
-        if (!owner.getId().equals(message.getAuthor().getId())) {
-            sendError(message, "You are not owner of server!");
-            return;
-        }
-        for (TextChannel channel : targetGuild.getTextChannels()) {
-            statisticGuild.putChannel(channel, 0);
-        }
-
-        charrizard.getRedisConnection().saveData(statisticGuild);
-
-        EmbedBuilder builder = getEmbedBuilder()
-           .addField(targetGuild.getName(), "Statistics are correctly restarted!", true);
-        sendEmbedMessage(message, builder);
     }
 }

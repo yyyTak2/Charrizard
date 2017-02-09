@@ -12,13 +12,13 @@ import redis.clients.jedis.JedisPoolConfig;
 public class RedisConnection {
 
     private final JedisPool jedisPool;
+    private final JedisPoolConfig config;
 
     public RedisConnection(Settings settings) {
-        JedisPoolConfig config = new JedisPoolConfig();
+        this.config = new JedisPoolConfig();
         config.setMaxTotal(4);
         config.setTestOnBorrow(true);
-
-        jedisPool = new JedisPool(settings.getRedis().getIp(), settings.getRedis().getPort());
+        jedisPool = new JedisPool(config, settings.getRedis().getIp(), settings.getRedis().getPort());
     }
 
     public String get(String key) {
