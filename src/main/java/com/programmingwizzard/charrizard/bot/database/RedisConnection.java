@@ -21,6 +21,12 @@ public class RedisConnection {
         jedisPool = new JedisPool(config, settings.getRedis().getIp(), settings.getRedis().getPort());
     }
 
+    public void start() {
+        try (Jedis j = jedisPool.getResource()) {
+            j.ping();
+        }
+    }
+
     public String get(String key) {
         try (Jedis j = jedisPool.getResource()) {
             return j.get(key);

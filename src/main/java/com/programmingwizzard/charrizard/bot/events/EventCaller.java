@@ -1,6 +1,7 @@
 package com.programmingwizzard.charrizard.bot.events;
 
 import com.programmingwizzard.charrizard.bot.Charrizard;
+import net.dv8tion.jda.core.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -17,6 +18,11 @@ public class EventCaller extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+        charrizard.getEventBus().post(event);
+    }
+
+    @Override
+    public void onGuildVoiceJoin(GuildVoiceJoinEvent event) {
         charrizard.getEventBus().post(event);
     }
 }

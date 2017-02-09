@@ -5,6 +5,7 @@ import com.programmingwizzard.charrizard.bot.commands.*;
 import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
 import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import com.programmingwizzard.charrizard.bot.events.EventCaller;
+import com.programmingwizzard.charrizard.bot.listeners.VoiceListener;
 import com.programmingwizzard.charrizard.bot.managers.CGuildManager;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -41,10 +42,12 @@ public class Charrizard {
                                   .setGame(new GameImpl(settings.getGame(), settings.getGameUrl(), Game.GameType.DEFAULT))
                                   .addListener(new EventCaller(this))
                                   .setAutoReconnect(true)
-                                  .setAudioEnabled(false)
+                                  .setAudioEnabled(true)
                                   .setBulkDeleteSplittingEnabled(false)
                                   .buildBlocking();
         initCommands();
+        initListeners();
+        redisConnection.start();
     }
 
     private void initCommands() {
@@ -59,6 +62,10 @@ public class Charrizard {
         commandCaller.getCommands().add(new DiscordCommand(this));
         commandCaller.getCommands().add(new StatisticsCommand(this));
         this.eventBus.register(commandCaller);
+    }
+
+    private void initListeners() {
+        this.eventBus.register(new VoiceListener(this));
     }
 
     public JDA getDiscordAPI() {

@@ -3,6 +3,7 @@ package com.programmingwizzard.charrizard.bot.basic;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
+import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import com.programmingwizzard.charrizard.bot.database.RedisData;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -24,13 +25,15 @@ import java.util.concurrent.TimeUnit;
 public class CGuild implements RedisData {
 
     private final Guild guild;
+    private final RedisConnection redisConnection;
     private final Executor executor;
     private final Cache<String, CUser> userCache;
     private final Cache<String, CTextChannel> textChannelCache;
     private final Cache<String, CVoiceChannel> voiceChannelCache;
 
-    public CGuild(Guild guild) {
+    public CGuild(Guild guild, RedisConnection redisConnection) {
         this.guild = guild;
+        this.redisConnection = redisConnection;
         this.executor = new ThreadPoolExecutor(2, 16, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
         this.userCache = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build();
         this.textChannelCache = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build();
@@ -78,8 +81,14 @@ public class CGuild implements RedisData {
         if (getUser(user) != null) {
             return;
         }
-        // TODO: download reputation
-        CUser cUser = new CUser(user, 0);
+        String string = redisConnection.get("like_" + getGuildId() + "_" + user.getId());
+        int reputation;
+        if (string == null) {
+            reputation = 0;
+        } else {
+            reputation = Integer.parseInt(string);
+        }
+        CUser cUser = new CUser(user, reputation);
         userCache.put(user.getId(), cUser);
     }
 
@@ -90,8 +99,14 @@ public class CGuild implements RedisData {
         if (getTextChannel(channel) != null) {
             return;
         }
-        // TODO: download messages
-        CTextChannel cTextChannel = new CTextChannel(channel, 0);
+        String string = redisConnection.get("channel_" + getGuildId() + "_" + channel.getId());
+        int messages;
+        if (string == null) {
+            messages = 0;
+        } else {
+            messages = Integer.parseInt(string);
+        }
+        CTextChannel cTextChannel = new CTextChannel(channel, messages);
         textChannelCache.put(channel.getId(), cTextChannel);
     }
 
@@ -102,8 +117,14 @@ public class CGuild implements RedisData {
         if (getVoiceChannel(channel) != null) {
             return;
         }
-        // TODO: download connections
-        CVoiceChannel cVoiceChannel = new CVoiceChannel(channel, 0);
+        String string = redisConnection.get("voice_" + getGuildId() + "_" + channel.getId());
+        int connections;
+        if (string == null) {
+            connections = 0;
+        } else {
+            connections = Integer.parseInt(string);
+        }
+        CVoiceChannel cVoiceChannel = new CVoiceChannel(channel, connections);
         voiceChannelCache.put(channel.getId(), cVoiceChannel);
     }
 

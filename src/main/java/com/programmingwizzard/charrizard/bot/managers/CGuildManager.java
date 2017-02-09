@@ -5,6 +5,8 @@ import com.google.common.cache.CacheBuilder;
 import com.programmingwizzard.charrizard.bot.basic.CGuild;
 import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.entities.VoiceChannel;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,9 +31,14 @@ public class CGuildManager {
         if (getGuild(guild) != null) {
             return;
         }
-        CGuild cGuild = new CGuild(guild);
+        CGuild cGuild = new CGuild(guild, redisConnection);
+        for (TextChannel channel : guild.getTextChannels()) {
+            cGuild.createTextChannel(channel);
+        }
+        for (VoiceChannel voiceChannel : guild.getVoiceChannels()) {
+            cGuild.createVoiceChannel(voiceChannel);
+        }
         guildCache.put(guild.getId(), cGuild);
-        // TODO: load statistics of channels
     }
 
     public CGuild getGuild(Guild guild) {

@@ -11,8 +11,8 @@ import java.io.File;
  * @date 04.02.2017
  */
 public class Main {
-    public static void main(String[] args) throws Exception
-    {
+
+    public static void main(String[] args) throws Exception {
         Settings settings = GsonUtils.readConfiguration(Settings.class, new File("config.json"));
         Charrizard charrizard = new Charrizard(settings);
         charrizard.start();
