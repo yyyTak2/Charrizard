@@ -6,6 +6,7 @@ import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
 import com.programmingwizzard.charrizard.bot.database.KeepDataThread;
 import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import com.programmingwizzard.charrizard.bot.events.EventCaller;
+import com.programmingwizzard.charrizard.bot.listeners.ReputationListener;
 import com.programmingwizzard.charrizard.bot.listeners.VoiceListener;
 import com.programmingwizzard.charrizard.bot.managers.CGuildManager;
 import net.dv8tion.jda.core.AccountType;
@@ -65,11 +66,13 @@ public class Charrizard {
         commandCaller.getCommands().add(new HelpCommand(this));
         commandCaller.getCommands().add(new DiscordCommand(this));
         commandCaller.getCommands().add(new StatisticsCommand(this));
+        commandCaller.getCommands().add(new ReputationCommand(this));
         this.eventBus.register(commandCaller);
     }
 
     private void initListeners() {
         this.eventBus.register(new VoiceListener(this));
+        this.eventBus.register(new ReputationListener(this));
     }
 
     public JDA getDiscordAPI() {

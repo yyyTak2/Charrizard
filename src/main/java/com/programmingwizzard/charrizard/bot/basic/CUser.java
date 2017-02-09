@@ -16,6 +16,10 @@ public class CUser {
         this.reputation = reputation;
     }
 
+    public void reset() {
+        reputation = 0;
+    }
+
     public void addReputation() {
         reputation++;
     }
