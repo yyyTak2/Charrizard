@@ -3,7 +3,6 @@ package com.programmingwizzard.charrizard.bot.commands;
 import com.programmingwizzard.charrizard.bot.Charrizard;
 import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
-import com.programmingwizzard.charrizard.utils.BooleanUtils;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -18,17 +17,16 @@ import java.util.List;
  * @date 05.02.2017
  */
 public class DiscordCommand extends Command {
+
     private final Charrizard charrizard;
 
-    public DiscordCommand(Charrizard charrizard)
-    {
+    public DiscordCommand(Charrizard charrizard) {
         super("discord");
         this.charrizard = charrizard;
     }
 
     @Override
-    public void handle(CMessage message, String[] args) throws RateLimitedException
-    {
+    public void handle(CMessage message, String[] args) throws RateLimitedException {
         TextChannel textChannel = message.getChannel();
         if (args.length == 0 || args.length == 1) {
             sendUsage(message, "!discord <user|guild|icons>");
@@ -50,8 +48,7 @@ public class DiscordCommand extends Command {
         }
     }
 
-    private void checkUser(CMessage message, String[] args)
-    {
+    private void checkUser(CMessage message, String[] args) {
         TextChannel channel = message.getChannel();
         if (args.length != 3) {
             sendUsage(message, "!discord <user> <id|mention>");
@@ -70,17 +67,17 @@ public class DiscordCommand extends Command {
         }
         OffsetDateTime creationTime = targetUser.getCreationTime();
         EmbedBuilder builder = getEmbedBuilder()
-           .addField("Discord User: " + targetUser.getName(),
-               "Bot account: " + BooleanUtils.parseBoolean(targetUser.isBot()) +
-               "\nMention tag: " + targetUser.getAsMention() +
-               "\nAvatar: " + targetUser.getAvatarUrl() +
-               "\nRegister date: " + creationTime.getDayOfMonth() + "/" + creationTime.getMonthValue() + "/" + creationTime.getYear() + " " + creationTime.getHour() + ":" + creationTime.getMinute(), true);
-
+                                       .addField("Discord User", targetUser.getName(), true)
+                                       .addField("Mention tag", targetUser.getAsMention(), true)
+                                       .addField("Register Date", creationTime.getDayOfMonth() + "/" + creationTime.getMonthValue() + "/" + creationTime.getYear() + " " + creationTime.getHour() + ":" + creationTime.getMinute(), true);
+        String imageUrl = targetUser.getAvatarUrl();
+        if (imageUrl != null && !imageUrl.isEmpty() && !imageUrl.equals("null")) {
+            builder.setImage(imageUrl);
+        }
         sendEmbedMessage(message, builder);
     }
 
-    private void checkGuild(CMessage message, String[] args)
-    {
+    private void checkGuild(CMessage message, String[] args) {
         TextChannel channel = message.getChannel();
         if (args.length != 3) {
             sendUsage(message, "!discord guild <guild id|this>");
@@ -99,21 +96,24 @@ public class DiscordCommand extends Command {
         }
         OffsetDateTime creationTime = targetGuild.getCreationTime();
         EmbedBuilder builder = getEmbedBuilder()
-           .addField("Discord Guild: " + targetGuild.getName(),
-               "Icon: " + targetGuild.getIconUrl() +
-                "\nOwner:" +
-                "\n  Name: " + targetGuild.getOwner().getUser().getName() +
-                "\n  Mention tag: " + targetGuild.getOwner().getAsMention() +
-                "\n  Status: " + targetGuild.getOwner().getOnlineStatus() +
-                "\nStatistics:" +
-                "\n  Users: " + targetGuild.getMembers().size() +
-                "\n  Channels: " + targetGuild.getTextChannels().size() + targetGuild.getVoiceChannels().size() +
-                "\nRegister date: " + creationTime.getDayOfMonth() + "/" + creationTime.getMonthValue() + "/" + creationTime.getYear() + " " + creationTime.getHour() + ":" + creationTime.getMinute(), true);
+                                       .addField("Discord Guild", targetGuild.getName(), true)
+                                       .addField("Owner",
+                                               "Name: " + targetGuild.getOwner().getUser().getName() +
+                                                       "\nMention tag: " + targetGuild.getOwner().getUser().getAsMention() +
+                                                       "\nStatus: " + targetGuild.getOwner().getOnlineStatus(), true)
+                                       .addField("Statistics: ",
+                                               "Users: " + targetGuild.getMembers().size() +
+                                                       "\nChannels: " + targetGuild.getTextChannels().size() + targetGuild.getVoiceChannels().size(),
+                                               true)
+                                       .addField("Register date", creationTime.getDayOfMonth() + "/" + creationTime.getMonthValue() + "/" + creationTime.getYear() + " " + creationTime.getHour() + ":" + creationTime.getMinute(), false);
+        String imageUrl = targetGuild.getIconUrl();
+        if (imageUrl != null && !imageUrl.isEmpty() && !imageUrl.equals("null")) {
+            builder.setImage(imageUrl);
+        }
         sendEmbedMessage(message, builder);
     }
 
-    private void checkIcons(CMessage message, String[] args)
-    {
+    private void checkIcons(CMessage message, String[] args) {
         TextChannel channel = message.getChannel();
         if (args.length != 3) {
             sendUsage(message, "!discord icons <guild id|this>");

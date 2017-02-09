@@ -33,13 +33,12 @@ public class StatisticsCommand extends Command {
         switch (args[1]) {
             case "bot":
                 EmbedBuilder builder = getEmbedBuilder()
-                   .addField("Statistics",
-                       "Servers: " + charrizard.getDiscordAPI().getGuilds().size() +
-                       "\nClients: " + charrizard.getDiscordAPI().getUsers().size() +
-                       "\nMemory:" +
-                       "\n  Free: " + numberFormat.format(runtime.freeMemory() / 1024) + " KB" +
-                       "\n  Allocated: " + numberFormat.format(runtime.totalMemory() / 1024) + " KB" +
-                       "\n  Max: " + numberFormat.format(runtime.maxMemory() / 1024) + " KB", true);
+                                               .addField("Servers", String.valueOf(charrizard.getDiscordAPI().getGuilds().size()), true)
+                                               .addField("Clients", String.valueOf(charrizard.getDiscordAPI().getUsers().size()), true)
+                                               .addField("Memory",
+                                                       "Free: " + numberFormat.format(runtime.freeMemory() / 1024) + " KB" +
+                                                               "\nAllocated: " + numberFormat.format(runtime.totalMemory() / 1024) + " KB" +
+                                                               "\nMax: " + numberFormat.format(runtime.maxMemory() / 1024) + " KB", true);
                 sendEmbedMessage(message, builder);
                 break;
             default:

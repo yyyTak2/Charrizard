@@ -10,20 +10,17 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
  * @date 04.02.2017
  */
 public class AuthorCommand extends Command {
-    public AuthorCommand()
-    {
+
+    public AuthorCommand() {
         super("author");
     }
 
     @Override
-    public void handle(CMessage message, String[] args) throws RateLimitedException
-    {
+    public void handle(CMessage message, String[] args) throws RateLimitedException {
         EmbedBuilder builder = getEmbedBuilder()
-           .addField(
-               "Authors & Informations", "Charrizard version: 1.6.2" +
-                                                 "\nAuthors: https://github.com/CharrizardBot/Charrizard/contributors/" +
-               "\nOfficial Discord server: https://discord.gg/jBCzCx8", true
-           );
+                                       .addField("Charrizard version", "2.0-SNAPSHOT", true)
+                                       .addField("Authors", "https://github.com/CharrizardBot/Charrizard/contributors", true)
+                                       .addField("Official Discord server", "https://discord.gg/jBCzCx8", true);
         sendEmbedMessage(message, builder);
     }
 }
