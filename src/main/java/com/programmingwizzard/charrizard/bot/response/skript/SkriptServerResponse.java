@@ -24,7 +24,8 @@ public class SkriptServerResponse {
     private final String description;
     private final String favicon;
 
-    public SkriptServerResponse(JsonObject json) {
+    public SkriptServerResponse(JsonElement element) {
+        JsonObject json = element.getAsJsonObject();
         address = json.get("address").getAsString();
         online = json.get("online").getAsBoolean();
         if (online) {

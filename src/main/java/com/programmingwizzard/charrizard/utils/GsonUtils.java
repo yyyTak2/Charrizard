@@ -2,7 +2,7 @@ package com.programmingwizzard.charrizard.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -46,8 +46,8 @@ public class GsonUtils {
         writer.close();
     }
 
-    public static JsonObject fromStringToJsonObject(String json)
+    public static JsonElement fromStringToJsonObject(String json)
     {
-        return gson.fromJson(json, JsonObject.class);
+        return gson.fromJson(json, JsonElement.class);
     }
 }
