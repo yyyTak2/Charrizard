@@ -28,7 +28,7 @@ public class CatCommand extends Command {
                 sendError(message, "An error occurred while connecting with api.kiciusie.pl");
                 return;
             }
-            String url = callback.getAsJsonPrimitive("url").getAsString();
+            String url = callback.getAsJsonObject().get("url").getAsString();
             if (url == null) {
                 sendError(message, "An error occurred while connecting with api.kiciusie.pl");
                 return;

@@ -15,7 +15,7 @@ public class MojangStatusResponse {
 
     private Map<String, String> results = new LinkedHashMap<>();
 
-    public MojangStatusResponse(JsonObject json) {
+    public MojangStatusResponse(JsonElement json) {
         JsonArray array = json.getAsJsonArray();
         for (JsonElement element : array) {
             for (Map.Entry<String, JsonElement> entry : element.getAsJsonObject().entrySet()) {
