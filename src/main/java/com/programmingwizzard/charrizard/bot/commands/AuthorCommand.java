@@ -21,7 +21,7 @@ public class AuthorCommand extends Command {
         EmbedBuilder builder = getEmbedBuilder()
            .addField(
                "Authors & Informations", "Charrizard version: 1.6.2" +
-               "\nAuthors: https://github.com/ProgrammingWizzard/Charrizard/contributors/" +
+                                                 "\nAuthors: https://github.com/CharrizardBot/Charrizard/contributors/" +
                "\nOfficial Discord server: https://discord.gg/jBCzCx8", true
            );
         sendEmbedMessage(message, builder);
