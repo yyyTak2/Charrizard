@@ -1,7 +1,7 @@
 package com.programmingwizzard.charrizard.bot.commands;
 
 import com.programmingwizzard.charrizard.bot.Charrizard;
-import com.programmingwizzard.charrizard.bot.commands.basic.CMessage;
+import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import com.programmingwizzard.charrizard.utils.BooleanUtils;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -10,7 +10,6 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
-import java.awt.*;
 import java.time.OffsetDateTime;
 import java.util.List;
 

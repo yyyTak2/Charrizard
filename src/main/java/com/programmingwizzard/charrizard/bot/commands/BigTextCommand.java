@@ -1,6 +1,6 @@
 package com.programmingwizzard.charrizard.bot.commands;
 
-import com.programmingwizzard.charrizard.bot.commands.basic.CMessage;
+import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import com.programmingwizzard.charrizard.utils.CharCodes;
 import net.dv8tion.jda.core.entities.TextChannel;

@@ -1,5 +1,6 @@
 package com.programmingwizzard.charrizard.bot.commands.basic;
 
+import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;

@@ -5,6 +5,7 @@ import com.programmingwizzard.charrizard.bot.commands.*;
 import com.programmingwizzard.charrizard.bot.commands.basic.CommandCaller;
 import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import com.programmingwizzard.charrizard.bot.events.EventCaller;
+import com.programmingwizzard.charrizard.bot.managers.CGuildManager;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -23,6 +24,7 @@ public class Charrizard {
     private final Settings settings;
     private final CommandCaller commandCaller;
     private final RedisConnection redisConnection;
+    private final CGuildManager cGuildManager;
     private JDA discordAPI;
 
     public Charrizard(Settings settings) {
@@ -30,6 +32,7 @@ public class Charrizard {
         this.eventBus = new EventBus();
         this.commandCaller = new CommandCaller(this);
         this.redisConnection = new RedisConnection(settings);
+        this.cGuildManager = new CGuildManager(redisConnection);
     }
 
     public void start() throws RateLimitedException, InterruptedException, LoginException {
@@ -72,5 +75,9 @@ public class Charrizard {
 
     public RedisConnection getRedisConnection() {
         return redisConnection;
+    }
+
+    public CGuildManager getCGuildManager() {
+        return cGuildManager;
     }
 }

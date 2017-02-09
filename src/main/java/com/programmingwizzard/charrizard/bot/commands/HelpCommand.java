@@ -1,12 +1,11 @@
 package com.programmingwizzard.charrizard.bot.commands;
 
 import com.programmingwizzard.charrizard.bot.Charrizard;
-import com.programmingwizzard.charrizard.bot.commands.basic.CMessage;
+import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
-import java.awt.*;
 import java.util.Set;
 
 /*

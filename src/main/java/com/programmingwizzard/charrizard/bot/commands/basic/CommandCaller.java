@@ -2,8 +2,9 @@ package com.programmingwizzard.charrizard.bot.commands.basic;
 
 import com.google.common.eventbus.Subscribe;
 import com.programmingwizzard.charrizard.bot.Charrizard;
+import com.programmingwizzard.charrizard.bot.basic.CGuild;
+import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,12 +34,12 @@ public class CommandCaller {
         if (command == null) {
             return;
         }
-        try {
-            command.handle(new CMessage(event.getMessage()), args);
-        } catch (RateLimitedException ex) {
-            ex.printStackTrace();
-            event.getTextChannel().sendMessage("Response error! Please, look at the console!").queue();
+        CGuild cGuild = charrizard.getCGuildManager().getGuild(event.getGuild());
+        if (cGuild == null) {
+            charrizard.getCGuildManager().createGuild(event.getGuild());
+            cGuild = charrizard.getCGuildManager().getGuild(event.getGuild());
         }
+        cGuild.runCommand(command, new CMessage(event.getMessage()), args);
     }
 
     public Set<Command> getCommands()

@@ -1,4 +1,4 @@
-package com.programmingwizzard.charrizard.bot.commands.basic;
+package com.programmingwizzard.charrizard.bot.basic;
 
 import net.dv8tion.jda.core.entities.*;
 
