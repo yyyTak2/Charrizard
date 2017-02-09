@@ -90,6 +90,7 @@ public class CGuild implements RedisData {
         if (getTextChannel(channel) != null) {
             return;
         }
+        // TODO: download messages
         CTextChannel cTextChannel = new CTextChannel(channel, 0);
         textChannelCache.put(channel.getId(), cTextChannel);
     }
@@ -101,6 +102,7 @@ public class CGuild implements RedisData {
         if (getVoiceChannel(channel) != null) {
             return;
         }
+        // TODO: download connections
         CVoiceChannel cVoiceChannel = new CVoiceChannel(channel, 0);
         voiceChannelCache.put(channel.getId(), cVoiceChannel);
     }
