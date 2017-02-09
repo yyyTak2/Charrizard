@@ -29,10 +29,6 @@ public class CatCommand extends Command {
                 return;
             }
             EmbedBuilder builder = getEmbedBuilder()
-               .setTitle("Charrizard")
-               .setFooter("© 2017 Charrizard contributors", null)
-               .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
-               .setColor(new Color(0, 250, 0))
                .addField("Random cat", "powered by kiciusie.pl", true)
                .setImage(response.getImageUrl());
             sendEmbedMessage(message, builder);

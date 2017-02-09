@@ -48,10 +48,6 @@ public class MinecraftCommand extends Command {
                 info.append("**").append(entry.getKey()).append("**: ").append(entry.getValue()).append("\n");
             }
             EmbedBuilder builder = getEmbedBuilder()
-                .setTitle("Charrizard")
-                .setFooter("© 2017 Charrizard contributors", null)
-                .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
-                .setColor(new Color(0, 250, 0))
                 .setImage("https://mojang.com/assets/icons/apple-touch-icon-60x60-ee8952236b57d5ac9c40f3f0b32ca417.png")
                 .addField("Mojang Status", info.toString(), true);
             sendEmbedMessage(message, builder);
@@ -92,10 +88,6 @@ public class MinecraftCommand extends Command {
             }
 
             EmbedBuilder builder = getEmbedBuilder()
-                .setTitle("Charrizard")
-                .setFooter("© 2017 Charrizard contributors", null)
-                .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
-                .setColor(new Color(0, 250, 0))
                 .setImage("https://api.skript.pl/server/" + response.getAddress() + "/icon.png")
                 .addField("Minecraft Server: " + server, info, true);
             sendEmbedMessage(message, builder);

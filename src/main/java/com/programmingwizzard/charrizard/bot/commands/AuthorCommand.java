@@ -21,10 +21,6 @@ public class AuthorCommand extends Command {
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
         EmbedBuilder builder = getEmbedBuilder()
-           .setTitle("Charrizard")
-           .setFooter("© 2017 Charrizard contributors", null)
-           .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
-           .setColor(new Color(0, 250, 0))
            .addField(
                "Authors & Informations", "Charrizard version: 1.6.2" +
                "\nAuthors: https://github.com/ProgrammingWizzard/Charrizard/contributors/" +

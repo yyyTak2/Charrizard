@@ -70,11 +70,7 @@ public class ReputationCommand extends Command {
             likes = statisticGuild.getUser(targetUser);
         }
         EmbedBuilder builder = getEmbedBuilder()
-                                       .setTitle("Charrizard")
-                                       .setFooter("© 2017 Charrizard contributors", null)
-                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
-                                       .setColor(new Color(0, 250, 0))
-                                       .addField(targetUser.getName(), "Likes: " + likes, true);
+           .addField(targetUser.getName(), "Likes: " + likes, true);
         sendEmbedMessage(message, builder);
     }
 

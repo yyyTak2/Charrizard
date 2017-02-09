@@ -40,16 +40,13 @@ public class StatisticsCommand extends Command {
         switch (args[1]) {
             case "bot":
                 EmbedBuilder builder = getEmbedBuilder()
-                                               .setTitle("Charrizard")
-                                               .setFooter("© 2017 Charrizard contributors", null)
-                                               .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
-                                               .setColor(new Color(0, 250, 0))
-                                               .addField("Statistics", "Servers: " + charrizard.getDiscordAPI().getGuilds().size() +
-                                                                               "\nClients: " + charrizard.getDiscordAPI().getUsers().size() +
-                                                                               "\nMemory:" +
-                                                                               "\n  Free: " + numberFormat.format(runtime.freeMemory() / 1024) + " KB" +
-                                                                               "\n  Allocated: " + numberFormat.format(runtime.totalMemory() / 1024) + " KB" +
-                                                                               "\n  Max: " + numberFormat.format(runtime.maxMemory() / 1024) + " KB", true);
+                   .addField("Statistics",
+                       "Servers: " + charrizard.getDiscordAPI().getGuilds().size() +
+                       "\nClients: " + charrizard.getDiscordAPI().getUsers().size() +
+                       "\nMemory:" +
+                       "\n  Free: " + numberFormat.format(runtime.freeMemory() / 1024) + " KB" +
+                       "\n  Allocated: " + numberFormat.format(runtime.totalMemory() / 1024) + " KB" +
+                       "\n  Max: " + numberFormat.format(runtime.maxMemory() / 1024) + " KB", true);
                 sendEmbedMessage(message, builder);
                 break;
             case "guild":
@@ -95,11 +92,7 @@ public class StatisticsCommand extends Command {
         }
         String channels = sb.toString();
         EmbedBuilder builder = getEmbedBuilder()
-                                       .setTitle("Charrizard")
-                                       .setFooter("© 2017 Charrizard contributors", null)
-                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
-                                       .setColor(new Color(0, 250, 0))
-                                       .addField(targetGuild.getName(), "Messages on channels: " + channels, true);
+           .addField(targetGuild.getName(), "Messages on channels: " + channels, true);
         sendEmbedMessage(message, builder);
     }
 
@@ -136,11 +129,7 @@ public class StatisticsCommand extends Command {
         charrizard.getRedisConnection().saveData(statisticGuild);
 
         EmbedBuilder builder = getEmbedBuilder()
-                                       .setTitle("Charrizard")
-                                       .setFooter("© 2017 Charrizard contributors", null)
-                                       .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
-                                       .setColor(new Color(0, 250, 0))
-                                       .addField(targetGuild.getName(), "Statistics are correctly restarted!", true);
+           .addField(targetGuild.getName(), "Statistics are correctly restarted!", true);
         sendEmbedMessage(message, builder);
     }
 }
