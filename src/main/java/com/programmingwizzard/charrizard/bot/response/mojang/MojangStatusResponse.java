@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class MojangStatusResponse {
 
-    private Map<String, String> results = new LinkedHashMap<>();
+    private final Map<String, String> results = new LinkedHashMap<>();
 
     public MojangStatusResponse(JsonElement json) {
         JsonArray array = json.getAsJsonArray();

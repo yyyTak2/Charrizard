@@ -26,13 +26,13 @@ public class KiciusieResponses extends ResponsesGroup {
      * https://api.kiciusie.pl/index.php?type=get&mode=random
      */
 
-    public void getRandomPhoto(Callback<JsonElement> callback) {
+    public void getRandomPhoto(Callback<KiciusieResponse> callback) {
         SingleResponse response = new SingleResponse(this, API + "index.php?type=get&mode=random");
         response.call(json -> {
             if (json == null) {
                 callback.call(null);
             }
-            callback.call(json);
+            callback.call(new KiciusieResponse(json));
         });
     }
 
@@ -40,4 +40,5 @@ public class KiciusieResponses extends ResponsesGroup {
     public Executor getExecutor() {
         return executor;
     }
+
 }

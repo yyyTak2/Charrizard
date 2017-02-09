@@ -23,24 +23,18 @@ public class CatCommand extends Command {
 
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException {
-        kiciusieResponses.getRandomPhoto(callback -> {
-            if (callback == null) {
+        kiciusieResponses.getRandomPhoto(response -> {
+            if (response == null) {
                 sendError(message, "An error occurred while connecting with api.kiciusie.pl");
                 return;
             }
-            String url = callback.getAsJsonObject().get("url").getAsString();
-            if (url == null) {
-                sendError(message, "An error occurred while connecting with api.kiciusie.pl");
-                return;
-            }
-            url = url.replace('\'', 'i');
             EmbedBuilder builder = getEmbedBuilder()
-                                           .setTitle("Charrizard")
-                                           .setFooter("© 2017 Charrizard contributors", null)
-                                           .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
-                                           .setColor(new Color(0, 250, 0))
-                                           .addField("Random cat", "powered by kiciusie.pl", true)
-                                           .setImage(url);
+               .setTitle("Charrizard")
+               .setFooter("© 2017 Charrizard contributors", null)
+               .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+               .setColor(new Color(0, 250, 0))
+               .addField("Random cat", "powered by kiciusie.pl", true)
+               .setImage(response.getImageUrl());
             sendEmbedMessage(message, builder);
         });
     }
