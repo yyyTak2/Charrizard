@@ -51,7 +51,7 @@ public abstract class Command {
         return new EmbedBuilder()
             .setTitle("Charrizard")
             .setFooter("© 2017 Charrizard contributors", null)
-            .setUrl("https://github.com/ProgrammingWizzard/Charrizard/")
+                       .setUrl("https://github.com/CharrizardBot/Charrizard/")
             .setColor(new Color(0, 255, 0));
     }
 
