@@ -9,8 +9,6 @@ import com.programmingwizzard.charrizard.bot.response.netty.basic.AbstractHandle
 import com.programmingwizzard.charrizard.utils.GsonUtils;
 import net.dv8tion.jda.core.entities.Guild;
 
-import java.text.NumberFormat;
-
 /*
  * @author ProgrammingWizzard
  * @date 10.02.2017
@@ -19,7 +17,6 @@ public class StatisticsHandler extends AbstractHandler {
 
     private final Charrizard charrizard = Charrizard.getInstance();
     private final Runtime runtime = Runtime.getRuntime();
-    private final NumberFormat numberFormat = NumberFormat.getInstance();
 
     public StatisticsHandler() {
         super(3);

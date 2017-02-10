@@ -2,6 +2,7 @@ package com.programmingwizzard.charrizard.bot.basic;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.programmingwizzard.charrizard.bot.Charrizard;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import com.programmingwizzard.charrizard.bot.database.RedisData;
@@ -100,7 +101,10 @@ public class CGuild implements RedisData {
         if (getTextChannel(channel) != null) {
             return;
         }
-        String string = redisConnection.get("channel_" + getGuildId() + "_" + channel.getId());
+        String string = null;
+        if (Charrizard.getInstance().getSettings().getRedis().isEnabled()) {
+            string = redisConnection.get("channel_" + getGuildId() + "_" + channel.getId());
+        }
         int messages;
         if (string == null) {
             messages = 0;
@@ -118,7 +122,10 @@ public class CGuild implements RedisData {
         if (getVoiceChannel(channel) != null) {
             return;
         }
-        String string = redisConnection.get("voice_" + getGuildId() + "_" + channel.getId());
+        String string = null;
+        if (Charrizard.getInstance().getSettings().getRedis().isEnabled()) {
+            string = redisConnection.get("voice_" + getGuildId() + "_" + channel.getId());
+        }
         int connections;
         if (string == null) {
             connections = 0;

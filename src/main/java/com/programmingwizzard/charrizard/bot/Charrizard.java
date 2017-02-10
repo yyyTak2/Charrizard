@@ -57,8 +57,10 @@ public class Charrizard {
                                   .buildBlocking();
         initCommands();
         initListeners();
-        redisConnection.start();
-        keepDataThread.start();
+        if (settings.getRedis().isEnabled()) {
+            redisConnection.start();
+            keepDataThread.start();
+        }
         httpServer.start();
     }
 
@@ -84,6 +86,10 @@ public class Charrizard {
 
     public static Charrizard getInstance() {
         return instance;
+    }
+
+    public Settings getSettings() {
+        return settings;
     }
 
     public JDA getDiscordAPI() {

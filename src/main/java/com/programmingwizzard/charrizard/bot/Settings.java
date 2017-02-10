@@ -45,11 +45,18 @@ public class Settings {
     }
 
     public class Redis {
+        @SerializedName("enabled")
+        private boolean enabled = false;
+
         @SerializedName("ip")
-        private String ip;
+        private String ip = "localhost";
 
         @SerializedName("port")
         private int port = 6379;
+
+        public boolean isEnabled() {
+            return enabled;
+        }
 
         public String getIp() {
             return ip;
