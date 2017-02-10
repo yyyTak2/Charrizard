@@ -3,6 +3,7 @@ package com.programmingwizzard.charrizard.bot.managers;
 import com.google.gson.JsonObject;
 import com.programmingwizzard.charrizard.bot.response.netty.basic.AbstractHandler;
 import com.programmingwizzard.charrizard.bot.response.netty.impl.ReputationHandler;
+import com.programmingwizzard.charrizard.bot.response.netty.impl.StatisticsHandler;
 import com.programmingwizzard.charrizard.utils.GsonUtils;
 
 import java.nio.charset.StandardCharsets;
@@ -19,6 +20,7 @@ public class HTTPManager {
 
     static {
         handlerMap.put("reputation", new ReputationHandler());
+        handlerMap.put("statistics", new StatisticsHandler());
     }
 
     public static byte[] handleMessage(String[] args) {
