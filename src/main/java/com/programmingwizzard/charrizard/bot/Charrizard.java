@@ -9,6 +9,7 @@ import com.programmingwizzard.charrizard.bot.events.EventCaller;
 import com.programmingwizzard.charrizard.bot.listeners.ReputationListener;
 import com.programmingwizzard.charrizard.bot.listeners.VoiceListener;
 import com.programmingwizzard.charrizard.bot.managers.CGuildManager;
+import com.programmingwizzard.charrizard.bot.response.netty.HTTPServerInit;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -29,6 +30,7 @@ public class Charrizard {
     private final RedisConnection redisConnection;
     private final CGuildManager cGuildManager;
     private final KeepDataThread keepDataThread;
+    private final HTTPServerInit httpServer;
     private JDA discordAPI;
 
     public Charrizard(Settings settings) {
@@ -38,6 +40,7 @@ public class Charrizard {
         this.redisConnection = new RedisConnection(settings);
         this.cGuildManager = new CGuildManager(redisConnection);
         this.keepDataThread = new KeepDataThread(this);
+        this.httpServer = new HTTPServerInit();
     }
 
     public void start() throws RateLimitedException, InterruptedException, LoginException {
@@ -53,6 +56,7 @@ public class Charrizard {
         initListeners();
         redisConnection.start();
         keepDataThread.start();
+        //httpServer.start();
     }
 
     private void initCommands() {
