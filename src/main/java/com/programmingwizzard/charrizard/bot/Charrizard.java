@@ -56,7 +56,7 @@ public class Charrizard {
         initListeners();
         redisConnection.start();
         keepDataThread.start();
-        //httpServer.start();
+        httpServer.start();
     }
 
     private void initCommands() {

@@ -47,4 +47,8 @@ public class GsonUtils {
     public static JsonElement fromStringToJsonElement(String json) {
         return gson.fromJson(json, JsonElement.class);
     }
+
+    public static String fromJsonElementToString(JsonElement element) {
+        return gson.toJson(element);
+    }
 }
