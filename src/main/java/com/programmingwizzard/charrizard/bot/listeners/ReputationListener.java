@@ -36,7 +36,7 @@ public class ReputationListener {
                 return;
             }
             CUser authorCUser = cGuild.getUser(event.getAuthor());
-            if (authorCUser != null) {
+            if (authorCUser == null) {
                 cGuild.createUser(event.getAuthor());
                 authorCUser = cGuild.getUser(event.getAuthor());
             }
@@ -69,7 +69,7 @@ public class ReputationListener {
                 return;
             }
             CUser authorCUser = cGuild.getUser(event.getAuthor());
-            if (authorCUser != null) {
+            if (authorCUser == null) {
                 cGuild.createUser(event.getAuthor());
                 authorCUser = cGuild.getUser(event.getAuthor());
             }
