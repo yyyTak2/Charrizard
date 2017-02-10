@@ -89,7 +89,7 @@ public class ReputationCommand extends Command {
             cUser.reset();
             message.getChannel().sendMessage(message.getAuthor().getAsMention() + " - done!").queue();
         } else {
-            sendError(message, "Points can not be negative!");
+            sendError(message, "Your points can not be negative!");
         }
     }
 }

@@ -35,6 +35,11 @@ public class ReputationListener {
             if (mentionedUsers.size() == 0) {
                 return;
             }
+            CUser authorCUser = cGuild.getUser(event.getAuthor());
+            if (authorCUser != null && authorCUser.getReputation() < 0) {
+                event.getChannel().sendMessage(event.getAuthor().getAsMention() + " - your points can not be negative!").queue();
+                return;
+            }
             for (User mentionedUser : mentionedUsers) {
                 if (mentionedUser.getId().equals(event.getAuthor().getId())) {
                     continue;
@@ -57,6 +62,11 @@ public class ReputationListener {
             }
             List<User> mentionedUsers = event.getMessage().getMentionedUsers();
             if (mentionedUsers.size() == 0) {
+                return;
+            }
+            CUser authorCUser = cGuild.getUser(event.getAuthor());
+            if (authorCUser != null && authorCUser.getReputation() < 0) {
+                event.getChannel().sendMessage(event.getAuthor().getAsMention() + " - your points can not be negative!").queue();
                 return;
             }
             for (User mentionedUser : mentionedUsers) {
