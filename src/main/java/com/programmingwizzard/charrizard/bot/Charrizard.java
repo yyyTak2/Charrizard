@@ -24,6 +24,8 @@ import javax.security.auth.login.LoginException;
  * @date 04.02.2017
  */
 public class Charrizard {
+
+    private static Charrizard instance;
     private final EventBus eventBus;
     private final Settings settings;
     private final CommandCaller commandCaller;
@@ -34,6 +36,7 @@ public class Charrizard {
     private JDA discordAPI;
 
     public Charrizard(Settings settings) {
+        instance = this;
         this.settings = settings;
         this.eventBus = new EventBus();
         this.commandCaller = new CommandCaller(this);
@@ -77,6 +80,10 @@ public class Charrizard {
     private void initListeners() {
         this.eventBus.register(new VoiceListener(this));
         this.eventBus.register(new ReputationListener(this));
+    }
+
+    public static Charrizard getInstance() {
+        return instance;
     }
 
     public JDA getDiscordAPI() {

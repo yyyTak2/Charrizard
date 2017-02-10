@@ -2,10 +2,10 @@ package com.programmingwizzard.charrizard.bot.managers;
 
 import com.google.gson.JsonObject;
 import com.programmingwizzard.charrizard.bot.response.netty.basic.AbstractHandler;
+import com.programmingwizzard.charrizard.bot.response.netty.impl.ReputationHandler;
 import com.programmingwizzard.charrizard.utils.GsonUtils;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -16,6 +16,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class HTTPManager {
 
     private final static Map<String, AbstractHandler> handlerMap = new ConcurrentHashMap<>();
+
+    static {
+        handlerMap.put("reputation", new ReputationHandler());
+    }
 
     public static byte[] handleMessage(String[] args) {
         StringBuilder response = new StringBuilder();
@@ -40,11 +44,10 @@ public class HTTPManager {
             String json = GsonUtils.fromJsonElementToString(object);
             response.append(json);
         } else {
-            if (handler.neededArgs() == 0) {
+            if (handler.neededArgs() == 2) {
                 handler.handleMessage(args, response);
             } else {
-                if (args.length - 1 >= handler.neededArgs()) {
-                    args = Arrays.copyOfRange(args, 1, args.length);
+                if (args.length >= handler.neededArgs()) {
                     handler.handleMessage(args, response);
                 } else {
                     JsonObject object = new JsonObject();
