@@ -1,7 +1,6 @@
 package com.programmingwizzard.charrizard.bot.response;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.programmingwizzard.charrizard.utils.GsonUtils;
 import com.programmingwizzard.charrizard.utils.URLUtils;
 
@@ -26,7 +25,7 @@ public class SingleResponse {
         }
         responsesGroup.getExecutor().execute(() -> {
             try {
-                JsonElement element = GsonUtils.fromStringToJsonObject(URLUtils.readUrl(url));
+                JsonElement element = GsonUtils.fromStringToJsonElement(URLUtils.readUrl(url));
                 callback.call(element);
             } catch (IOException ex) {
                 callback.call(null);

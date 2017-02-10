@@ -43,7 +43,7 @@ public class Charrizard {
     public void start() throws RateLimitedException, InterruptedException, LoginException {
         this.discordAPI = new JDABuilder(AccountType.BOT)
                                   .setToken(settings.getToken())
-                                  .setGame(new GameImpl(settings.getGame(), settings.getGameUrl(), Game.GameType.DEFAULT))
+                                  .setGame(new GameImpl(settings.getGame(), settings.getGameUrl(), settings.isTwitch() ? Game.GameType.TWITCH : Game.GameType.DEFAULT))
                                   .addListener(new EventCaller(this))
                                   .setAutoReconnect(true)
                                   .setAudioEnabled(true)

@@ -8,35 +8,39 @@ import com.google.gson.annotations.SerializedName;
  */
 @SuppressWarnings("FieldCanBeLocal")
 public class Settings {
+
     @SerializedName("token")
     private String token = "token";
 
     @SerializedName("game")
     private String game = "game";
 
+    @SerializedName("twitch")
+    private boolean twitch = false;
+
     @SerializedName("game-url")
-    private String gameUrl = "http://programmingwizzard.com";
+    private String gameUrl = "https://twitch.tv/";
 
     @SerializedName("redis")
     private Redis redis = new Redis();
 
-    public String getToken()
-    {
+    public String getToken() {
         return token;
     }
 
-    public String getGame()
-    {
+    public String getGame() {
         return game;
     }
 
-    public String getGameUrl()
-    {
+    public boolean isTwitch() {
+        return twitch;
+    }
+
+    public String getGameUrl() {
         return gameUrl;
     }
 
-    public Redis getRedis()
-    {
+    public Redis getRedis() {
         return redis;
     }
 
@@ -45,15 +49,13 @@ public class Settings {
         private String ip;
 
         @SerializedName("port")
-        private int port = 1234;
+        private int port = 6379;
 
-        public String getIp()
-        {
+        public String getIp() {
             return ip;
         }
 
-        public int getPort()
-        {
+        public int getPort() {
             return port;
         }
     }

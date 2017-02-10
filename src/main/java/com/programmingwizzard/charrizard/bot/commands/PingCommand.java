@@ -12,8 +12,7 @@ import java.time.OffsetDateTime;
  */
 public class PingCommand extends Command {
 
-    public PingCommand()
-    {
+    public PingCommand() {
         super("ping");
     }
 

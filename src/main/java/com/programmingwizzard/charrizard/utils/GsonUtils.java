@@ -16,10 +16,10 @@ import java.nio.file.Files;
  * @date 04.02.2017
  */
 public class GsonUtils {
+
     private final static Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
 
-    public static <T> T readConfiguration(Class<T> configurationClass, File file) throws Exception
-    {
+    public static <T> T readConfiguration(Class<T> configurationClass, File file) throws Exception {
         if (!file.exists()) {
             file.createNewFile();
             Files.write(file.toPath(), gson.toJson(configurationClass.newInstance()).getBytes(StandardCharsets.UTF_8));
@@ -27,8 +27,7 @@ public class GsonUtils {
         return gson.fromJson(new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8), configurationClass);
     }
 
-    public static <T> T readObjectFromFile(Class<T> object, File file) throws Exception
-    {
+    public static <T> T readObjectFromFile(Class<T> object, File file) throws Exception {
         if (!file.exists()) {
             return null;
         }
@@ -36,8 +35,7 @@ public class GsonUtils {
         return gson.fromJson(reader, object);
     }
 
-    public static void writeObjectToFile(Object object, File file) throws Exception
-    {
+    public static void writeObjectToFile(Object object, File file) throws Exception {
         if (!file.exists()) {
             file.createNewFile();
         }
@@ -46,8 +44,7 @@ public class GsonUtils {
         writer.close();
     }
 
-    public static JsonElement fromStringToJsonObject(String json)
-    {
+    public static JsonElement fromStringToJsonElement(String json) {
         return gson.fromJson(json, JsonElement.class);
     }
 }
