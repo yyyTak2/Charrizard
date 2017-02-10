@@ -22,7 +22,7 @@ public class KeepDataThread extends Thread {
                 charrizard.getRedisConnection().saveData(guild);
             }
             try {
-                wait(1000 * 60);
+                sleep(1000 * 60);
             } catch (InterruptedException ignored) {
             }
         }
