@@ -19,7 +19,21 @@ public class HTTPManager {
 
     public static byte[] handleMessage(String[] args) {
         StringBuilder response = new StringBuilder();
-        AbstractHandler handler = handlerMap.get(args[0].toLowerCase());
+        if (args.length == 1) {
+            JsonObject object = new JsonObject();
+            object.addProperty("error", "Wrong argument!");
+            String json = GsonUtils.fromJsonElementToString(object);
+            response.append(json);
+            return response.toString().getBytes(StandardCharsets.UTF_8);
+        }
+        String argument = args[1];
+        if (argument == null) {
+            JsonObject object = new JsonObject();
+            object.addProperty("error", "Wrong argument!");
+            String json = GsonUtils.fromJsonElementToString(object);
+            response.append(json);
+        }
+        AbstractHandler handler = handlerMap.get(argument);
         if (handler == null) {
             JsonObject object = new JsonObject();
             object.addProperty("error", "Wrong argument!");
