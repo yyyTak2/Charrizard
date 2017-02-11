@@ -2,46 +2,35 @@ package com.programmingwizzard.charrizard.bot.response.skript;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.programmingwizzard.charrizard.bot.response.Callback;
-import com.programmingwizzard.charrizard.bot.response.ResponsesGroup;
-import com.programmingwizzard.charrizard.bot.response.SingleResponse;
+import com.programmingwizzard.charrizard.bot.response.Response;
+import com.programmingwizzard.charrizard.bot.response.ResponseException;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /*
  * @author Libter
  * @date 07.02.2017
  */
-public class SkriptServerResponses extends ResponsesGroup {
+public class SkriptServerResponses {
+
     private static String URL = "https://api.skript.pl/server/%s/";
 
-    private final Executor executor;
     private final Cache<String, SkriptServerResponse> cache;
 
     public SkriptServerResponses() {
-        this.executor = Executors.newCachedThreadPool();
         this.cache = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).build();
     }
 
-    public void call(String rawIp, Callback<SkriptServerResponse> callback) {
+    public SkriptServerResponse call(String rawIp) throws ResponseException {
         String ip = rawIp.toLowerCase();
         SkriptServerResponse result = cache.getIfPresent(ip);
         if (result == null) {
-            SingleResponse response = new SingleResponse(this, String.format(URL, ip));
-            response.call(json -> {
-                SkriptServerResponse newResult = new SkriptServerResponse(json);
-                callback.call(newResult);
-                cache.put(rawIp, newResult);
-            });
+            SkriptServerResponse newResult = new SkriptServerResponse(Response.getJson(String.format(URL, ip)));
+            cache.put(ip, newResult);
+            return newResult;
         } else {
-            callback.call(result);
+            return result;
         }
     }
 
-    @Override
-    public Executor getExecutor() {
-        return executor;
-    }
 }

@@ -6,6 +6,9 @@ import com.programmingwizzard.charrizard.utils.CharCodes;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /*
  * @author Libter
  * @date 06.02.2017
@@ -50,7 +53,7 @@ public class BigTextCommand extends Command {
                 channel.sendMessage(result.toString()).queue();
                 break;
             case "react":
-                /*Set<String> reactions = new LinkedHashSet<>();
+                Set<String> reactions = new LinkedHashSet<>();
                 for (int i = 2; i < args.length; i++) {
                     for (char c : args[i].toLowerCase().toCharArray()) {
                         String reaction = toRegionalIndicator(c);
@@ -61,8 +64,7 @@ public class BigTextCommand extends Command {
                 }
                 for (String reaction : reactions) {
                     message.getOrigin().addReaction(reaction).queue();
-                }*/
-                sendError(message, "Not implementable yet!");
+                }
                 break;
             default:
                 sendUsage(message, "!bigtext <print|raw|react> <text>");
