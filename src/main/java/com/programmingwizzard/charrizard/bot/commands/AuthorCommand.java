@@ -18,9 +18,9 @@ public class AuthorCommand extends Command {
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException {
         EmbedBuilder builder = getEmbedBuilder()
-                                       .addField("Charrizard version", "2.0-BETA", true)
-                                       .addField("Authors", "https://github.com/CharrizardBot/Charrizard/contributors", true)
-                                       .addField("Official Discord server", "https://discord.gg/jBCzCx8", true);
+           .addField("Charrizard version", "2.0", true)
+           .addField("Authors", "https://github.com/CharrizardBot/Charrizard/contributors", true)
+           .addField("Official Discord server", "https://discord.gg/jBCzCx8", true);
         sendEmbedMessage(message, builder);
     }
 }
