@@ -2,6 +2,7 @@ package com.programmingwizzard.charrizard.bot.commands;
 
 import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
+import com.programmingwizzard.charrizard.bot.response.kiciusie.KiciusieMode;
 import com.programmingwizzard.charrizard.bot.response.kiciusie.KiciusieResponses;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
@@ -21,7 +22,18 @@ public class CatCommand extends Command {
 
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException {
-        kiciusieResponses.getRandomPhoto(response -> {
+        if (args.length != 2) {
+            sendUsage(message, "!cat <random|image|gif>");
+            return;
+        }
+        KiciusieMode mode;
+        try {
+            mode = KiciusieMode.valueOf(args[1].toUpperCase());
+        } catch (IllegalArgumentException iae) {
+            sendUsage(message, "!cat <random|image|gif>");
+            return;
+        }
+        kiciusieResponses.call(mode, response -> {
             if (response == null) {
                 sendError(message, "An error occurred while connecting with api.kiciusie.pl");
                 return;
