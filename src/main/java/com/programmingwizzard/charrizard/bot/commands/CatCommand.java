@@ -2,6 +2,7 @@ package com.programmingwizzard.charrizard.bot.commands;
 
 import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
+import com.programmingwizzard.charrizard.bot.response.ResponseException;
 import com.programmingwizzard.charrizard.bot.response.kiciusie.KiciusieMode;
 import com.programmingwizzard.charrizard.bot.response.kiciusie.KiciusieResponse;
 import com.programmingwizzard.charrizard.bot.response.kiciusie.KiciusieResponses;
@@ -35,10 +36,15 @@ public class CatCommand extends Command {
             return;
         }
 
-        KiciusieResponse response = kiciusieResponses.call(mode);
-        EmbedBuilder builder = getEmbedBuilder()
-                .addField("Random cat", "powered by kiciusie.pl", true)
-                .setImage(response.getImageUrl());
-        sendEmbedMessage(message, builder);
+        try {
+            KiciusieResponse response = kiciusieResponses.call(mode);
+            EmbedBuilder builder = getEmbedBuilder()
+                    .addField("Random cat", "powered by kiciusie.pl", true)
+                    .setImage(response.getImageUrl());
+            sendEmbedMessage(message, builder);
+        } catch (ResponseException e) {
+            sendError(message, "An error occurred while connecting with " + e.getUrl());
+        }
+
     }
 }

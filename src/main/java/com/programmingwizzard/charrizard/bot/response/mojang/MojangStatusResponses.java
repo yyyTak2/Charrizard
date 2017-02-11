@@ -1,6 +1,7 @@
 package com.programmingwizzard.charrizard.bot.response.mojang;
 
 import com.programmingwizzard.charrizard.bot.response.Response;
+import com.programmingwizzard.charrizard.bot.response.ResponseException;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -19,7 +20,7 @@ public class MojangStatusResponses {
         this.executor = Executors.newCachedThreadPool();
     }
 
-    public MojangStatusResponse call() {
+    public MojangStatusResponse call() throws ResponseException {
         return new MojangStatusResponse(Response.getJson(URL));
     }
 

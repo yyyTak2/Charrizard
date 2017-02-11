@@ -3,6 +3,7 @@ package com.programmingwizzard.charrizard.bot.response.skript;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.programmingwizzard.charrizard.bot.response.Response;
+import com.programmingwizzard.charrizard.bot.response.ResponseException;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +21,7 @@ public class SkriptServerResponses {
         this.cache = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).build();
     }
 
-    public SkriptServerResponse call(String rawIp) {
+    public SkriptServerResponse call(String rawIp) throws ResponseException {
         String ip = rawIp.toLowerCase();
         SkriptServerResponse result = cache.getIfPresent(ip);
         if (result == null) {

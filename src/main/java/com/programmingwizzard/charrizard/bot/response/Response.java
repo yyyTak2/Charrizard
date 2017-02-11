@@ -14,12 +14,11 @@ public class Response {
 
     private Response() { }
 
-    public static JsonElement getJson(String url) {
+    public static JsonElement getJson(String url) throws ResponseException {
         try {
             return GsonUtils.fromStringToJsonElement(URLUtils.readUrl(url));
         } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
+            throw new ResponseException(url);
         }
     }
 
