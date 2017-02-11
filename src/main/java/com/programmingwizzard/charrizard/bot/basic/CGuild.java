@@ -3,6 +3,7 @@ package com.programmingwizzard.charrizard.bot.basic;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.programmingwizzard.charrizard.bot.Charrizard;
+import com.programmingwizzard.charrizard.bot.Settings;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import com.programmingwizzard.charrizard.bot.database.RedisData;
@@ -26,6 +27,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class CGuild implements RedisData {
 
+    private final Settings settings = Charrizard.getInstance().getSettings();
     private final Guild guild;
     private final RedisConnection redisConnection;
     private final Executor executor;
@@ -84,7 +86,7 @@ public class CGuild implements RedisData {
             return;
         }
         String string = null;
-        if (Charrizard.getInstance().getSettings().getRedis().isEnabled()) {
+        if (settings.getRedis().isEnabled()) {
             string = redisConnection.get("like_" + getGuildId() + "_" + user.getId());
         }
         int reputation;
@@ -105,7 +107,7 @@ public class CGuild implements RedisData {
             return;
         }
         String string = null;
-        if (Charrizard.getInstance().getSettings().getRedis().isEnabled()) {
+        if (settings.getRedis().isEnabled()) {
             string = redisConnection.get("channel_" + getGuildId() + "_" + channel.getId());
         }
         int messages;
@@ -126,7 +128,7 @@ public class CGuild implements RedisData {
             return;
         }
         String string = null;
-        if (Charrizard.getInstance().getSettings().getRedis().isEnabled()) {
+        if (settings.getRedis().isEnabled()) {
             string = redisConnection.get("voice_" + getGuildId() + "_" + channel.getId());
         }
         int connections;
