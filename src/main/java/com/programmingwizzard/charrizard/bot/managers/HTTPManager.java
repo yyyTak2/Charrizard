@@ -2,6 +2,7 @@ package com.programmingwizzard.charrizard.bot.managers;
 
 import com.google.gson.JsonObject;
 import com.programmingwizzard.charrizard.bot.response.netty.basic.AbstractHandler;
+import com.programmingwizzard.charrizard.bot.response.netty.impl.DiscordHandler;
 import com.programmingwizzard.charrizard.bot.response.netty.impl.ReputationHandler;
 import com.programmingwizzard.charrizard.bot.response.netty.impl.StatisticsHandler;
 import com.programmingwizzard.charrizard.utils.GsonUtils;
@@ -21,6 +22,7 @@ public class HTTPManager {
     static {
         handlerMap.put("reputation", new ReputationHandler());
         handlerMap.put("statistics", new StatisticsHandler());
+        handlerMap.put("discord", new DiscordHandler());
     }
 
     public static byte[] handleMessage(String[] args) {
