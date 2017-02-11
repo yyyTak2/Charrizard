@@ -63,7 +63,7 @@ public class HTTPServerHandler extends SimpleChannelInboundHandler<Object> {
             return new byte[0];
         }
         String args[] = uri.split("/");
-        if (args.length < 2) {
+        if (args.length < 1) {
             return new byte[0];
         }
         String api = args[0];

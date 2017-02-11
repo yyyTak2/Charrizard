@@ -83,7 +83,10 @@ public class CGuild implements RedisData {
         if (getUser(user) != null) {
             return;
         }
-        String string = redisConnection.get("like_" + getGuildId() + "_" + user.getId());
+        String string = null;
+        if (Charrizard.getInstance().getSettings().getRedis().isEnabled()) {
+            string = redisConnection.get("like_" + getGuildId() + "_" + user.getId());
+        }
         int reputation;
         if (string == null) {
             reputation = 0;
