@@ -3,6 +3,7 @@ package com.programmingwizzard.charrizard.bot.commands;
 import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import com.programmingwizzard.charrizard.bot.response.kiciusie.KiciusieMode;
+import com.programmingwizzard.charrizard.bot.response.kiciusie.KiciusieResponse;
 import com.programmingwizzard.charrizard.bot.response.kiciusie.KiciusieResponses;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
@@ -33,15 +34,11 @@ public class CatCommand extends Command {
             sendUsage(message, "!cat <random|image|gif>");
             return;
         }
-        kiciusieResponses.call(mode, response -> {
-            if (response == null) {
-                sendError(message, "An error occurred while connecting with api.kiciusie.pl");
-                return;
-            }
-            EmbedBuilder builder = getEmbedBuilder()
-               .addField("Random cat", "powered by kiciusie.pl", true)
-               .setImage(response.getImageUrl());
-            sendEmbedMessage(message, builder);
-        });
+
+        KiciusieResponse response = kiciusieResponses.call(mode);
+        EmbedBuilder builder = getEmbedBuilder()
+                .addField("Random cat", "powered by kiciusie.pl", true)
+                .setImage(response.getImageUrl());
+        sendEmbedMessage(message, builder);
     }
 }

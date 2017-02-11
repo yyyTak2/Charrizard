@@ -1,8 +1,6 @@
 package com.programmingwizzard.charrizard.bot.response.mojang;
 
-import com.programmingwizzard.charrizard.bot.response.Callback;
-import com.programmingwizzard.charrizard.bot.response.ResponsesGroup;
-import com.programmingwizzard.charrizard.bot.response.SingleResponse;
+import com.programmingwizzard.charrizard.bot.response.Response;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -11,7 +9,7 @@ import java.util.concurrent.Executors;
  * @author Libter
  * @date 09.02.2017
  */
-public class MojangStatusResponses extends ResponsesGroup {
+public class MojangStatusResponses {
 
     private static String URL = "https://status.mojang.com/check";
 
@@ -21,17 +19,8 @@ public class MojangStatusResponses extends ResponsesGroup {
         this.executor = Executors.newCachedThreadPool();
     }
 
-    public void call(Callback<MojangStatusResponse> callback) {
-        SingleResponse response = new SingleResponse(this, URL);
-        response.call(json -> {
-            MojangStatusResponse result = new MojangStatusResponse(json);
-            callback.call(result);
-        });
-    }
-
-    @Override
-    public Executor getExecutor() {
-        return executor;
+    public MojangStatusResponse call() {
+        return new MojangStatusResponse(Response.getJson(URL));
     }
 
 }

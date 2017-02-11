@@ -2,7 +2,9 @@ package com.programmingwizzard.charrizard.bot.commands;
 
 import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
+import com.programmingwizzard.charrizard.bot.response.mojang.MojangStatusResponse;
 import com.programmingwizzard.charrizard.bot.response.mojang.MojangStatusResponses;
+import com.programmingwizzard.charrizard.bot.response.skript.SkriptServerResponse;
 import com.programmingwizzard.charrizard.bot.response.skript.SkriptServerResponses;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
@@ -41,16 +43,15 @@ public class MinecraftCommand extends Command {
     }
 
     private void checkStatus(CMessage message) {
-        statusResponses.call(response -> {
-            StringBuilder info = new StringBuilder();
-            for (Map.Entry<String, String> entry : response.getResults().entrySet()) {
-                info.append("**").append(entry.getKey()).append("**: ").append(entry.getValue()).append("\n");
-            }
-            EmbedBuilder builder = getEmbedBuilder()
+        MojangStatusResponse response = statusResponses.call();
+        StringBuilder info = new StringBuilder();
+        for (Map.Entry<String, String> entry : response.getResults().entrySet()) {
+            info.append("**").append(entry.getKey()).append("**: ").append(entry.getValue()).append("\n");
+        }
+        EmbedBuilder builder = getEmbedBuilder()
                 .setImage("https://mojang.com/assets/icons/apple-touch-icon-60x60-ee8952236b57d5ac9c40f3f0b32ca417.png")
                 .addField("Mojang Status", info.toString(), true);
-            sendEmbedMessage(message, builder);
-        });
+        sendEmbedMessage(message, builder);
     }
 
     private void checkServer(CMessage message, String[] args) {
@@ -60,36 +61,35 @@ public class MinecraftCommand extends Command {
         }
 
         String server = args[2];
-        serverResponses.call(server, response -> {
-            String info;
-            if (response.isOnline()) {
-                String list = "";
-                if (!response.getPlayersList().isEmpty()) {
-                    StringBuilder listBuilder = new StringBuilder();
-                    for (String player : response.getPlayersList()) {
-                        listBuilder.append(", ").append(player);
-                    }
-                    if (listBuilder.length() > 512) {
-                        list = " (`" + listBuilder.substring(2, 512) + "...`)";
-                    } else {
-                        list = " (`" + listBuilder.substring(2) + "`)";
-                    }
+        SkriptServerResponse response = serverResponses.call(server);
+        String info;
+        if (response.isOnline()) {
+            String list = "";
+            if (!response.getPlayersList().isEmpty()) {
+                StringBuilder listBuilder = new StringBuilder();
+                for (String player : response.getPlayersList()) {
+                    listBuilder.append(", ").append(player);
                 }
-                info =
-                    "**Online:** YES\n" +
-                    String.format("**Latency:** %d ms\n", (int) response.getLatency()) +
-                    String.format("**Version:** %s (Protocol #%d)\n", response.getVersion(), response.getProtocol()) +
-                    String.format("**Players:** %d/%d%s\n", response.getOnlinePlayers(), response.getMaxPlayers(), list) +
-                    String.format("**Description:**\n %s\n", response.getDescription()) +
-                    "**Favicon:**";
-            } else {
-                info = "**Online:** NO\n**Favicon:**";
+                if (listBuilder.length() > 512) {
+                    list = " (`" + listBuilder.substring(2, 512) + "...`)";
+                } else {
+                    list = " (`" + listBuilder.substring(2) + "`)";
+                }
             }
+            info =
+                    "**Online:** YES\n" +
+                            String.format("**Latency:** %d ms\n", (int) response.getLatency()) +
+                            String.format("**Version:** %s (Protocol #%d)\n", response.getVersion(), response.getProtocol()) +
+                            String.format("**Players:** %d/%d%s\n", response.getOnlinePlayers(), response.getMaxPlayers(), list) +
+                            String.format("**Description:**\n %s\n", response.getDescription()) +
+                            "**Favicon:**";
+        } else {
+            info = "**Online:** NO\n**Favicon:**";
+        }
 
-            EmbedBuilder builder = getEmbedBuilder()
+        EmbedBuilder builder = getEmbedBuilder()
                 .setImage("https://api.skript.pl/server/" + response.getAddress() + "/icon.png")
                 .addField("Minecraft Server: " + server, info, true);
-            sendEmbedMessage(message, builder);
-        });
+        sendEmbedMessage(message, builder);
     }
 }
