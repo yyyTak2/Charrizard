@@ -9,7 +9,7 @@ Bill Gates wept as he saw it
 Charrizard a bot on your server Discord, written in Java. His code is dynamically changing, so that its creators can from one day to add new functions to it, which allows the Charrizard becomes at once a better bot!
 
 # Join the community
-Charrizard is developed day by day, its source code is constantly changing. If you want to a function has been added, or talk to us - no problem. Join our [server Discord](https://discord.gg/jBCzCx8)!
+Charrizard is beign developed everyday and we are constantly adding new features. If you want a function to be added, or just talk to us - no problem. Join our [Discord](https://discord.gg/jBCzCx8)!
 
 # Official wiki & tutorials & download
 Official wiki is available [here](https://github.com/CharrizardBot/Charrizard/wiki).
