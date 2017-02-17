@@ -17,10 +17,12 @@ import java.util.Set;
 public class CommandCaller {
     private final Charrizard charrizard;
     private final Set<Command> commands = new HashSet<>();
+    private final String prefix;
 
     public CommandCaller(Charrizard charrizard)
     {
         this.charrizard = charrizard;
+        this.prefix = charrizard.getSettings().getPrefix();
     }
 
     @Subscribe
@@ -30,7 +32,7 @@ public class CommandCaller {
             charrizard.getCGuildManager().createGuild(event.getGuild());
             cGuild = charrizard.getCGuildManager().getGuild(event.getGuild());
         }
-        if (!event.getMessage().getContent().startsWith("!")) {
+        if (!event.getMessage().getContent().startsWith(prefix)) {
             CTextChannel cTextChannel = cGuild.getTextChannel(event.getTextChannel());
             if (cTextChannel == null) {
                 cGuild.createTextChannel(event.getTextChannel());

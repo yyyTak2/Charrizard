@@ -14,8 +14,8 @@ import java.awt.*;
 public abstract class Command {
     private final String prefix;
 
-    public Command(String prefix) {
-        this.prefix = prefix;
+    public Command(String label) {
+        this.prefix = label;
     }
 
     public abstract void handle(CMessage message, String[] args) throws RateLimitedException;

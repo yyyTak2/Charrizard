@@ -12,6 +12,9 @@ public class Settings {
     @SerializedName("token")
     private String token = "token";
 
+    @SerializedName("prefix")
+    private String prefix = "!";
+
     @SerializedName("game")
     private String game = "game";
 
@@ -24,8 +27,15 @@ public class Settings {
     @SerializedName("redis")
     private Redis redis = new Redis();
 
+    @SerializedName("myanimelist")
+    private MyAnimeList myAnimeList = new MyAnimeList();
+
     public String getToken() {
         return token;
+    }
+
+    public String getPrefix() {
+        return prefix;
     }
 
     public String getGame() {
@@ -42,6 +52,10 @@ public class Settings {
 
     public Redis getRedis() {
         return redis;
+    }
+
+    public MyAnimeList getMyAnimeList() {
+        return myAnimeList;
     }
 
     public class Redis {
@@ -64,6 +78,29 @@ public class Settings {
 
         public int getPort() {
             return port;
+        }
+    }
+
+    public class MyAnimeList {
+        @SerializedName("enabled")
+        private boolean enabled = false;
+
+        @SerializedName("username")
+        private String username = "jestemangozjebe";
+
+        @SerializedName("password")
+        private String password = "nekosiek123";
+
+        public boolean isEnabled() {
+            return enabled;
+        }
+
+        public String getIp() {
+            return username;
+        }
+
+        public String getPort() {
+            return password;
         }
     }
 }
