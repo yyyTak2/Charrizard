@@ -55,12 +55,12 @@ public class Charrizard {
                                   .setAudioEnabled(true)
                                   .setBulkDeleteSplittingEnabled(false)
                                   .buildBlocking();
-        initCommands();
-        initListeners();
         if (settings.getRedis().isEnabled()) {
             redisConnection.start();
             keepDataThread.start();
         }
+        initCommands();
+        initListeners();
         httpServer.start();
     }
 
