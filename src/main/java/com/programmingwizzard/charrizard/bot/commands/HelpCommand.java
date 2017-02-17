@@ -25,10 +25,10 @@ public class HelpCommand extends Command {
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
         Set<Command> commands = charrizard.getCommandCaller().getCommands();
-
+        String prefix = charrizard.getSettings().getPrefix();
         StringBuilder list = new StringBuilder();
         for (Command command : commands) {
-            list.append("!").append(command.getPrefix()).append(", ");
+            list.append(prefix).append(command.getPrefix()).append(", ");
         }
         String s = list.toString();
         EmbedBuilder builder = getEmbedBuilder()

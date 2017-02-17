@@ -60,12 +60,12 @@ public class Charrizard {
 
     private void initCommands() {
         commandCaller.getCommands().add(new AuthorCommand());
-        commandCaller.getCommands().add(new BigTextCommand());
+        commandCaller.getCommands().add(new BigTextCommand(this));
         commandCaller.getCommands().add(new InviteCommand(this));
-        commandCaller.getCommands().add(new MinecraftCommand());
-        commandCaller.getCommands().add(new CleverbotCommand());
+        commandCaller.getCommands().add(new MinecraftCommand(this));
+        commandCaller.getCommands().add(new CleverbotCommand(this));
         commandCaller.getCommands().add(new PingCommand());
-        commandCaller.getCommands().add(new CatCommand());
+        commandCaller.getCommands().add(new CatCommand(this));
         if (settings.getMyAnimeList().isEnabled())
             commandCaller.getCommands().add(new AnimeListCommand(this));
         commandCaller.getCommands().add(new HelpCommand(this));

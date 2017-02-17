@@ -30,7 +30,7 @@ public class AnimeListCommand extends Command {
             case "info":
                 break;
             default:
-                sendUsage(message, "!animelist <search|info>");
+                sendUsage(message, charrizard.getSettings().getPrefix() + "animelist <search|info>");
                 break;
         }
     }

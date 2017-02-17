@@ -1,5 +1,6 @@
 package com.programmingwizzard.charrizard.bot.commands;
 
+import com.programmingwizzard.charrizard.bot.Charrizard;
 import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import com.programmingwizzard.charrizard.bot.response.ResponseException;
@@ -20,14 +21,17 @@ public class MinecraftCommand extends Command {
     private final MojangStatusResponses statusResponses = new MojangStatusResponses();
     private final SkriptServerResponses serverResponses = new SkriptServerResponses();
 
-    public MinecraftCommand() {
+    private final Charrizard charrizard;
+
+    public MinecraftCommand(Charrizard charrizard) {
         super("minecraft");
+        this.charrizard = charrizard;
     }
 
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException {
         if (args.length < 2) {
-            sendUsage(message, "!minecraft <status|server>");
+            sendUsage(message, charrizard.getSettings().getPrefix() + "minecraft <status|server>");
             return;
         }
         switch (args[1]) {
@@ -38,7 +42,7 @@ public class MinecraftCommand extends Command {
                 checkStatus(message);
                 break;
             default:
-                sendUsage(message, "!minecraft <status|server>");
+                sendUsage(message, charrizard.getSettings().getPrefix() + "minecraft <status|server>");
                 break;
         }
     }
@@ -61,7 +65,7 @@ public class MinecraftCommand extends Command {
 
     private void checkServer(CMessage message, String[] args) {
         if (args.length != 3 || args[2].isEmpty()) {
-            sendUsage(message, "!minecraft server <ip>");
+            sendUsage(message, charrizard.getSettings().getPrefix() + "minecraft server <ip>");
             return;
         }
 
