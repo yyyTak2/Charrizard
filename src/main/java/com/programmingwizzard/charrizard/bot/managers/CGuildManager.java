@@ -2,8 +2,8 @@ package com.programmingwizzard.charrizard.bot.managers;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.programmingwizzard.charrizard.bot.Charrizard;
 import com.programmingwizzard.charrizard.bot.basic.CGuild;
-import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
@@ -18,11 +18,11 @@ import java.util.concurrent.TimeUnit;
 public class CGuildManager {
 
     private final Cache<String, CGuild> guildCache;
-    private final RedisConnection redisConnection;
+    private final Charrizard charrizard;
 
-    public CGuildManager(RedisConnection redisConnection) {
+    public CGuildManager(Charrizard charrizard) {
         this.guildCache = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build();
-        this.redisConnection = redisConnection;
+        this.charrizard = charrizard;
     }
 
     public void createGuild(Guild guild) {
@@ -32,7 +32,7 @@ public class CGuildManager {
         if (getGuild(guild) != null) {
             return;
         }
-        CGuild cGuild = new CGuild(guild, redisConnection);
+        CGuild cGuild = new CGuild(guild, charrizard);
         for (TextChannel channel : guild.getTextChannels()) {
             cGuild.createTextChannel(channel);
         }

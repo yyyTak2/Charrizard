@@ -34,12 +34,11 @@ public class Charrizard {
     private JDA discordAPI;
 
     public Charrizard(Settings settings) {
-        instance = this;
         this.settings = settings;
         this.eventBus = new EventBus();
         this.commandCaller = new CommandCaller(this);
         this.redisConnection = new RedisConnection(settings);
-        this.cGuildManager = new CGuildManager(redisConnection);
+        this.cGuildManager = new CGuildManager(this);
         this.keepDataThread = new KeepDataThread(this);
     }
 
@@ -78,10 +77,6 @@ public class Charrizard {
     private void initListeners() {
         this.eventBus.register(new VoiceListener(this));
         this.eventBus.register(new ReputationListener(this));
-    }
-
-    public static Charrizard getInstance() {
-        return instance;
     }
 
     public Settings getSettings() {
