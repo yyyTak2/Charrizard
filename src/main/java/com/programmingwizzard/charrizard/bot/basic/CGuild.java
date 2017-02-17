@@ -4,6 +4,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.programmingwizzard.charrizard.bot.Charrizard;
 import com.programmingwizzard.charrizard.bot.Settings;
+import com.programmingwizzard.charrizard.bot.basic.audio.CAudio;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import com.programmingwizzard.charrizard.bot.database.RedisConnection;
 import com.programmingwizzard.charrizard.bot.database.RedisData;
@@ -12,6 +13,7 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+import net.dv8tion.jda.core.managers.AudioManager;
 import redis.clients.jedis.Jedis;
 
 import java.util.Collection;
@@ -35,6 +37,7 @@ public class CGuild implements RedisData {
     private final Cache<String, CUser> userCache;
     private final Cache<String, CTextChannel> textChannelCache;
     private final Cache<String, CVoiceChannel> voiceChannelCache;
+    private final CAudio audio;
 
     public CGuild(Guild guild, Charrizard charrizard) {
         this.guild = guild;
@@ -45,6 +48,7 @@ public class CGuild implements RedisData {
         this.userCache = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build();
         this.textChannelCache = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build();
         this.voiceChannelCache = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build();
+        this.audio = new CAudio(this);
     }
 
     @Override
@@ -181,4 +185,11 @@ public class CGuild implements RedisData {
         return voiceChannelCache.asMap().values();
     }
 
+    public AudioManager getAudioManager() {
+        return guild.getAudioManager();
+    }
+
+    public CAudio getAudio() {
+        return audio;
+    }
 }
