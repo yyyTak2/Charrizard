@@ -20,7 +20,7 @@ public class CatCommand extends Command {
     private final KiciusieResponses kiciusieResponses;
 
     public CatCommand(Charrizard charrizard) {
-        super("cat");
+        super("cat", "Sends an kawaii neko.");
         this.charrizard = charrizard;
         this.kiciusieResponses = new KiciusieResponses();
     }

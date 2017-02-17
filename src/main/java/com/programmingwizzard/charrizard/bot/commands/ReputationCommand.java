@@ -20,7 +20,7 @@ public class ReputationCommand extends Command {
     private final Charrizard charrizard;
 
     public ReputationCommand(Charrizard charrizard) {
-        super("reputation");
+        super("reputation", "Get user reputation");
         this.charrizard = charrizard;
     }
 

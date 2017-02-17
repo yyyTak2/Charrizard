@@ -15,7 +15,7 @@ public class InviteCommand extends Command {
 
     public InviteCommand(Charrizard charrizard)
     {
-        super("invite");
+        super("invite", "Invite " + charrizard.getDiscordAPI().getSelfUser().getAsMention() + " to your server!");
         this.charrizard = charrizard;
     }
 

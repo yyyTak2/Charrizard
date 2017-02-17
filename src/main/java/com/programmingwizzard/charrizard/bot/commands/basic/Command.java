@@ -12,10 +12,12 @@ import java.awt.*;
  * @date 04.02.2017
  */
 public abstract class Command {
-    private final String prefix;
+    private final String label;
+    private final String description;
 
-    public Command(String label) {
-        this.prefix = label;
+    public Command(String label, String description) {
+        this.label = label;
+        this.description = description;
     }
 
     public abstract void handle(CMessage message, String[] args) throws RateLimitedException;
@@ -29,7 +31,7 @@ public abstract class Command {
             return;
         }
         EmbedBuilder builder = getEmbedBuilder()
-            .setColor(new Color(231, 76, 60))
+            .setColor(new Color(230, 126, 34))
             .addField("Correct usage", usage, true);
         message.getChannel().sendMessage(getMessageBuilder().setEmbed(builder.build()).build()).queue();
     }
@@ -44,8 +46,12 @@ public abstract class Command {
         message.getChannel().sendMessage(getMessageBuilder().setEmbed(builder.build()).build()).queue();
     }
 
-    public final String getPrefix() {
-        return prefix;
+    public final String getLabel() {
+        return label;
+    }
+
+    public final String getDescription() {
+        return description;
     }
 
     public final EmbedBuilder getEmbedBuilder() {

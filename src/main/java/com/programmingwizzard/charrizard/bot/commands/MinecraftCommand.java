@@ -24,7 +24,7 @@ public class MinecraftCommand extends Command {
     private final Charrizard charrizard;
 
     public MinecraftCommand(Charrizard charrizard) {
-        super("minecraft");
+        super("minecraft", "Ping an Minecraft server");
         this.charrizard = charrizard;
     }
 

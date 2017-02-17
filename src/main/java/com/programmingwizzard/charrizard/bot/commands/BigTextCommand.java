@@ -18,7 +18,7 @@ public class BigTextCommand extends Command {
     private final Charrizard charrizard;
 
     public BigTextCommand(Charrizard charrizard) {
-        super("bigtext");
+        super("bigtext", "Sends message from regional indicator characters.");
         this.charrizard = charrizard;
     }
 

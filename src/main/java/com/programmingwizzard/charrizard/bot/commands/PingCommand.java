@@ -13,7 +13,7 @@ import java.time.OffsetDateTime;
 public class PingCommand extends Command {
 
     public PingCommand() {
-        super("ping");
+        super("ping", "Checks ping.");
     }
 
     @Override

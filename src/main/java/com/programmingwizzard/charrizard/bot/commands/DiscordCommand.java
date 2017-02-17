@@ -21,7 +21,7 @@ public class DiscordCommand extends Command {
     private final Charrizard charrizard;
 
     public DiscordCommand(Charrizard charrizard) {
-        super("discord");
+        super("discord", "Discord info command");
         this.charrizard = charrizard;
     }
 

@@ -17,7 +17,7 @@ public class AudioCommand extends Command {
     private final Charrizard charrizard;
 
     public AudioCommand(Charrizard charrizard) {
-        super("audio");
+        super("audio", "Music player");
         this.charrizard = charrizard;
     }
 

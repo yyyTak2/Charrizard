@@ -95,11 +95,11 @@ public class Settings {
             return enabled;
         }
 
-        public String getIp() {
+        public String getUsername() {
             return username;
         }
 
-        public String getPort() {
+        public String getPassword() {
             return password;
         }
     }
