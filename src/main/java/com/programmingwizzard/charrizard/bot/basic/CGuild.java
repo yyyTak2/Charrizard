@@ -27,17 +27,20 @@ import java.util.concurrent.TimeUnit;
  */
 public class CGuild implements RedisData {
 
-    private final Settings settings = Charrizard.getInstance().getSettings();
     private final Guild guild;
+    private final Charrizard charrizard;
+    private final Settings settings;
     private final RedisConnection redisConnection;
     private final Executor executor;
     private final Cache<String, CUser> userCache;
     private final Cache<String, CTextChannel> textChannelCache;
     private final Cache<String, CVoiceChannel> voiceChannelCache;
 
-    public CGuild(Guild guild, RedisConnection redisConnection) {
+    public CGuild(Guild guild, Charrizard charrizard) {
         this.guild = guild;
-        this.redisConnection = redisConnection;
+        this.charrizard = charrizard;
+        this.settings = charrizard.getSettings();
+        this.redisConnection = charrizard.getRedisConnection();
         this.executor = new ThreadPoolExecutor(2, 16, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
         this.userCache = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build();
         this.textChannelCache = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build();
