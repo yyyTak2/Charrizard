@@ -66,12 +66,13 @@ public class Charrizard {
         commandCaller.getCommands().add(new CleverbotCommand(this));
         commandCaller.getCommands().add(new PingCommand());
         commandCaller.getCommands().add(new CatCommand(this));
-        if (settings.getMyAnimeList().isEnabled())
-            commandCaller.getCommands().add(new AnimeListCommand(this));
+        commandCaller.getCommands().add(new AudioCommand(this));
         commandCaller.getCommands().add(new HelpCommand(this));
         commandCaller.getCommands().add(new DiscordCommand(this));
         commandCaller.getCommands().add(new StatisticsCommand(this));
         commandCaller.getCommands().add(new ReputationCommand(this));
+        if (settings.getMyAnimeList().isEnabled())
+            commandCaller.getCommands().add(new AnimeListCommand(this));
         this.eventBus.register(commandCaller);
     }
 
