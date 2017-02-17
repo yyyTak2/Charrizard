@@ -24,7 +24,6 @@ import javax.security.auth.login.LoginException;
  */
 public class Charrizard {
 
-    private static Charrizard instance;
     private final EventBus eventBus;
     private final Settings settings;
     private final CommandCaller commandCaller;
@@ -62,13 +61,13 @@ public class Charrizard {
     private void initCommands() {
         commandCaller.getCommands().add(new AuthorCommand());
         commandCaller.getCommands().add(new BigTextCommand());
-        commandCaller.getCommands().add(new InviteCommand());
+        commandCaller.getCommands().add(new InviteCommand(this));
         commandCaller.getCommands().add(new MinecraftCommand());
         commandCaller.getCommands().add(new CleverbotCommand());
         commandCaller.getCommands().add(new PingCommand());
         commandCaller.getCommands().add(new CatCommand());
         if (settings.getMyAnimeList().isEnabled())
-            commandCaller.getCommands().add(new AnimeListCommand());
+            commandCaller.getCommands().add(new AnimeListCommand(this));
         commandCaller.getCommands().add(new HelpCommand(this));
         commandCaller.getCommands().add(new DiscordCommand(this));
         commandCaller.getCommands().add(new StatisticsCommand(this));
@@ -103,9 +102,5 @@ public class Charrizard {
 
     public CGuildManager getCGuildManager() {
         return cGuildManager;
-    }
-
-    public static Charrizard getInstance() {
-        return instance;
     }
 }

@@ -11,12 +11,17 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
  */
 public class AnimeListCommand extends Command {
 
-    public AnimeListCommand() {super("animelist");}
+    private final Charrizard charrizard;
+
+    public AnimeListCommand(Charrizard charrizard) {
+        super("animelist");
+        this.charrizard = charrizard;
+    }
 
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException {
         if (args.length < 2) {
-            sendUsage(message, Charrizard.getInstance().getSettings().getPrefix() + "animelist <search|info>");
+            sendUsage(message, charrizard.getSettings().getPrefix() + "animelist <search|info>");
             return;
         }
         switch (args[1]) {
