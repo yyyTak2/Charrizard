@@ -27,7 +27,7 @@ public class CleverbotCommand extends Command {
     private final Charrizard charrizard;
 
     public CleverbotCommand(Charrizard charrizard) {
-        super("clever");
+        super("clever", "Talk with CleverBot");
         this.charrizard = charrizard;
         this.factory = new ChatterBotFactory();
         this.chatterBotSessionCache = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build();

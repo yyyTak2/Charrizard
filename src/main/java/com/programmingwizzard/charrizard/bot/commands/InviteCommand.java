@@ -15,14 +15,13 @@ public class InviteCommand extends Command {
 
     public InviteCommand(Charrizard charrizard)
     {
-        super("invite");
+        super("invite", "Invite " + charrizard.getDiscordAPI().getSelfUser().getAsMention() + " to your server!");
         this.charrizard = charrizard;
     }
 
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException
     {
-        //TODO Untested!!!
         String clientId = charrizard.getDiscordAPI().getSelfUser().getId();
         EmbedBuilder builder = getEmbedBuilder()
            .addField("Invite URL", new StringBuilder().append("https://discordapp.com/oauth2/authorize?&client_id=").append(clientId).append("&scope=bot&permissions=8").toString(), true);

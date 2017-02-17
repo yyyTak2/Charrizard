@@ -13,7 +13,7 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
 public class AuthorCommand extends Command {
 
     public AuthorCommand() {
-        super("author");
+        super("author", "Shows bot authors");
     }
 
     @Override

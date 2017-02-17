@@ -21,6 +21,9 @@ public class Settings {
     @SerializedName("twitch")
     private boolean twitch = false;
 
+    @SerializedName("wip")
+    private boolean wip = false;
+
     @SerializedName("game-url")
     private String gameUrl = "https://twitch.tv/";
 
@@ -40,6 +43,10 @@ public class Settings {
 
     public String getGame() {
         return game;
+    }
+
+    public boolean getWip() {
+        return wip;
     }
 
     public boolean isTwitch() {
@@ -95,11 +102,11 @@ public class Settings {
             return enabled;
         }
 
-        public String getIp() {
+        public String getUsername() {
             return username;
         }
 
-        public String getPort() {
+        public String getPassword() {
             return password;
         }
     }

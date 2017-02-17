@@ -22,7 +22,7 @@ public class StatisticsCommand extends Command {
     private final NumberFormat numberFormat;
 
     public StatisticsCommand(Charrizard charrizard) {
-        super("statistics");
+        super("statistics", "Shows bot/guild statistics.");
         this.charrizard = charrizard;
         this.runtime = Runtime.getRuntime();
         this.numberFormat = NumberFormat.getInstance();
@@ -31,7 +31,7 @@ public class StatisticsCommand extends Command {
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException {
         if (args.length == 0 || args.length == 1) {
-            sendUsage(message, "!statistics <bot|guild>");
+            sendUsage(message, charrizard.getSettings().getPrefix() + "statistics <bot|guild>");
             return;
         }
         switch (args[1]) {
@@ -49,14 +49,14 @@ public class StatisticsCommand extends Command {
                 handleGuild(message, args);
                 break;
             default:
-                sendUsage(message, "!statistics <bot|guild>");
+                sendUsage(message, charrizard.getSettings().getPrefix() + "statistics <bot|guild>");
                 break;
         }
     }
 
     private void handleGuild(CMessage message, String[] args) {
         if (args.length == 2) {
-            sendUsage(message, "!statistics guild <id|this>");
+            sendUsage(message, charrizard.getSettings().getPrefix() + "statistics guild <id|this>");
             return;
         }
         String guild = args[2];

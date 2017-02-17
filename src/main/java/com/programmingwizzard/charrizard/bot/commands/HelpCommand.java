@@ -6,6 +6,7 @@ import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
+import java.awt.*;
 import java.util.Set;
 
 /*
@@ -15,24 +16,27 @@ import java.util.Set;
 public class HelpCommand extends Command {
     private final Charrizard charrizard;
 
-    public HelpCommand(Charrizard charrizard)
-    {
-        super("help");
+    public HelpCommand(Charrizard charrizard) {
+        super("help", "Prints all bot commands.");
         this.charrizard = charrizard;
     }
 
     @Override
-    public void handle(CMessage message, String[] args) throws RateLimitedException
-    {
+    public void handle(CMessage message, String[] args) throws RateLimitedException {
         Set<Command> commands = charrizard.getCommandCaller().getCommands();
         String prefix = charrizard.getSettings().getPrefix();
-        StringBuilder list = new StringBuilder();
+        StringBuilder labels = new StringBuilder();
+        StringBuilder descs = new StringBuilder();
         for (Command command : commands) {
-            list.append(prefix).append(command.getPrefix()).append(", ");
+            labels.append(prefix).append(command.getLabel()).append("\n");
+            descs.append(command.getDescription()).append("\n");
         }
-        String s = list.toString();
+        String ls = labels.toString();
+        String ds = descs.toString();
         EmbedBuilder builder = getEmbedBuilder()
-           .addField("Commands", s.substring(0, s.length() - 2), true);
+                .setColor(new Color(230, 126, 34))
+                .addField("Command", ls.substring(0, ls.length() - 1), true)
+                .addField("Description", ds.substring(0, ds.length() - 1), true);
         sendEmbedMessage(message, builder);
     }
 }
