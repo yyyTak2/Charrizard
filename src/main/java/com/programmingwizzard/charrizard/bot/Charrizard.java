@@ -67,7 +67,7 @@ public class Charrizard {
         commandCaller.getCommands().add(new CleverbotCommand());
         commandCaller.getCommands().add(new PingCommand());
         commandCaller.getCommands().add(new CatCommand());
-        commandCaller.getCommands().add(new AuthorCommand());
+        commandCaller.getCommands().add(new AudioCommand(this));
         commandCaller.getCommands().add(new HelpCommand(this));
         commandCaller.getCommands().add(new DiscordCommand(this));
         commandCaller.getCommands().add(new StatisticsCommand(this));
