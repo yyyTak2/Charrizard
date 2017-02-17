@@ -21,6 +21,9 @@ public class Settings {
     @SerializedName("twitch")
     private boolean twitch = false;
 
+    @SerializedName("wip")
+    private boolean wip = false;
+
     @SerializedName("game-url")
     private String gameUrl = "https://twitch.tv/";
 
@@ -40,6 +43,10 @@ public class Settings {
 
     public String getGame() {
         return game;
+    }
+
+    public boolean getWip() {
+        return wip;
     }
 
     public boolean isTwitch() {
