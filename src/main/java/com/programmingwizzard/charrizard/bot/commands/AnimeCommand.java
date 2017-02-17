@@ -4,6 +4,7 @@ import com.programmingwizzard.charrizard.bot.Charrizard;
 import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import com.programmingwizzard.charrizard.bot.response.myanimelist.MyAnimeListQuery;
+import com.programmingwizzard.charrizard.bot.response.myanimelist.MyAnimeListStatus;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 /*
@@ -22,12 +23,16 @@ public class AnimeCommand extends Command {
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException {
         MyAnimeListQuery query = new MyAnimeListQuery(charrizard);
-        sendEmbedMessage(message, this.getEmbedBuilder().addField("Response", query.getErrorDescription(), true));
+        if (query.getStatus() != MyAnimeListStatus.SUCCESS) {
+            sendError(message, query.getErrorDescription());
+            return;
+        }
 
         if (args.length < 2) {
             sendUsage(message, charrizard.getSettings().getPrefix() + "anime <search|info>");
             return;
         }
+
         switch (args[1]) {
             case "search":
                 if (args.length < 2) {

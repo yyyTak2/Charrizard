@@ -6,6 +6,7 @@ import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
+import java.awt.*;
 import java.util.Set;
 
 /*
@@ -33,6 +34,7 @@ public class HelpCommand extends Command {
         String ls = labels.toString();
         String ds = descs.toString();
         EmbedBuilder builder = getEmbedBuilder()
+                .setColor(new Color(230, 126, 34))
                 .addField("Command", ls.substring(0, ls.length() - 1), true)
                 .addField("Description", ds.substring(0, ds.length() - 1), true);
         sendEmbedMessage(message, builder);

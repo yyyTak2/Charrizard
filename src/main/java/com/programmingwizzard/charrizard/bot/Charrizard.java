@@ -71,8 +71,9 @@ public class Charrizard {
         commandCaller.getCommands().add(new DiscordCommand(this));
         commandCaller.getCommands().add(new StatisticsCommand(this));
         commandCaller.getCommands().add(new ReputationCommand(this));
-        if (settings.getMyAnimeList().isEnabled())
+        if (settings.getMyAnimeList().isEnabled()) {
             commandCaller.getCommands().add(new AnimeCommand(this));
+        }
         this.eventBus.register(commandCaller);
     }
 
