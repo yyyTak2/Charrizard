@@ -43,7 +43,7 @@ public class CommandCaller {
         }
         String[] args = event.getMessage().getContent().split(" ");
         args[0] = args[0].substring(1);
-        Command command = commands.stream().filter(c -> c.getPrefix().equals(args[0])).findFirst().orElse(null);
+        Command command = commands.stream().filter(c -> c.getLabel().equals(args[0])).findFirst().orElse(null);
         if (command == null) {
             return;
         }

@@ -33,8 +33,8 @@ public class HelpCommand extends Command {
         String ls = labels.toString();
         String ds = descs.toString();
         EmbedBuilder builder = getEmbedBuilder()
-                .addField("Command", ls.substring(0, ls.length() - 2), true)
-                .addField("Description", ds.substring(0, ds.length() - 2), true);
+                .addField("Command", ls.substring(0, ls.length() - 1), true)
+                .addField("Description", ds.substring(0, ds.length() - 1), true);
         sendEmbedMessage(message, builder);
     }
 }
