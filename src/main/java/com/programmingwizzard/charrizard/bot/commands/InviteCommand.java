@@ -24,7 +24,7 @@ public class InviteCommand extends Command {
     {
         String clientId = charrizard.getDiscordAPI().getSelfUser().getId();
         EmbedBuilder builder = getEmbedBuilder()
-           .addField("Invite URL", new StringBuilder().append("https://discordapp.com/oauth2/authorize?&client_id=").append(clientId).append("&scope=bot&permissions=8").toString(), true);
+           .addField("Invite URL", new StringBuilder().append("https://discordapp.com/oauth2/authorize?&client_id=").append(clientId).append("&scope=bot&permissions=1207434304").toString(), true);
         sendEmbedMessage(message, builder);
     }
 }
