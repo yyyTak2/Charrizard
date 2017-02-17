@@ -104,4 +104,8 @@ public class Charrizard {
     public CGuildManager getCGuildManager() {
         return cGuildManager;
     }
+
+    public static Charrizard getInstance() {
+        return instance;
+    }
 }
