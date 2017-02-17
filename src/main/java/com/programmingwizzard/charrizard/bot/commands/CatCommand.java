@@ -1,5 +1,6 @@
 package com.programmingwizzard.charrizard.bot.commands;
 
+import com.programmingwizzard.charrizard.bot.Charrizard;
 import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import com.programmingwizzard.charrizard.bot.response.ResponseException;
@@ -15,24 +16,26 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
  */
 public class CatCommand extends Command {
 
+    private final Charrizard charrizard;
     private final KiciusieResponses kiciusieResponses;
 
-    public CatCommand() {
+    public CatCommand(Charrizard charrizard) {
         super("cat");
+        this.charrizard = charrizard;
         this.kiciusieResponses = new KiciusieResponses();
     }
 
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException {
         if (args.length != 2) {
-            sendUsage(message, "!cat <random|image|gif>");
+            sendUsage(message, charrizard.getSettings().getPrefix() + "cat <random|image|gif>");
             return;
         }
         KiciusieMode mode;
         try {
             mode = KiciusieMode.valueOf(args[1].toUpperCase());
         } catch (IllegalArgumentException iae) {
-            sendUsage(message, "!cat <random|image|gif>");
+            sendUsage(message, charrizard.getSettings().getPrefix() + "cat <random|image|gif>");
             return;
         }
 

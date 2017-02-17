@@ -1,5 +1,6 @@
 package com.programmingwizzard.charrizard.bot.commands;
 
+import com.programmingwizzard.charrizard.bot.Charrizard;
 import com.programmingwizzard.charrizard.bot.basic.CMessage;
 import com.programmingwizzard.charrizard.bot.commands.basic.Command;
 import com.programmingwizzard.charrizard.utils.CharCodes;
@@ -14,16 +15,18 @@ import java.util.Set;
  * @date 06.02.2017
  */
 public class BigTextCommand extends Command {
+    private final Charrizard charrizard;
 
-    public BigTextCommand() {
+    public BigTextCommand(Charrizard charrizard) {
         super("bigtext");
+        this.charrizard = charrizard;
     }
 
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException {
         TextChannel channel = message.getChannel();
         if (args.length < 3) {
-            sendUsage(message, "!bigtext <print|raw|react> <text>");
+            sendUsage(message, charrizard.getSettings().getPrefix() + "bigtext <print|raw|react> <text>");
             return;
         }
 
@@ -67,7 +70,7 @@ public class BigTextCommand extends Command {
                 }
                 break;
             default:
-                sendUsage(message, "!bigtext <print|raw|react> <text>");
+                sendUsage(message, charrizard.getSettings().getPrefix() + "bigtext <print|raw|react> <text>");
         }
     }
 

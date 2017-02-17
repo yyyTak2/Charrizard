@@ -14,8 +14,8 @@ import java.awt.*;
 public abstract class Command {
     private final String prefix;
 
-    public Command(String prefix) {
-        this.prefix = prefix;
+    public Command(String label) {
+        this.prefix = label;
     }
 
     public abstract void handle(CMessage message, String[] args) throws RateLimitedException;
@@ -29,7 +29,7 @@ public abstract class Command {
             return;
         }
         EmbedBuilder builder = getEmbedBuilder()
-            .setColor(new Color(255, 0, 0))
+            .setColor(new Color(231, 76, 60))
             .addField("Correct usage", usage, true);
         message.getChannel().sendMessage(getMessageBuilder().setEmbed(builder.build()).build()).queue();
     }
@@ -39,7 +39,7 @@ public abstract class Command {
             return;
         }
         EmbedBuilder builder = getEmbedBuilder()
-            .setColor(new Color(255, 0, 0))
+            .setColor(new Color(231, 76, 60))
             .addField("Error", error, true);
         message.getChannel().sendMessage(getMessageBuilder().setEmbed(builder.build()).build()).queue();
     }
@@ -53,7 +53,7 @@ public abstract class Command {
             .setTitle("Charrizard")
             .setFooter("© 2017 Charrizard contributors", null)
                        .setUrl("https://github.com/CharrizardBot/Charrizard/")
-            .setColor(new Color(0, 255, 0));
+            .setColor(new Color(46, 204, 113));
     }
 
     public final MessageBuilder getMessageBuilder() {
