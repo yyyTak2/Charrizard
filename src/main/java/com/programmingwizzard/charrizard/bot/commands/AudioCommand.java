@@ -24,7 +24,7 @@ public class AudioCommand extends Command {
     @Override
     public void handle(CMessage message, String[] args) throws RateLimitedException {
         if (args.length < 2) {
-            sendUsage(message, "!audio <open/close/queue>");
+            sendUsage(message, charrizard.getSettings().getPrefix() + "audio <open/close/queue>");
             return;
         }
         switch (args[1]) {
@@ -38,7 +38,7 @@ public class AudioCommand extends Command {
                 queue(message, args);
                 break;
             default:
-                sendUsage(message, "!audio <open/close/queue>");
+                sendUsage(message, charrizard.getSettings().getPrefix() + "audio <open/close/queue>");
                 break;
         }
     }
